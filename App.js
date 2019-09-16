@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react';
 import AppContainer from './src/Route/AppNavigator';
 import { Root } from 'native-base';
@@ -14,3 +15,11 @@ class App extends Component{
   }
 }
 export default App;
+import React, {Fragment} from 'react';
+import AppRoot from './src/Route/Navigator'
+
+export default App = () => {
+  return (
+    <AppRoot />
+  )
+};

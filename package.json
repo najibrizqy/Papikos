@@ -12,7 +12,11 @@
     "firebase": "^6.6.1",
     "native-base": "^2.13.8",
     "react": "16.8.6",
-    "react-native": "0.60.5"
+    "react-native": "0.60.5",
+    "react-native-gesture-handler": "^1.4.1",
+    "react-navigation": "^4.0.5",
+    "react-navigation-stack": "^1.7.3",
+    "react-navigation-tabs": "^2.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
