@@ -1,17 +1,20 @@
 import React, { Component, Fragment } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import { Container, Content, Form, Item, Input, Button, Toast, Row, Col, Icon, Spinner } from 'native-base';
+import { StyleSheet, View, Text, Image, TextInput, ScrollView, TouchableOpacity } from "react-native";
+// import { Container, Content, Form, Item, Input, Button, Toast, Row, Col, Icon, Spinner } from 'native-base';
 
-class Login extends Component {
+import logo from '../../Assets/loginLogo.png'
+
+class Register extends Component {
   constructor(props){
     super(props)
     this.state = {
         formData: {
           username: '',
+          full_name: '',
           phone_number: '',
           email: '',
+          password: '',
           image: 'https://www.shareicon.net/data/2016/09/01/822711_user_512x512.png',
-          password: ''
         },
         showToast: false,
         isLoading: false,
@@ -41,117 +44,136 @@ class Login extends Component {
   }
 
   render() {
-    const {isLoading} = this.state
+    const {isLoading, formData} = this.state
     return (
-        <Container style={styles.container}>
-            <Content style={styles.content} showsVerticalScrollIndicator={false}>
-                <View>
-                </View>
-                <Form style={styles.form}>
-                    <Item rounded style={styles.input}>
-                        <Icon type="MaterialIcons" name="person" style={styles.iconLabel} />
-                        <Input
-                            maxLength={15} 
-                            placeholder="Username" 
-                            onChangeText={(text)=>this.handleChange('username',text)}/>
-                    </Item>
-                    <Item rounded style={styles.input}>
-                        <Icon type="MaterialIcons" name="phone" style={styles.iconLabel} />
-                            <Input 
-                            maxLength={30} 
-                            placeholder="Phone Number" 
-                            onChangeText={(text)=>this.handleChange('phone_number',text)} />
-                    </Item>
-                    <Item rounded style={styles.input}>
-                        <Icon type="MaterialIcons" name="email" style={styles.iconLabel} />
-                            <Input 
-                            keyboardType='email-address' 
-                            placeholder="Email" 
-                            autoCompleteType='email' 
-                            onChangeText={(text)=>this.handleChange('email',text)} />
-                    </Item>
-                    <Item rounded style={styles.input}>
-                        <Icon type="MaterialIcons" name="lock" style={styles.iconLabel} />
-                            <Input 
-                            secureTextEntry={true} 
-                            placeholder="Password" 
-                            maxLength={16} 
-                            onChangeText={(text)=>this.handleChange('password',text)} />
-                    </Item>
-                    <Button onPress={this.handleSubmit} full info style={styles.btnSignup}>
-                        {isLoading ? <Spinner color='white' style={styles.loading} /> : <Fragment />}<Text style={styles.textSignup}>SIGN UP</Text>
-                    </Button>
-                </Form>
-                <Row style={styles.foot}>
-                <Col>
-                    <TouchableOpacity activeOpacity={.9} style={styles.backWrap} onPress={() => {this.props.navigation.navigate('Login')}}>
-                    <Icon type="FontAwesome" name="arrow-left" style={styles.backIcon}/>
-                    <Text style={styles.textSignin}>Sign In</Text>  
-                    </TouchableOpacity>
-                </Col>
-                </Row>
-            </Content>
-        </Container>
+      <View style={styles.container}>
+        <ScrollView contentContainerStyle={{flexGrow: 1}}>
+          <View style={styles.content}>
+            <Image source={logo} style={styles.logo}/>
+            <Text style={styles.title}>Create your account now</Text>
+            <TextInput
+              placeholder="Full Name"
+              value={formData.full_name}
+              onChangeText={(text)=>this.handleChange('full_name',text)}
+              style={styles.input}
+            />
+            <TextInput
+              placeholder="Username"
+              value={formData.username}
+              onChangeText={(text)=>this.handleChange('username',text)}
+              style={styles.input}
+            />
+            <TextInput
+              placeholder="Phone Number"
+              value={formData.phone_number}
+              onChangeText={(number)=>this.handleChange('phone_number',number)}
+              keyboardType='number-pad'
+              style={styles.input}
+            />
+            <TextInput
+              placeholder="Email"
+              value={formData.email}
+              onChangeText={(text)=>this.handleChange('email',text)}
+              keyboardType='email-address'
+              style={styles.input}
+            />
+            <TextInput
+              placeholder="Password"
+              secureTextEntry
+              value={this.state.password}
+              onChangeText={(text)=>this.handleChange('password',text)}
+              style={styles.input}
+            />
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={[styles.buttonContainer, styles.registerButton]}
+              onPress={this.submitForm}>
+              <Text style={styles.buttonText}>Register</Text>
+            </TouchableOpacity>
+            <View style={styles.center}>
+              <Text style={styles.bottomText}>Already have an account ? &nbsp;
+                <Text
+                  style={styles.bottomTextLink}
+                  onPress={() => this.props.navigation.navigate('Login')}>
+                  Login
+                </Text>
+              </Text>
+            </View>
+          </View>
+        </ScrollView>
+      </View>
     );
   }
 }
 
 
-export default Login
-
-let btnSignup = {
-  color: '#4B4C72',
-}
+export default Register
 
 const styles = StyleSheet.create({
-    container: {
-      marginTop: 40,
-      marginRight: 20,
-    },
-    content:{
-      marginLeft: 20,
-    },
-    form:{
-      marginTop: 15,
-    },
-    btnSignup: {
-      marginTop: 30,
-      borderRadius: 50,
-      height: 50,
-    },
-    textSignin: {
-      color:"gray",
-    },
-    textSignup: {
-      color:"#FFF",
-    },
-    foot:{
-      marginTop: 40,
-      marginBottom: 10,
-    },
-    input:{
-      marginTop: 15,
-    },
-    iconLabel: {
-      color: 'gray'
-    },
-    toast: {
-      margin: 20, 
-      borderRadius: 10
-    },
-    backWrap:{
-      flexDirection: 'row',
-    },
-    backIcon:{
-      color:'gray',fontSize:15, marginRight: 10
-    },
-    logo:{
-      width: 150, 
-      height:150,
-      alignSelf: 'center'
-    },
-    loading: {
-      marginLeft: -35,
-      marginRight: 5
-    }
+  container: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: '#1AB0D3',
+  },
+  content:{
+    width: "70%",
+    height: "100%",
+    justifyContent: 'center',
+    alignSelf: 'center',
+    flex: 1
+  },
+  title:{
+    marginBottom: 30,
+    color: "#F3F1F3",
+    alignSelf: 'center',
+    fontSize: 15
+  },
+  input:{
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    backgroundColor: '#ddd6f3',
+    width: '100%',
+    borderRadius: 10,
+    marginBottom: 15,
+  },
+  logo:{
+    width: 180, 
+    height:180,
+    alignSelf: 'center',
+    marginBottom: 5,
+  },
+  buttonContainer: {
+    height: 35,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginBottom: 20,
+    width: 160,
+    borderRadius: 20,
+  },
+  registerButton: {
+    backgroundColor: '#1C8CD1',
+    height: 45,
+    fontSize: 20,
+    marginVertical: 15,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  center:{
+    alignSelf: 'center'
+  },
+  bottomText: {
+    fontSize: 15,
+    color: '#ccc',
+  },
+  bottomTextLink: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
 });
