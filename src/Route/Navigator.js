@@ -3,6 +3,7 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 
+import WelcomeScreen from '../Screens/Auth/Welcome'
 import LoginScreen from '../Screens/Auth/Login'
 import RegisterScreen from '../Screens/Auth/Register'
 import HomeScreen from '../Screens/App/Home'
@@ -11,6 +12,7 @@ import Splash from '../Screens/Splash'
 
 //Auth Route
 const AuthStack = createStackNavigator({
+  Welcome: WelcomeScreen,
   Login: LoginScreen,
   Register: RegisterScreen,
 },{
