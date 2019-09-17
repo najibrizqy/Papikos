@@ -29,8 +29,7 @@ class Login extends Component {
   }
 
   handleSubmit = async () => {
-    this.setState({isLoading:true})
-    const {formData} = this.state
+    this.props.navigation.navigate('BottomTab')
   }
 
   render() {
