@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { StyleSheet, View, Text, Image } from "react-native";
 import { Container, Content, Form, Item, Input, Button, Toast, Row, Col, Icon, Spinner } from 'native-base';
 
-import logo from '../../Assets/eaglelogo.png'
 
-class Signin extends Component {
+class Login extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -17,15 +16,8 @@ class Signin extends Component {
     }
   }
 
-  unsubscribe = firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.props.navigation.navigate('HomeScreen')
-      }
-    });
-
   handleSignup = () => {
-    this.unsubscribe()
-    this.props.navigation.navigate('SignupScreen')
+    this.props.navigation.navigate('Register')
   }
 
   handleChange = (name, value) => {
@@ -39,33 +31,17 @@ class Signin extends Component {
   handleSubmit = async () => {
     this.setState({isLoading:true})
     const {formData} = this.state
-    await firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
-    .then( async (res) => {
-        this.props.navigation.navigate('HomeScreen')
-    })
-    .catch(err => {
-      this.setState({isLoading:false})
-      let errMsg = err.code == 'auth/invalid-email' ? 'Email not valid.': 'Email or password is wrong.';
-      Toast.show({
-        text: errMsg,
-        buttonText: 'Ok',
-        type: "danger",
-        position:'bottom',
-        duration:3000,
-        style: styles.toast
-      })
-      console.log(err)
-    })
   }
 
   render() {
+    const {isLoading} = this.state
     return (
       <Container style={styles.container}>
         <Content showsVerticalScrollIndicator={false}>
             <View>
-              <Image source={logo} style={styles.logo} />
+              {/* <Image source={logo} style={styles.logo} /> */}
             </View>
-            <Form style={styles.formSignin}>
+            <Form style={styles.formLogin}>
               <Item rounded style={styles.input}>
                 <Icon type="MaterialIcons" name="email" style={styles.iconLabel} />
                 <Input 
@@ -87,16 +63,9 @@ class Signin extends Component {
                   <Text style={styles.btnForgot}>Forgot Password</Text>
                 </Col>
               </Row>
-              {
-                this.state.isLoading == false ?
-                  <Button onPress={this.handleSubmit} full info style={styles.btnSignin}>
-                    <Text style={styles.textSignin}>SIGN IN</Text>
+                  <Button onPress={this.handleSubmit} full info style={styles.btnLogin}>
+                    {isLoading ? <Spinner color='white' style={styles.loading} /> : <Fragment />}<Text style={styles.textLogin}>SIGN IN</Text>
                   </Button>
-                : 
-                  <Button onPress={this.handleSubmit} full info style={styles.btnSignin} disabled>
-                    <Spinner color='white' style={styles.loading} /><Text style={styles.textSignin}>SIGN IN</Text>
-                  </Button>
-              }
             </Form>
             <Row>
               <Col>
@@ -109,14 +78,10 @@ class Signin extends Component {
       </Container>
     );
   }
-  
-  componentWillUnmount(){
-    this.unsubscribe()
-  }
 }
 
 
-export default Signin
+export default Login
 
 let btnSignup = {
   color: '#4B4C72',
@@ -124,19 +89,20 @@ let btnSignup = {
 
 const styles = StyleSheet.create({
     container: {
-      top: 40,
       marginLeft: 20,
       marginRight: 20,
+      top: 200,
     },
-    formSignin: {
+    formLogin: {
       marginTop: 10,
     },
-    btnSignin: {
+    btnLogin: {
       marginTop: 30,
-      borderRadius: 8,
+      borderRadius: 50,
       height: 50,
+      elevation: 2
     },
-    textSignin: {
+    textLogin: {
       color:"white",
     },
     foot:{
@@ -174,17 +140,3 @@ const styles = StyleSheet.create({
       marginRight: 5
     }
 });
-import React,{Fragment} from 'react'
-import { Text } from 'native-base'
-export default class Login extends React.Component{
-     render(){
-         retrun(
-             <>
-                <Text>
-                    Test Login
-                </Text>
-             </>
-             
-         )
-     }
-}

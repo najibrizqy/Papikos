@@ -3,15 +3,20 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 
-import LoginScreen from '../Screens/Login'
-import RegisterScreen from '../Screens/Register'
-import HomeScreen from '../Screens/Home'
+import LoginScreen from '../Screens/Auth/Login'
+import RegisterScreen from '../Screens/Auth/Register'
+import HomeScreen from '../Screens/App/Home'
 
+import Splash from '../Screens/Splash'
 
 //Auth Route
 const AuthStack = createStackNavigator({
   Login: LoginScreen,
   Register: RegisterScreen,
+},{
+  defaultNavigationOptions: {
+    header: null
+  }
 });
 
 
@@ -24,12 +29,12 @@ const AppStack = createStackNavigator({
 const AppRoot = createAppContainer(
   createSwitchNavigator(
     {
-      Home : HomeScreen,
-      App: AppStack,
+      Splash : Splash,
       Auth: AuthStack,
+      App: AppStack,
     },
     {
-      initialRouteName: 'Home',
+      initialRouteName: 'Splash',
       headerMode: 'none',
     },
   ),
