@@ -6,7 +6,7 @@ export default class Chatt extends React.Component{
     render(){
         return (
             <>
-                <Text>On Development </Text>
+                <Text>Chatt  : On Development </Text>
             </>
         )
     }

@@ -6,7 +6,7 @@ export default class Profile extends React.Component{
     render(){
         return (
             <>
-                <Text>On Development </Text>
+                <Text>Profile  : On Development </Text>
             
             </>
         )

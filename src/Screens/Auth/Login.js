@@ -30,7 +30,8 @@ class Login extends Component {
   }
 
   handleSubmit = async () => {
-    this.props.navigation.navigate('BottomTab')
+    this.props.navigation.navigate('Bottom')
+    
   }
 
   render() {
@@ -57,7 +58,7 @@ class Login extends Component {
             <TouchableOpacity
               activeOpacity={0.8}
               style={[styles.buttonContainer, styles.loginButton]}
-              onPress={this.submitForm}>
+              onPress={this.handleSubmit}>
               <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
             <View style={styles.center}>

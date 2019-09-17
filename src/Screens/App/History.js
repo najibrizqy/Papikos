@@ -6,7 +6,7 @@ export default class History extends React.Component{
     render(){
         return (
             <>
-                <Text>On Development </Text>
+                <Text>History : On Development </Text>
             
             </>
         )

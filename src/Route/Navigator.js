@@ -11,24 +11,25 @@ import ChattScreen from '../Screens/App/Chatt'
 import HistoryScreen from '../Screens/App/History'
 import ProfileScreen from '../Screens/App/Profile'
 
+import ProductListScreen from '../Screens/App/Home/ProductList'
+import ProductMapScreen from '../Screens/App/Home/ProductMap'
+
 import Splash from '../Screens/Splash'
 
 import {Icon} from 'native-base';
-//Auth Route
+
 const AuthStack = createStackNavigator({
   Login: LoginScreen,
   Register: RegisterScreen,
-},{
-  defaultNavigationOptions: {
-    header: null
-  }
-});
+},
+{defaultNavigationOptions: {header: null}});
 
-
-//App Route
 const AppStack = createStackNavigator({
   Home: HomeScreen,
+  ProductList : ProductListScreen,
+  ProductMap : ProductMapScreen,
 });
+
 
 const BottomTab = createBottomTabNavigator({
   Home: {
@@ -38,33 +39,54 @@ const BottomTab = createBottomTabNavigator({
       tabBarIcon: ({tintColor}) => (
         <Icon
           type="MaterialCommunityIcons"
-          name="Dashboard"
+          name="home"
           style={{fontSize: 20, color: tintColor}}
         />
       ),
     }, 
   },
-
   Chatt: {
     screen: ChattScreen,
     navigationOptions: {
-      tabBarLabel: 'Home',
+      tabBarLabel: 'Chatt',
       tabBarIcon: ({tintColor}) => (
         <Icon
           type="MaterialCommunityIcons"
-          name="google-maps"
+          name="message-text"
           style={{fontSize: 20, color: tintColor}}
         />
       ),
     },
   },
-
-
-
-
+  History: {
+    screen: HistoryScreen,
+    navigationOptions: {
+      tabBarLabel: 'History',
+      tabBarIcon: ({tintColor}) => (
+        <Icon
+          type="MaterialCommunityIcons"
+          name="factory"
+          style={{fontSize: 20, color: tintColor}}
+        />
+      ),
+    },
+  },
+  Profile: {
+    screen: ProfileScreen,
+    navigationOptions: {
+      tabBarLabel: 'Profile',
+      tabBarIcon: ({tintColor}) => (
+        <Icon
+          type="MaterialCommunityIcons"
+          name="account-circle"
+          style={{fontSize: 20, color: tintColor}}
+        />
+      ),
+    },
+  },
 },
 {
-  
+  //Navigator Option null
 })
 
 const AppRoot = createAppContainer(
@@ -72,7 +94,7 @@ const AppRoot = createAppContainer(
     {
       Splash : Splash,
       Auth: AuthStack,
-      BottomTab :BottomTab,
+      Bottom :BottomTab,
       App: AppStack,
     },
     {
