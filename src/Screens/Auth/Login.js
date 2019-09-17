@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { StyleSheet, View, Text, Image } from "react-native";
-import { Container, Content, Form, Item, Input, Button, Toast, Row, Col, Icon, Spinner } from 'native-base';
+import { StyleSheet, View, Text, Image, TextInput, ScrollView, TouchableOpacity } from "react-native";
+// import { Container, Content, Form, Item, Input, Button, Toast, Row, Col, Icon, Spinner } from 'native-base';
 
+import logo from '../../Assets/loginLogo.png'
 
 class Login extends Component {
   constructor(props){
@@ -33,48 +34,44 @@ class Login extends Component {
   }
 
   render() {
-    const {isLoading} = this.state
+    const {isLoading, formData} = this.state
     return (
-      <Container style={styles.container}>
-        <Content showsVerticalScrollIndicator={false}>
-            <View>
-              {/* <Image source={logo} style={styles.logo} /> */}
-            </View>
-            <Form style={styles.formLogin}>
-              <Item rounded style={styles.input}>
-                <Icon type="MaterialIcons" name="email" style={styles.iconLabel} />
-                <Input 
-                  keyboardType='email-address' 
-                  placeholder="Email" 
-                  autoCompleteType='email' 
-                  onChangeText={(text)=>this.handleChange('email',text)} />
-              </Item>
-              <Item rounded style={styles.input}>
-                <Icon type="MaterialIcons" name="lock" style={styles.iconLabel} />
-                <Input 
-                  secureTextEntry={true} 
-                  placeholder="Password" 
-                  maxLength={16} 
-                  onChangeText={(text)=>this.handleChange('password',text)} />
-              </Item>
-              <Row>
-                <Col>
-                  <Text style={styles.btnForgot}>Forgot Password</Text>
-                </Col>
-              </Row>
-                  <Button onPress={this.handleSubmit} full info style={styles.btnLogin}>
-                    {isLoading ? <Spinner color='white' style={styles.loading} /> : <Fragment />}<Text style={styles.textLogin}>SIGN IN</Text>
-                  </Button>
-            </Form>
-            <Row>
-              <Col>
-                <Text style={styles.foot}>Don't have an account? &nbsp;
-                  <Text style={styles.btnSignup} onPress={this.handleSignup}>Sign Up</Text>
+      <View style={styles.container}>
+        <ScrollView contentContainerStyle={{flexGrow: 1}}>
+          <View style={styles.content}>
+            <Image source={logo} style={styles.logo}/>
+            <Text style={styles.title}>Please login if you already a member</Text>
+            <TextInput
+              placeholder="Email"
+              value={formData.email}
+              onChangeText={(text)=>this.handleChange('email',text)}
+              style={styles.input}
+            />
+            <TextInput
+              placeholder="Password"
+              secureTextEntry
+              value={formData.password}
+              onChangeText={(text)=>this.handleChange('password',text)}
+              style={styles.input}
+            />
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={[styles.buttonContainer, styles.loginButton]}
+              onPress={this.submitForm}>
+              <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+            <View style={styles.center}>
+              <Text style={styles.bottomText}>Don't have an account ? &nbsp;
+                <Text
+                  style={styles.bottomTextLink}
+                  onPress={() => this.props.navigation.navigate('Register')}>
+                  Register
                 </Text>
-              </Col>
-            </Row>
-        </Content>
-      </Container>
+              </Text>
+            </View>
+          </View>
+        </ScrollView>
+      </View>
     );
   }
 }
@@ -82,60 +79,71 @@ class Login extends Component {
 
 export default Login
 
-let btnSignup = {
-  color: '#4B4C72',
-}
-
 const styles = StyleSheet.create({
     container: {
-      marginLeft: 20,
-      marginRight: 20,
-      top: 200,
+      width: "100%",
+      height: "100%",
+      backgroundColor: '#1AB0D3',
     },
-    formLogin: {
-      marginTop: 10,
+    content:{
+      width: "70%",
+      height: "100%",
+      justifyContent: 'center',
+      alignSelf: 'center',
+      flex: 1
     },
-    btnLogin: {
-      marginTop: 30,
-      borderRadius: 50,
-      height: 50,
-      elevation: 2
-    },
-    textLogin: {
-      color:"white",
-    },
-    foot:{
-      marginTop: 30,
-      marginBottom: 50,
-      alignSelf: 'center'
+    title:{
+      marginBottom: 30,
+      color: "#F3F1F3",
+      alignSelf: 'center',
+      fontSize: 15
     },
     input:{
-      marginTop: 15,
-    },
-    iconLabel: {
-      color: 'gray'
-    },
-    btnSignup: {
-      ...btnSignup,
-      fontWeight: 'bold'
-    },
-    btnForgot: {
-      ...btnSignup,
-      textAlign: 'right',
-      marginTop: 10,
-      textDecorationLine: 'underline',
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderWidth: 1,
+      borderColor: '#ccc',
+      backgroundColor: '#ddd6f3',
+      width: '100%',
+      borderRadius: 10,
+      marginBottom: 15,
     },
     logo:{
-      width: 150, 
-      height:150,
+      width: 180, 
+      height:180,
+      alignSelf: 'center',
+      marginBottom: 5,
+    },
+    buttonContainer: {
+      height: 35,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignSelf: 'center',
+      marginBottom: 20,
+      width: 160,
+      borderRadius: 20,
+    },
+    loginButton: {
+      backgroundColor: '#1C8CD1',
+      height: 45,
+      fontSize: 20,
+      marginVertical: 15,
+    },
+    buttonText: {
+      color: '#FFFFFF',
+      fontSize: 20,
+      fontWeight: 'bold'
+    },
+    center:{
       alignSelf: 'center'
     },
-    toast: {
-      margin: 20, 
-      borderRadius: 10
+    bottomText: {
+      fontSize: 15,
+      color: '#ccc',
     },
-    loading: {
-      marginLeft: -35,
-      marginRight: 5
-    }
+    bottomTextLink: {
+      color: '#fff',
+      fontWeight: 'bold',
+    },
 });

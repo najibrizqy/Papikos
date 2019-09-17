@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, Text } from 'react-native';
 
-// import logo from '../Assets/eaglelogo.png'
+import splash from '../Assets/Splash.png'
 
 class SplashScreen extends Component {
     performTimeConsumingTask = async() => {
@@ -23,8 +23,7 @@ class SplashScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                {/* <Image source={logo} /> */}
-                <Text>Papikos</Text>
+                <Image source={splash} style={styles.splash}/>
             </View>
         );
     }
@@ -33,10 +32,16 @@ class SplashScreen extends Component {
 const styles = {
     container: {
         flex: 1,
+        width: "100%",
+        height: "100%",
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#FFF'
     },
+    splash:{
+        width: "100%",
+        height: "100%"
+    }
 }
 
 export default SplashScreen;
