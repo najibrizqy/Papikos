@@ -26,31 +26,27 @@ export default class ProductMap extends React.Component{
     ]
     render(){
          return(
-             <>
-               <MapView  
-                    region={{  
-                        latitude: 52.5,  
-                        longitude: 19.2,  
-                        latitudeDelta: 8.5,  
-                        longitudeDelta: 8.5,
-                    }}  
-                    style={{ width: 400, height: 800 }}  
-                    > 
-                    {
-                        this.DummyLocation.map((coord,index)=>(
-                            <Marker 
-                               
-                                coordinate={{ latitude: coord.lat, longitude:  coord.long }}
-                                title={coord.title}
-                               // icon='sesuaikan Icon Disini' 
-                               />  
-                        ))
-                    }
-
-                   
-                </MapView>
-             </>
-             
+            <MapView  
+                region={{  
+                    latitude: 52.5,  
+                    longitude: 19.2,  
+                    latitudeDelta: 8.5,  
+                    longitudeDelta: 8.5,
+                }}  
+                style={{ width: 400, height: 800 }}  
+                > 
+                {
+                    this.DummyLocation.map((coord,index)=>(
+                        <Marker 
+                            
+                            coordinate={{ latitude: coord.lat, longitude:  coord.long }}
+                            title={coord.title}
+                            // icon='sesuaikan Icon Disini' 
+                            />  
+                    ))
+                }
+                
+            </MapView>             
          )
      }
 }

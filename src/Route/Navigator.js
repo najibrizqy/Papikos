@@ -8,7 +8,7 @@ import LoginScreen from '../Screens/Auth/Login'
 import RegisterScreen from '../Screens/Auth/Register'
 
 import HomeScreen from '../Screens/App/Home'
-import ChattScreen from '../Screens/App/Chatt'
+import ChatScreen from '../Screens/App/Chat'
 import HistoryScreen from '../Screens/App/History'
 import ProfileScreen from '../Screens/App/Profile'
 
@@ -47,10 +47,10 @@ const BottomTab = createBottomTabNavigator({
       ),
     }, 
   },
-  Chatt: {
-    screen: ChattScreen,
+  Chat: {
+    screen: ChatScreen,
     navigationOptions: {
-      tabBarLabel: 'Chatt',
+      tabBarLabel: 'Chat',
       tabBarIcon: ({tintColor}) => (
         <Icon
           type="MaterialCommunityIcons"
