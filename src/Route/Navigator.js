@@ -24,16 +24,22 @@ const AuthStack = createStackNavigator({
   Login: LoginScreen,
   Register: RegisterScreen,
 },
-{defaultNavigationOptions: {header: null}});
+  {
+    defaultNavigationOptions: {header: null}
+  }
+);
 
 const AppStack = createStackNavigator({
   Home: HomeScreen,
   ProductList : ProductListScreen,
   ProductMap : ProductMapScreen,
-});
+},{
+    defaultNavigationOptions: {header: null}
+  }
+);
 
 
-const BottomTab = createBottomTabNavigator({
+const AppNavigator = createBottomTabNavigator({
   Home: {
     screen: AppStack,
     navigationOptions: {
@@ -42,7 +48,7 @@ const BottomTab = createBottomTabNavigator({
         <Icon
           type="MaterialCommunityIcons"
           name="home"
-          style={{fontSize: 20, color: tintColor}}
+          style={{fontSize: 23, color: tintColor}}
         />
       ),
     }, 
@@ -55,7 +61,7 @@ const BottomTab = createBottomTabNavigator({
         <Icon
           type="MaterialCommunityIcons"
           name="message-text"
-          style={{fontSize: 20, color: tintColor}}
+          style={{fontSize: 23, color: tintColor}}
         />
       ),
     },
@@ -67,8 +73,8 @@ const BottomTab = createBottomTabNavigator({
       tabBarIcon: ({tintColor}) => (
         <Icon
           type="MaterialCommunityIcons"
-          name="factory"
-          style={{fontSize: 20, color: tintColor}}
+          name="history"
+          style={{fontSize: 23, color: tintColor}}
         />
       ),
     },
@@ -81,14 +87,22 @@ const BottomTab = createBottomTabNavigator({
         <Icon
           type="MaterialCommunityIcons"
           name="account-circle"
-          style={{fontSize: 20, color: tintColor}}
+          style={{fontSize: 23, color: tintColor}}
         />
       ),
     },
   },
 },
 {
-  //Navigator Option null
+  tabBarOptions: {
+    activeTintColor: '#34ABC6',
+    labelStyle: {
+      fontSize: 12,
+    },
+    style: {
+      marginBottom: 3
+    }
+  } 
 })
 
 const AppRoot = createAppContainer(
@@ -96,8 +110,7 @@ const AppRoot = createAppContainer(
     {
       Splash : Splash,
       Auth: AuthStack,
-      Bottom :BottomTab,
-      App: AppStack,
+      App : AppNavigator,
     },
     {
       initialRouteName: 'Splash',

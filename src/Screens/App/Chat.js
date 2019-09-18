@@ -1,13 +1,40 @@
 import React from 'react'
-import {Text} from 'native-base'
+import { StyleSheet, Text, View, Image } from 'react-native'
 
+import chat from '../../Assets/chat.gif'
 
-export default class Chatt extends React.Component{
+class Chat extends React.Component{
     render(){
         return (
-            <>
-                <Text>Chatt  : On Development </Text>
-            </>
+           <View style={styles.container}>
+               <Text style={styles.title}>Inbox</Text>
+               <Text style={styles.description}>messages from the partner will appear here</Text>
+               <Image 
+                    source={require('../../Assets/chat.gif')}  
+                    style={styles.gif} 
+                />
+           </View>
         )
     }
 }
+
+export default Chat
+
+const styles = StyleSheet.create({
+    container:{
+        margin: 15,
+    },
+    title:{
+        fontSize: 25,
+        fontWeight: 'bold'
+    },
+    description:{
+        fontSize: 15
+    },
+    gif:{
+        marginTop: 20,
+        width: 300,
+        height: 300,
+        alignSelf: 'center', 
+    }
+})
