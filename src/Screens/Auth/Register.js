@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { StyleSheet, View, Text, Image, TextInput, ScrollView, TouchableOpacity } from "react-native";
-// import { Container, Content, Form, Item, Input, Button, Toast, Row, Col, Icon, Spinner } from 'native-base';
+// import { Icon} from 'native-base';
 
 import logo from '../../Assets/loginLogo.png'
 
