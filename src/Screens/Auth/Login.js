@@ -44,6 +44,7 @@ class Login extends Component {
             <Text style={styles.title}>Please login if you already a member</Text>
             <TextInput
               placeholder="Email"
+              keyboardType='email-address'
               value={formData.email}
               onChangeText={(text)=>this.handleChange('email',text)}
               style={styles.input}
