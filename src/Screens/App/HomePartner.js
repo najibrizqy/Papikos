@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Header, Tab,Button,Tabs, TabHeading, Icon, Text,Left,Badge,ActionSheet, Right} from 'native-base';
-import {Image,StyleSheet} from 'react-native'
+import {Image,StyleSheet,StatusBar} from 'react-native'
 import logo from '../../../assets/papikos-01.png'
 import Home from '../Components/HomePartner'
 var BUTTONS = [
@@ -21,6 +21,7 @@ export default class Homescreen extends Component {
     return (
       <Container>
         <Header hasTabs style={{backgroundColor:'#1AB0D3'}}>
+        <StatusBar translucent backgroundColor="#0F73CE" />
         <Left>
           <Image style={styles.logo} source={logo}></Image>
         </Left>

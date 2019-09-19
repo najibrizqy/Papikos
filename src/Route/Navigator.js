@@ -9,7 +9,7 @@ import LoginScreen from '../Screens/Auth/Login'
 import RegisterScreen from '../Screens/Auth/Register'
 import HomeScreen from '../Screens/App/Home'
 import ChatScreen from '../Screens/App/Chat'
-import HistoryScreen from '../Screens/App/HistoryPartner'
+import HistoryScreen from '../Screens/App/History'
 import ProfileScreen from '../Screens/App/Profile'
 import ProductListScreen from '../Screens/App/UserHome/ProductList'
 import ProductMapScreen from '../Screens/App/UserHome/ProductMap'
@@ -38,7 +38,6 @@ const AuthStack = createStackNavigator({
     defaultNavigationOptions: {header: null}
   }
 );
-
 //Route User
 
 const AppStack = createStackNavigator({

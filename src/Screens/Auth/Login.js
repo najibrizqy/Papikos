@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { StyleSheet, View, Text, Image, TextInput, ScrollView, TouchableOpacity } from "react-native";
+// import { Icon} from 'native-base';
 
-import logo from '../../../assets/loginLogo.png'
+import logo from '../../Assets/loginLogo.png'
 
 class Login extends Component {
   constructor(props){
@@ -17,7 +18,7 @@ class Login extends Component {
   }
 
   handleSignup = () => {
-    this.props.navigation.navigate('RegisterPartner')
+    this.props.navigation.navigate('Register')
   }
 
   handleChange = (name, value) => {
@@ -29,7 +30,7 @@ class Login extends Component {
   }
 
   handleSubmit = async () => {
-    this.props.navigation.navigate('HomePartner')
+    this.props.navigation.navigate('Home')
     
   }
 
@@ -40,7 +41,7 @@ class Login extends Component {
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
           <View style={styles.content}>
             <Image source={logo} style={styles.logo}/>
-            <Text style={styles.title}>Please login if you already a partner</Text>
+            <Text style={styles.title}>Please login if you already a member</Text>
             <TextInput
               placeholder="Email"
               keyboardType='email-address'
@@ -76,7 +77,10 @@ class Login extends Component {
     );
   }
 }
+
+
 export default Login
+
 const styles = StyleSheet.create({
     container: {
       width: "100%",
