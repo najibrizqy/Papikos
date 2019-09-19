@@ -76,7 +76,7 @@ class Home extends React.Component{
                             {
                                 this.dummyCity.map((res, index) => {
                                     return(
-                                        <TouchableOpacity activeOpacity={0.8} key={index} style={styles.touchCity}>
+                                        <TouchableOpacity activeOpacity={0.8} key={index} style={styles.touchCity} onPress={() => {this.props.navigation.navigate('ProductMap')}}>
                                             <View style={styles.item}>
                                                 <Thumbnail square source={{uri: `${res.image}`}} style={styles.thumbnail} />
                                                 <Text style={styles.placeText}>{res.name}</Text>
@@ -89,12 +89,12 @@ class Home extends React.Component{
                     </View>
                     <View style={styles.body}>
                         <View style={styles.populerWrapper}>
-                            <Text style={styles.title}>Recomendation Kos</Text>
+                            <Text style={styles.title}>Recommendation Kos</Text>
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                                 {
                                     this.dummyKos.map((res, index) => {
                                         return(
-                                            <View style={styles.carousel}>
+                                            <View style={styles.carousel} key={index}>
                                                 <View style={styles.headerCard}>
                                                     <Image source={{uri: `${res.image}`}} style={styles.imgCard}/>
                                                     <View style={styles.genderWrapper}>

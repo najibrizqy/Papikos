@@ -32,9 +32,27 @@ const AuthStack = createStackNavigator({
 const AppStack = createStackNavigator({
   Home: HomeScreen,
   ProductList : ProductListScreen,
-  ProductMap : ProductMapScreen,
+  ProductMap : {
+    screen: ProductMapScreen,
+  },
 },{
-    defaultNavigationOptions: {header: null}
+    header:null,
+    headerMode: 'none',
+    navigationOptions: ({navigation}) => {
+      let tabBarVisible;
+      if (navigation.state.routes.length > 1) {
+        navigation.state.routes.map(route => {
+          if (route.routeName === "ProductMap") {
+            tabBarVisible = false;
+          } else {
+            tabBarVisible = true;
+          }
+        });
+      }
+      return {
+        tabBarVisible
+      };
+    },
   }
 );
 

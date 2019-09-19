@@ -30,7 +30,7 @@ class Login extends Component {
   }
 
   handleSubmit = async () => {
-    this.props.navigation.navigate('Bottom')
+    this.props.navigation.navigate('Home')
     
   }
 
