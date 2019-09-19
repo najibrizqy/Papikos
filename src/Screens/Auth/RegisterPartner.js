@@ -1,30 +1,37 @@
-
-import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TextInput, ScrollView, TouchableOpacity } from "react-native";
+import React, {Component} from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+  AsyncStorage,
+  Alert,
+} from 'react-native';
 import {connect} from 'react-redux';
 import {registerPartner} from '../../Redux/Action/auth';
-import logo from '../../../assets/loginLogo.png'
-
+import logo from '../../../assets/loginLogo.png';
 
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
-        formData: {
-          labelName: '',
-          fullname: '',
-          phone: '',
-          email: '',
-          password: '',
-          address:'',
-          latitude: "-7.7584383",
-          longitude: "110.3759749",
-          id_location: 2
-        },
-        showToast: false,
-        isLoading: false,
-      }
+      formData: {
+        labelName: '',
+        fullname: '',
+        phone: '',
+        email: '',
+        password: '',
+        address: '',
+        latitude: '-7.7584383',
+        longitude: '110.3759749',
+        id_location: 2,
+      },
+      showToast: false,
+      isLoading: false,
+    };
   }
 
   handleChange = (name, value) => {
@@ -46,23 +53,21 @@ class Register extends Component {
 
   handleSubmit = async () => {
     const {formData} = this.state;
-    console.log("forrm",formData)
-    await this.props
-      .dispatch(registerPartner(formData))
-      .then(async res => {
-        if (res.action.payload.data.status === 400) {
-          Alert.alert('Register Failed!', `${res.action.payload.data.message}`);
-        } else {
-          const tokenUser = this.props.auth.User.token;
-          await AsyncStorage.setItem('tokenUser', tokenUser);
-          this.props.navigation.navigate('Login');
-        }
-      });
-  }
+    console.log('forrm', formData);
+    await this.props.dispatch(registerPartner(formData)).then(async res => {
+      if (res.action.payload.data.status === 400) {
+        Alert.alert('Register Failed!', `${res.action.payload.data.message}`);
+      } else {
+        const tokenUser = this.props.auth.User.token;
+        await AsyncStorage.setItem('tokenUser', tokenUser);
+        this.props.navigation.navigate('Login');
+      }
+    });
+  };
 
   render() {
-    const {isLoading, formData} = this.state
-    console.log('testt',AsyncStorage.getItem('tokenUser'))
+    const {isLoading, formData} = this.state;
+    console.log('testt', AsyncStorage.getItem('tokenUser'));
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -72,7 +77,7 @@ class Register extends Component {
             <TextInput
               placeholder="Full name"
               value={formData.fullname}
-              onChangeText={(text)=>this.handleChange('fullname',text)}
+              onChangeText={text => this.handleChange('fullname', text)}
               style={styles.input}
             />
             <TextInput
@@ -84,8 +89,8 @@ class Register extends Component {
             <TextInput
               placeholder="Phone Number"
               value={formData.phone}
-              onChangeText={(number)=>this.handleChange('phone',number)}
-              keyboardType='number-pad'
+              onChangeText={number => this.handleChange('phone', number)}
+              keyboardType="number-pad"
               style={styles.input}
             />
             <TextInput
@@ -132,15 +137,13 @@ class Register extends Component {
   }
 }
 
-
-
 const mapStateToProps = state => {
   return {
     auth: state.auth,
   };
 };
 
-export default connect(mapStateToProps)(Register)
+export default connect(mapStateToProps)(Register);
 
 const styles = StyleSheet.create({
   container: {

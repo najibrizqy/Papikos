@@ -6,6 +6,8 @@ import {
   Image,
   TextInput,
   ScrollView,
+  AsyncStorage,
+  Alert,
   TouchableOpacity,
 } from 'react-native';
 
@@ -57,8 +59,8 @@ class LoginPartner extends Component {
   };
 
   render() {
-    const { formData} = this.state;
-    const {isLoading}=this.props.auth
+    const {formData} = this.state;
+    const {isLoading} = this.props.auth;
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -85,7 +87,9 @@ class LoginPartner extends Component {
               activeOpacity={0.8}
               style={[styles.buttonContainer, styles.loginButton]}
               onPress={this.handleSubmit}>
-              <Text style={styles.buttonText}>{isLoading ? 'Loading ...' : 'Login'}</Text>
+              <Text style={styles.buttonText}>
+                {isLoading ? 'Loading ...' : 'Login'}
+              </Text>
             </TouchableOpacity>
             <View style={styles.center}>
               <Text style={styles.bottomText}>
