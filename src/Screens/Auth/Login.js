@@ -51,10 +51,14 @@ class Login extends Component {
           this.setState({formData: {username: '', password: ''}});
           Alert.alert('Login Failed!', `${res.action.payload.data.message}`);
         } else {
+          console.log(this.props.auth.User);
           const tokenUser = this.props.auth.User.token;
           await AsyncStorage.setItem('tokenUser', tokenUser);
           this.props.navigation.navigate('Home');
         }
+      })
+      .catch(err => {
+        console.error(err);
       });
   };
 
