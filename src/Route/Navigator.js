@@ -12,9 +12,9 @@ import ChatScreen from '../Screens/App/Chat'
 import HistoryScreen from '../Screens/App/History'
 import ProfileScreen from '../Screens/App/Profile'
 
-import ProductListScreen from '../Screens/App/Home/ProductList'
-import ProductMapScreen from '../Screens/App/Home/ProductMap'
-import KosDetailScreen from '../Screens/App/Home/KosDetail'
+import ProductListScreen from '../Screens/App/UserHome/ProductList'
+import ProductMapScreen from '../Screens/App/UserHome/ProductMap'
+import KosDetailScreen from '../Screens/App/UserHome/KosDetail'
 
 import Splash from '../Screens/Splash'
 
