@@ -7,8 +7,11 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  Alert,
+  AsyncStorage,
 } from 'react-native';
 import {connect} from 'react-redux';
+import {loginUser} from '../../Redux/Action/auth';
 // import { Icon} from 'native-base';
 
 import logo from '../../Assets/loginLogo.png';
@@ -18,7 +21,7 @@ class Login extends Component {
     super(props);
     this.state = {
       formData: {
-        email: '',
+        username: '',
         password: '',
       },
       showToast: false,
@@ -39,7 +42,19 @@ class Login extends Component {
   };
 
   handleSubmit = async () => {
-    this.props.navigation.navigate('Home');
+    const {formData} = this.state;
+    await this.props
+      .dispatch(loginUser(formData.username, formData.password))
+      .then(async res => {
+        if (res.action.payload.data.status === 400) {
+          this.setState({formData: {username: '', password: ''}});
+          Alert.alert('Login Failed!', `${res.action.payload.data.message}`);
+        } else {
+          const tokenUser = this.props.auth.User.token;
+          await AsyncStorage.setItem('tokenUser', tokenUser);
+          this.props.navigation.navigate('Home');
+        }
+      });
   };
 
   render() {
@@ -53,10 +68,10 @@ class Login extends Component {
               Please login if you already a member
             </Text>
             <TextInput
-              placeholder="Email"
-              keyboardType="email-address"
-              value={formData.email}
-              onChangeText={text => this.handleChange('email', text)}
+              placeholder="Username"
+              keyboardType="text"
+              value={formData.username}
+              onChangeText={text => this.handleChange('username', text)}
               style={styles.input}
             />
             <TextInput
