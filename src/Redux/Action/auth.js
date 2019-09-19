@@ -23,8 +23,6 @@ export const loginPartner = (email, password) => {
         email,
         password,
       })
-      .then()
-      .catch(err => console.log('Error :' + err)),
   };
 };
 
@@ -40,13 +38,11 @@ export const registerUser = data => {
   };
 };
 
-export const registerPartner = data => {
+export const registerPartner=(data)=>{
   return {
     type: 'REGISTER_PARTNER',
     payload: axios
-      .post('https://salty-plains-50836.herokuapp.com/register/partner', {data})
-      .then()
-      .catch(err => console.log('Error :' + err)),
+      .post('https://salty-plains-50836.herokuapp.com/register/partner', data)
   };
 };
 
