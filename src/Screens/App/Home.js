@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {getRegions} from '../../Redux/Action/regions';
+import {getRooms} from '../../Redux/Action/room';
 import {Icon, Thumbnail} from 'native-base';
 
 import header from '../../Assets/header.png';
@@ -23,6 +24,7 @@ class Home extends React.Component {
     super(props);
     this.state = {
       regions: [],
+      rooms: [],
     };
   }
 
@@ -119,6 +121,20 @@ class Home extends React.Component {
       } else {
         this.setState({regions: this.props.regions.Regions.data});
         console.log(this.state.regions);
+      }
+    });
+
+    await this.props.dispatch(getRooms()).then(res => {
+      if (res.action.payload.data.status === 400) {
+        this.setState({rooms: []});
+        ToastAndroid.show(
+          `${res.action.payload.data.message}`,
+          ToastAndroid.LONG,
+          ToastAndroid.CENTER,
+        );
+      } else {
+        this.setState({rooms: this.props.rooms.Rooms.data});
+        console.log(this.state.rooms);
       }
     });
   };
