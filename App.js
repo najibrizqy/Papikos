@@ -1,6 +1,5 @@
-
 import React, {Component} from 'react';
-import AppContainer from './src/Route/AppNavigator';
+import AppRoot from './src/Route/Navigator'
 import { Root } from 'native-base';
 import GeneralStatusBarColor from './src/Components/StatusBar';
 
@@ -9,17 +8,9 @@ class App extends Component{
     return(
       <Root>
         <GeneralStatusBarColor backgroundColor="#0F73CE" barStyle="default"/>
-        <AppContainer />
+        <AppRoot />
       </Root>      
     )
   }
 }
 export default App;
-import React, {Fragment} from 'react';
-import AppRoot from './src/Route/Navigator'
-
-export default App = () => {
-  return (
-    <AppRoot />
-  )
-};
