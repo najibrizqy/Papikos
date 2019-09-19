@@ -43,43 +43,33 @@ class Register extends Component {
     // this.setState({isLoading: true});
     const {formData} = this.state;
     console.log(formData);
-    await this.props
-      .dispatch(
-        registerUser(
-          formData.fullname,
-          formData.username,
-          formData.phone,
-          formData.email,
-          formData.password,
-        ),
-      )
-      .then(async res => {
-        if (res.action.payload.data.status === 400) {
-          console.log(res);
-          this.setState({
-            formData: {
-              fullname: '',
-              username: '',
-              phone: '',
-              email: '',
-              password: '',
-            },
-          });
-          ToastAndroid.show(
-            `${res.action.payload.data.message}`,
-            ToastAndroid.LONG,
-            ToastAndroid.CENTER,
-          );
-        } else {
-          console.log(res);
-          ToastAndroid.show(
-            `${res.action.payload.data.message}`,
-            ToastAndroid.LONG,
-            ToastAndroid.CENTER,
-          );
-          this.props.navigation.navigate('Login');
-        }
-      });
+    await this.props.dispatch(registerUser(formData)).then(async res => {
+      if (res.action.payload.data.status === 400) {
+        console.log(res);
+        this.setState({
+          formData: {
+            fullname: '',
+            username: '',
+            phone: '',
+            email: '',
+            password: '',
+          },
+        });
+        ToastAndroid.show(
+          `${res.action.payload.data.message}`,
+          ToastAndroid.LONG,
+          ToastAndroid.CENTER,
+        );
+      } else {
+        console.log(res);
+        ToastAndroid.show(
+          `${res.action.payload.data.message}`,
+          ToastAndroid.LONG,
+          ToastAndroid.CENTER,
+        );
+        this.props.navigation.navigate('Login');
+      }
+    });
   };
 
   render() {

@@ -28,17 +28,11 @@ export const loginPartner = (email, password) => {
   };
 };
 
-export const registerUser = (fullname, username, phone, email, password) => {
+export const registerUser = data => {
   return {
     type: 'REGISTER_USER',
     payload: axios
-      .post('https://salty-plains-50836.herokuapp.com/register/user', {
-        fullname,
-        username,
-        phone,
-        email,
-        password,
-      })
+      .post('https://salty-plains-50836.herokuapp.com/register/user', data)
       .then()
       .catch(err => {
         console.log('Error :' + err);
