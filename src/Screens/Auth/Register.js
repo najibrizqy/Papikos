@@ -1,97 +1,139 @@
-import React, { Component, Fragment } from 'react';
-import { StyleSheet, View, Text, Image, TextInput, ScrollView, TouchableOpacity } from "react-native";
+import React, {Component, Fragment} from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TextInput,
+  ScrollView,
+  ToastAndroid,
+  TouchableOpacity,
+} from 'react-native';
 // import { Icon} from 'native-base';
+import {registerUser} from '../../Redux/Action/auth';
+import {connect} from 'react-redux';
 
-import logo from '../../Assets/loginLogo.png'
+import logo from '../../Assets/loginLogo.png';
 
 class Register extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
-        formData: {
-          username: '',
-          full_name: '',
-          phone_number: '',
-          email: '',
-          password: '',
-          image: 'https://www.shareicon.net/data/2016/09/01/822711_user_512x512.png',
-        },
-        showToast: false,
-        isLoading: false,
-      }
+      formData: {
+        fullname: '',
+        username: '',
+        phone: '',
+        email: '',
+        password: '',
+      },
+      showToast: false,
+      isLoading: false,
+    };
   }
 
   handleChange = (name, value) => {
-    let newFormData = {...this.state.formData}
-    newFormData[name] = value
+    let newFormData = {...this.state.formData};
+    newFormData[name] = value;
     this.setState({
-      formData: newFormData
-    })
-    console.log(newFormData)
-  }
-
-  handleChange = (name, value) => {
-    let newFormData = {...this.state.formData}
-    newFormData[name] = value
-    this.setState({
-      formData: newFormData
-    })
-  }
+      formData: newFormData,
+    });
+  };
 
   handleSubmit = async () => {
-    this.setState({isLoading:true})
-    const {formData} = this.state
-  }
+    // this.setState({isLoading: true});
+    const {formData} = this.state;
+    console.log(formData);
+    await this.props
+      .dispatch(
+        registerUser(
+          formData.fullname,
+          formData.username,
+          formData.phone,
+          formData.email,
+          formData.password,
+        ),
+      )
+      .then(async res => {
+        if (res.action.payload.data.status === 400) {
+          console.log(res);
+          this.setState({
+            formData: {
+              fullname: '',
+              username: '',
+              phone: '',
+              email: '',
+              password: '',
+            },
+          });
+          ToastAndroid.show(
+            `${res.action.payload.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+          );
+        } else {
+          console.log(res);
+          ToastAndroid.show(
+            `${res.action.payload.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+          );
+          this.props.navigation.navigate('Login');
+        }
+      });
+  };
 
   render() {
-    const {isLoading, formData} = this.state
+    const {isLoading, formData} = this.state;
     return (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={{flexGrow: 1}} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          contentContainerStyle={{flexGrow: 1}}
+          showsVerticalScrollIndicator={false}>
           <View style={styles.content}>
-            <Image source={logo} style={styles.logo}/>
+            <Image source={logo} style={styles.logo} />
             <Text style={styles.title}>Create your account now</Text>
             <TextInput
               placeholder="Full Name"
-              value={formData.full_name}
-              onChangeText={(text)=>this.handleChange('full_name',text)}
+              value={formData.fullname}
+              onChangeText={text => this.handleChange('fullname', text)}
               style={styles.input}
             />
             <TextInput
               placeholder="Username"
               value={formData.username}
-              onChangeText={(text)=>this.handleChange('username',text)}
+              onChangeText={text => this.handleChange('username', text)}
               style={styles.input}
             />
             <TextInput
               placeholder="Phone Number"
-              value={formData.phone_number}
-              onChangeText={(number)=>this.handleChange('phone_number',number)}
-              keyboardType='number-pad'
+              value={formData.phone}
+              onChangeText={number => this.handleChange('phone', number)}
+              keyboardType="number-pad"
               style={styles.input}
             />
             <TextInput
               placeholder="Email"
               value={formData.email}
-              onChangeText={(text)=>this.handleChange('email',text)}
-              keyboardType='email-address'
+              onChangeText={text => this.handleChange('email', text)}
+              keyboardType="email-address"
               style={styles.input}
             />
             <TextInput
               placeholder="Password"
               secureTextEntry
               value={this.state.password}
-              onChangeText={(text)=>this.handleChange('password',text)}
+              onChangeText={text => this.handleChange('password', text)}
               style={styles.input}
             />
             <TouchableOpacity
               activeOpacity={0.8}
               style={[styles.buttonContainer, styles.registerButton]}
-              onPress={this.submitForm}>
+              onPress={this.handleSubmit}>
               <Text style={styles.buttonText}>Register</Text>
             </TouchableOpacity>
             <View style={styles.center}>
-              <Text style={styles.bottomText}>Already have an account ? &nbsp;
+              <Text style={styles.bottomText}>
+                Already have an account ? &nbsp;
                 <Text
                   style={styles.bottomTextLink}
                   onPress={() => this.props.navigation.navigate('Login')}>
@@ -106,30 +148,27 @@ class Register extends Component {
   }
 }
 
-
-export default Register
-
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     backgroundColor: '#1AB0D3',
   },
-  content:{
-    width: "70%",
-    height: "100%",
+  content: {
+    width: '70%',
+    height: '100%',
     justifyContent: 'center',
     alignSelf: 'center',
     paddingVertical: 20,
-    flex: 1
+    flex: 1,
   },
-  title:{
+  title: {
     marginBottom: 30,
-    color: "#F3F1F3",
+    color: '#F3F1F3',
     alignSelf: 'center',
-    fontSize: 15
+    fontSize: 15,
   },
-  input:{
+  input: {
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderWidth: 1,
@@ -139,9 +178,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 15,
   },
-  logo:{
-    width: 180, 
-    height:180,
+  logo: {
+    width: 180,
+    height: 180,
     alignSelf: 'center',
     marginBottom: 5,
   },
@@ -164,10 +203,10 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#FFFFFF',
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
-  center:{
-    alignSelf: 'center'
+  center: {
+    alignSelf: 'center',
   },
   bottomText: {
     fontSize: 15,
@@ -178,3 +217,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps)(Register);
