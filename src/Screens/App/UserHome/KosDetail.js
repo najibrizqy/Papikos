@@ -67,13 +67,31 @@ class KosDetail extends Component{
                     { this.pagination }
                 </View>
                 <View style={styles.body}>
-
+                    <View style={styles.bodyContent}>
+                        <Text style={styles.kosName}>Kos Grogol Petamburan Gelong</Text>
+                        <Text style={styles.type}>Premium</Text>
+                        <View style={styles.info}>
+                            <Text style={styles.itemInfo}>Area</Text>
+                            <Text style={styles.valueInfo}>3 x 3 m</Text>
+                            <Text style={styles.itemInfo}>Facilities</Text>
+                            <Text style={styles.valueInfo}>kamar babi</Text>
+                            <Text style={styles.itemInfo}>Description</Text>
+                            <Text style={styles.valueInfo}>BOOKING kamar sekarang dan GRATIS LAUNDRY 15 kg setiap bulan | Bisa PASUTrI | Sudah Tersedia Sprei di setiap kamar | Kos yang sangat strategis dekat dengan Universitas Timbut Nusantara dan STIE IBEK serta dekat dengan pusat perbelanjaan seperti Central Park cok.</Text>
+                        </View>
+                    </View>
                 </View>
                 <View style={styles.footer}>
                     <View style={styles.content}>
+                        <View style={styles.priceWrap}>
+                            <Text style={styles.priceText}>Rp 500.000 / month</Text>
+                        </View>
                         <View style={styles.btn}>
-                            <Button style={styles.btnBooking}><Text style={styles.btnText}> Booking </Text></Button>
-                            <Button bordered><Text> Chat </Text></Button>
+                            <Button bordered style={styles.btnChat}>
+                                <Icon type="MaterialIcons" name="chat" style={styles.iconChat}/>
+                            </Button>
+                            <Button style={styles.btnBooking}>
+                                <Text style={styles.btnText}> Booking </Text>
+                            </Button>
                         </View>
                     </View>
                 </View>
@@ -94,9 +112,31 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: '#F5F5F5',
     },
+    body:{
+        backgroundColor: '#FFF',
+        height: "58 %",
+    },
+    type:{
+        color: 'orange'
+    },
+    info:{
+        marginTop: 15,
+        borderTopWidth: 1,
+        borderTopColor: '#CDCDCD'
+    },
+    itemInfo:{
+        marginTop: 15,
+        fontSize: 15,
+        fontWeight: 'bold'
+    },
+    bodyContent:{
+        margin: 15,
+        height: '90%',
+        flexDirection: 'column'
+    },
     footer:{
         position: 'absolute',
-        height: 80,
+        height: 70,
         backgroundColor: '#FFF',
         bottom: 0,
         width: '100%',
@@ -126,23 +166,46 @@ const styles = StyleSheet.create({
         elevation: 5
     },
     content:{
+        position: 'relative',
         width: "90%",
         height: "80%",
         alignSelf: 'center',
-        marginTop: 10,
-        backgroundColor: 'yellow',
-
+        marginTop: 5,
     },
     btn:{
+        position: 'absolute',
+        right: 0,
         flexDirection: 'row',
-        alignItems: 'flex-end',
-        marginTop: 10,
+        marginTop: 7,
     },
     btnBooking:{
-        backgroundColor: '#1C8CD1'
+        backgroundColor: '#1C8CD1',
+        marginLeft: 10,
+        borderRadius: 5,
+    },
+    btnChat:{
+        borderColor: '#1C8CD1',
+        borderRadius: 5,
     },
     btnText:{
         color: '#FFF',
         paddingHorizontal: 10,
+    },
+    iconChat:{
+        margin: 0,
+        padding: 0,
+        color: '#1C8CD1'
+    },
+    priceWrap:{
+        position: 'absolute',
+        top: 18,
+        width: 170,
+    },
+    priceText:{
+        fontSize: 15,
+        fontWeight: 'bold'
+    },
+    kosName:{
+        fontSize: 17,
     }
 })

@@ -46,7 +46,9 @@ const AppStack = createStackNavigator({
   ProductMap : {
     screen: ProductMapScreen,
   },
-  KosDetail : KosDetailScreen,
+  KosDetail : {
+    screen: KosDetailScreen,
+  },
 },{
     header:null,
     headerMode: 'none',
