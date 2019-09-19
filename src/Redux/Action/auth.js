@@ -1,14 +1,38 @@
-  
 import axios from 'axios';
 
-export const login = (credintial) => {
+export const loginUser = (username, password) => {
   return {
-    type: 'LOGIN',
-    payload: axios({
-      method: 'post',
-      url: `http://192.168.100.16:9000/login`,
-      data: data,
-    })
+    type: 'LOGIN_USER',
+    payload: axios
+      .post('https://salty-plains-50836.herokuapp.com/login/user', {
+        username,
+        password,
+      })
+      .then()
+      .catch(err => {
+        console.log('Error :' + err);
+      }),
+  };
+};
+
+export const loginPartner = (email, password) => {
+  return {
+    type: 'LOGIN_PARTNER',
+    payload: axios
+      .post('https://salty-plains-50836.herokuapp.com/login/partner', {
+        email,
+        password,
+      })
+      .then()
+      .catch(err => console.log('Error :' + err)),
+  };
+};
+
+export const registerUser = data => {
+  return {
+    type: 'REGISTER_USER',
+    payload: axios
+      .post('https://salty-plains-50836.herokuapp.com/register/user', {data})
       .then()
       .catch(err => {
         console.log('gagal nk\n' + err);
@@ -16,17 +40,12 @@ export const login = (credintial) => {
   };
 };
 
-export const register = (credintial) => {
+export const registerPartner = data => {
   return {
-    type: 'REGISTER',
-    payload: axios({
-      method: 'post',
-      url: `http://192.168.100.16:9000/register`,
-      data: data,
-    })
+    type: 'REGISTER_PARTNER',
+    payload: axios
+      .post('https://salty-plains-50836.herokuapp.com/register/partner', {data})
       .then()
-      .catch(err => {
-        console.log('gagal nk\n' + err);
-      }),
+      .catch(err => console.log('Error :' + err)),
   };
 };
