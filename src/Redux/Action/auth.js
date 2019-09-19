@@ -49,3 +49,9 @@ export const registerPartner = data => {
       .catch(err => console.log('Error :' + err)),
   };
 };
+
+export const logout = () => {
+  return {
+    type: 'LOGOUT',
+  };
+};

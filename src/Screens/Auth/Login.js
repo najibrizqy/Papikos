@@ -46,6 +46,7 @@ class Login extends Component {
     await this.props
       .dispatch(loginUser(formData.username, formData.password))
       .then(async res => {
+        console.log(res);
         if (res.action.payload.data.status === 400) {
           this.setState({formData: {username: '', password: ''}});
           Alert.alert('Login Failed!', `${res.action.payload.data.message}`);
@@ -69,7 +70,7 @@ class Login extends Component {
             </Text>
             <TextInput
               placeholder="Username"
-              keyboardType="text"
+              keyboardType="default"
               value={formData.username}
               onChangeText={text => this.handleChange('username', text)}
               style={styles.input}
@@ -103,8 +104,6 @@ class Login extends Component {
     );
   }
 }
-
-export default Login;
 
 const styles = StyleSheet.create({
   container: {
@@ -174,3 +173,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps)(Login);
