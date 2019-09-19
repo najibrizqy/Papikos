@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Header, Tab,Button,Tabs, TabHeading, Icon, Text,Left,Badge,ActionSheet, Right} from 'native-base';
 import {Image,StyleSheet} from 'react-native'
 import logo from '../../../assets/papikos-01.png'
-import Home from '../Components/Home'
+import Home from '../Components/HomePartner'
 var BUTTONS = [
   { text: "Add Room", icon: "add-circle", iconColor: "#2c8ef4" },
   { text: "History", icon: "bookmarks", iconColor: "#f42ced" },

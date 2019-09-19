@@ -15,7 +15,6 @@ class Addroom extends Component {
         name: '',
         price: '',
         area:'',
-        gender:'',
         type:'',
         description:'',
         photos:''
@@ -41,13 +40,6 @@ class Addroom extends Component {
   handleSubmit = async () => {
     this.props.navigation.navigate('Bottom')
     
-  }
-  onGenderChange(value) {
-      let newFormData={...this.state.formData}
-      newFormData.gender=value
-    this.setState({
-      formData: newFormData
-    });
   }
   onTypeChange(value){
     let newFormData={...this.state.formData}
@@ -88,20 +80,6 @@ class Addroom extends Component {
               onChangeText={(text)=>this.handleChange('area',text)}
               style={styles.input}
             />
-            <View style={styles.input}>
-            <Picker
-              mode="dropdown"
-              iosIcon={<Icon name="arrow-down" />}
-              style={{ width: 280,height:30,alignSelf:'center',paddingHorizontal:20 }}
-              selectedValue={formData.gender}
-              onValueChange={this.onGenderChange.bind(this)}
-            >
-              <Picker.Item label="Gender" value="" />
-              <Picker.Item label="Male" value="Male" />
-              <Picker.Item label="Female" value="Female" />
-              <Picker.Item label="Mix" value="Mix" />
-            </Picker>
-            </View>
             <View style={styles.input}>
             <Picker
               mode="dropdown"
@@ -168,7 +146,8 @@ const styles = StyleSheet.create({
       height: "100%",
       justifyContent: 'center',
       alignSelf: 'center',
-      flex: 1
+      flex: 1,
+      marginTop: 20,
     },
     title:{
       marginBottom: 30,

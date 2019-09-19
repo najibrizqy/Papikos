@@ -111,7 +111,8 @@ class Details extends Component {
                 <Text>Reguler R1</Text>
                 </Body></Left>
                 <Right style={{paddingHorizontal: 10}}>
-                  <Button style={{width: 100,justifyContent:'center', backgroundColor:'#1AB0D3',borderRadius:5}}>
+                  <Button style={{width: 100,justifyContent:'center', backgroundColor:'#1AB0D3',borderRadius:5}}
+                  onPress={()=>this.props.navigation.navigate('Editroom')}>
                     <Text style={{fontSize:20,color:'white'}}>Edit</Text>
                   </Button>
                 </Right>
