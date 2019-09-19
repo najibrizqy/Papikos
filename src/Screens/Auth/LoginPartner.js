@@ -9,9 +9,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import {connect} from 'react-redux';
+import {loginPartner} from '../../Redux/Action/auth';
+
 import logo from '../../../assets/loginLogo.png';
 
-class Login extends Component {
+class LoginPartner extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,11 +40,25 @@ class Login extends Component {
   };
 
   handleSubmit = async () => {
-    this.props.navigation.navigate('HomePartner');
+    const {formData} = this.state;
+    await this.props
+      .dispatch(loginPartner(formData.email, formData.password))
+      .then(async res => {
+        console.log(res);
+        if (res.action.payload.data.status === 400) {
+          this.setState({formData: {email: '', password: ''}});
+          Alert.alert('Login Failed!', `${res.action.payload.data.message}`);
+        } else {
+          const tokenUser = this.props.auth.User.token;
+          await AsyncStorage.setItem('tokenUser', tokenUser);
+          this.props.navigation.navigate('HomePartner');
+        }
+      });
   };
 
   render() {
-    const {isLoading, formData} = this.state;
+    const { formData} = this.state;
+    const {isLoading}=this.props.auth
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -68,7 +85,7 @@ class Login extends Component {
               activeOpacity={0.8}
               style={[styles.buttonContainer, styles.loginButton]}
               onPress={this.handleSubmit}>
-              <Text style={styles.buttonText}>Login</Text>
+              <Text style={styles.buttonText}>{isLoading ? 'Loading ...' : 'Login'}</Text>
             </TouchableOpacity>
             <View style={styles.center}>
               <Text style={styles.bottomText}>
@@ -88,7 +105,13 @@ class Login extends Component {
     );
   }
 }
-export default Login;
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps)(LoginPartner);
 const styles = StyleSheet.create({
   container: {
     width: '100%',
