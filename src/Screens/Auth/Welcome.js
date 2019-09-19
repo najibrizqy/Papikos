@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { StyleSheet, View, Text, Image, TextInput, ScrollView, TouchableOpacity } from "react-native";
 
 import logo from '../../Assets/blueLogo.png'
-import gift from '../../Assets/people.gif'
+import gif from '../../Assets/people.gif'
 
 class Welcome extends Component{
     render(){
@@ -18,7 +18,7 @@ class Welcome extends Component{
                         </Text>
                         <Image 
                             source={require('../../Assets/people.gif')}  
-                            style={styles.gift} 
+                            style={styles.gif} 
                         />
                         <TouchableOpacity
                             activeOpacity={0.8}
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
       fontSize: 18,
       fontWeight: '100'
     },
-    gift:{
+    gif:{
         width: 250,
         height: 250,
         alignSelf: 'center',

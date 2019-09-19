@@ -47,7 +47,7 @@ class Register extends Component {
     const {isLoading, formData} = this.state
     return (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <ScrollView contentContainerStyle={{flexGrow: 1}} showsVerticalScrollIndicator={false}>
           <View style={styles.content}>
             <Image source={logo} style={styles.logo}/>
             <Text style={styles.title}>Create your account now</Text>
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: 'center',
     alignSelf: 'center',
+    paddingVertical: 20,
     flex: 1
   },
   title:{
