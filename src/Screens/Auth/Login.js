@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  ToastAndroid,
   AsyncStorage,
 } from 'react-native';
 import {connect} from 'react-redux';
@@ -49,12 +50,25 @@ class Login extends Component {
         console.log(res);
         if (res.action.payload.data.status === 400) {
           this.setState({formData: {username: '', password: ''}});
-          Alert.alert('Login Failed!', `${res.action.payload.data.message}`);
+          ToastAndroid.show(
+            `${res.action.payload.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+          );
         } else {
+          console.log(this.props.auth.User);
           const tokenUser = this.props.auth.User.token;
           await AsyncStorage.setItem('tokenUser', tokenUser);
+          ToastAndroid.show(
+            `${res.action.payload.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+          );
           this.props.navigation.navigate('Home');
         }
+      })
+      .catch(err => {
+        console.error(err);
       });
   };
 

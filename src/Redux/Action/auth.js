@@ -30,10 +30,10 @@ export const registerUser = data => {
   return {
     type: 'REGISTER_USER',
     payload: axios
-      .post('https://salty-plains-50836.herokuapp.com/register/user', {data})
+      .post('https://salty-plains-50836.herokuapp.com/register/user', data)
       .then()
       .catch(err => {
-        console.log('gagal nk\n' + err);
+        console.log('Error :' + err);
       }),
   };
 };
