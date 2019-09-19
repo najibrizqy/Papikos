@@ -16,7 +16,7 @@ class SplashScreen extends Component {
         const data = await this.performTimeConsumingTask();
 
         if (data !== null) {
-        this.props.navigation.navigate('ProductMap');
+        this.props.navigation.navigate('Auth');
         }
     }
 

@@ -1,13 +1,13 @@
 import React,{ Component } from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Icon } from 'native-base'
 import { ScrollView } from 'react-native-gesture-handler'
 
 export default class ProductList extends Component{
     dummyKos=[
         {
-            image: 'http://fresh.suakaonline.com/wp-content/uploads/2017/04/1490486838098-1024x768.jpg',
-            name: 'Kos Magelangan',
+            image: 'https://s-ec.bstatic.com/images/hotel/max1024x768/164/164741337.jpg',
+            name: 'Kos Warmindo',
             city: 'Yogyakarta',
             price: '500000',
             status: 'Available'
@@ -43,18 +43,20 @@ export default class ProductList extends Component{
                         {
                             this.dummyKos.map((res, index) => {
                                 return(
-                                    <View style={styles.card} key={index}>
-                                        <Image source={{uri : `${res.image}`}} style={styles.imageCard} />
-                                        <View style={styles.bodyCard}>
-                                            <View style={styles.titleInfo}>
-                                                <Text style={styles.name}>{res.name}</Text>
-                                                <Icon type="Entypo" name="dot-single" style={styles.dot} />
-                                                <Text style={styles.city}>{res.city}</Text>
+                                    <TouchableOpacity activeOpacity={0.9} key={index} style={styles.touchCard} onPress={() => this.props.navigation.navigate('KosDetail')} >
+                                        <View style={styles.card}>
+                                            <Image source={{uri : `${res.image}`}} style={styles.imageCard} />
+                                            <View style={styles.bodyCard}>
+                                                <View style={styles.titleInfo}>
+                                                    <Text style={styles.name}>{res.name}</Text>
+                                                    <Icon type="Entypo" name="dot-single" style={styles.dot} />
+                                                    <Text style={styles.city}>{res.city}</Text>
+                                                </View>
+                                                <Text style={styles.price}>Rp {res.price} / month</Text>
+                                                <View style={styles.statusWrapper}><Text style={styles.statusText}>{res.status}</Text></View>
                                             </View>
-                                            <Text style={styles.price}>Rp {res.price} / month</Text>
-                                            <View style={styles.statusWrapper}><Text style={styles.statusText}>{res.status}</Text></View>
                                         </View>
-                                    </View>
+                                    </TouchableOpacity>
                                 )
                             })
                         }
@@ -74,8 +76,10 @@ const styles = StyleSheet.create({
     content:{
         paddingVertical: 20,
     },
-    card:{
+    touchCard:{
         marginBottom: 20,
+    },
+    card:{
         alignSelf: 'center',
         width: '90%',
         height: 310,

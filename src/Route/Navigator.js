@@ -14,6 +14,7 @@ import ProfileScreen from '../Screens/App/Profile'
 
 import ProductListScreen from '../Screens/App/Home/ProductList'
 import ProductMapScreen from '../Screens/App/Home/ProductMap'
+import KosDetailScreen from '../Screens/App/Home/KosDetail'
 
 import Splash from '../Screens/Splash'
 
@@ -35,6 +36,7 @@ const AppStack = createStackNavigator({
   ProductMap : {
     screen: ProductMapScreen,
   },
+  KosDetail : KosDetailScreen,
 },{
     header:null,
     headerMode: 'none',
@@ -42,7 +44,7 @@ const AppStack = createStackNavigator({
       let tabBarVisible;
       if (navigation.state.routes.length > 1) {
         navigation.state.routes.map(route => {
-          if (route.routeName === "ProductMap") {
+          if (route.routeName === "ProductMap" || route.routeName === "KosDetail") {
             tabBarVisible = false;
           } else {
             tabBarVisible = true;
