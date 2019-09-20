@@ -17,7 +17,6 @@
     "react-native-gesture-handler": "^1.4.1",
     "react-native-image-crop-picker": "^0.25.2",
     "react-native-image-picker": "^1.1.0",
-
     "react-native-location-picker": "0.0.1",
     "react-native-map-picker": "0.0.2",
     "react-native-map-clustering": "^2.0.2",
