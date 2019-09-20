@@ -74,7 +74,6 @@ const AppStack = createStackNavigator({
       if (navigation.state.routes.length > 1) {
         navigation.state.routes.map(route => {
           if (route.routeName === "ProductMap" || route.routeName === "KosDetail" || route.routeName === "Payment") {
-          if (route.routeName === "ProductMap" || route.routeName === "KosDetail") {
             tabBarVisible = false;
           } else {
             tabBarVisible = true;
