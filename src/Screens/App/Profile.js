@@ -2,13 +2,17 @@ import React from 'react';
 import {AsyncStorage} from 'react-native';
 import {Text} from 'native-base';
 
-export default class Profile extends React.Component {
+import {logout} from '../../Redux/Action/auth';
+import {connect} from 'react-redux';
+
+class Profile extends React.Component {
   render() {
     return (
       <>
         <Text
           onPress={async () => {
             await AsyncStorage.clear();
+            await this.props.dispatch(logout());
             this.props.navigation.navigate('Welcome');
           }}>
           Profile : On Development{' '}
@@ -17,3 +21,11 @@ export default class Profile extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps)(Profile);

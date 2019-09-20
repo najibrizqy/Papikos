@@ -45,12 +45,16 @@ class LoginPartner extends Component {
   handleSubmit = async () => {
     const {formData, device_id} = this.state;
     await this.props
-      .dispatch(loginPartner(formData.email, formData.password,device_id))
+      .dispatch(loginPartner(formData.email, formData.password, device_id))
       .then(async res => {
         console.log(res);
         if (res.action.payload.data.status === 400) {
           this.setState({formData: {email: '', password: ''}});
-          Alert.alert('Login Failed!', `${res.action.payload.data.message}`);
+          ToastAndroid.show(
+            `${res.value.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+          );
         } else {
           const tokenPartner = this.props.auth.Partner.token;
           const partner_id = this.props.auth.Partner.data[0].id.toString();
@@ -61,16 +65,8 @@ class LoginPartner extends Component {
             `${res.value.data.message}`,
             ToastAndroid.LONG,
             ToastAndroid.CENTER,
-
-          this.props.navigation.navigate('HomePartner');
-        } else {
-          this.setState({formData: {email: '', password: ''}});
-          ToastAndroid.show(
-            `${res.value.data.message}`,
-            ToastAndroid.LONG,
-            ToastAndroid.CENTER,
           );
-          
+          this.props.navigation.navigate('HomePartner');
         }
       });
   };

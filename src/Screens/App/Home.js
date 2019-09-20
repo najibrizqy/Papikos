@@ -53,7 +53,8 @@ class Home extends React.Component {
           ToastAndroid.CENTER,
         );
       } else {
-        this.setState({rooms: this.props.rooms.Rooms.data});
+        this.setState({rooms: this.props.rooms.Rooms});
+        console.log(this.props.rooms.Rooms);
       }
     });
   };

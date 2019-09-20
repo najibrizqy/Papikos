@@ -66,7 +66,7 @@ class Login extends Component {
             ToastAndroid.LONG,
             ToastAndroid.CENTER,
           );
-          // this.props.navigation.navigate('Home');
+          this.props.navigation.navigate('Home');
         }
       })
       .catch(err => {
