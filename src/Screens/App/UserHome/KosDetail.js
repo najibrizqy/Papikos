@@ -26,20 +26,6 @@ class KosDetail extends Component {
     this.setState({image: this.state.kosDetail.image.split(',')});
     console.log(this.state.kosDetail.image.split(','));
   };
-  dummyImage = [
-    {
-      image:
-        'https://s-ec.bstatic.com/images/hotel/max1024x768/164/164741337.jpg',
-    },
-    {
-      image:
-        'https://rumahdijual.com/attachments/jakarta-barat/22177037d1522898894-20-kamar-kamar-mandi-dalam-kost-putri-tanjung-duren-whatsapp-image-2018-04-04-11.52.47.jpg',
-    },
-    {
-      image:
-        'https://s-ec.bstatic.com/images/hotel/max1024x768/164/164741337.jpg',
-    },
-  ];
 
   _renderItem({item, index}) {
     return (
