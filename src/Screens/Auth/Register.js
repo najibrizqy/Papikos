@@ -7,6 +7,7 @@ import {
   TextInput,
   ScrollView,
   ToastAndroid,
+  AsyncStorage,
   TouchableOpacity,
 } from 'react-native';
 // import { Icon} from 'native-base';
@@ -26,6 +27,7 @@ class Register extends Component {
         email: '',
         password: '',
       },
+      device_id: '',
       showToast: false,
       isLoading: false,
     };
@@ -41,35 +43,41 @@ class Register extends Component {
 
   handleSubmit = async () => {
     // this.setState({isLoading: true});
-    const {formData} = this.state;
+    const {formData, device_id} = this.state;
     console.log(formData);
-    await this.props.dispatch(registerUser(formData)).then(async res => {
-      if (res.action.payload.data.status === 400) {
-        console.log(res);
-        this.setState({
-          formData: {
-            fullname: '',
-            username: '',
-            phone: '',
-            email: '',
-            password: '',
-          },
-        });
-        ToastAndroid.show(
-          `${res.action.payload.data.message}`,
-          ToastAndroid.LONG,
-          ToastAndroid.CENTER,
-        );
-      } else {
-        console.log(res);
-        ToastAndroid.show(
-          `${res.action.payload.data.message}`,
-          ToastAndroid.LONG,
-          ToastAndroid.CENTER,
-        );
-        this.props.navigation.navigate('Login');
-      }
-    });
+    await this.props
+      .dispatch(registerUser(formData, device_id))
+      .then(async res => {
+        if (res.action.payload.data.status === 400) {
+          console.log(res);
+          this.setState({
+            formData: {
+              fullname: '',
+              username: '',
+              phone: '',
+              email: '',
+              password: '',
+            },
+          });
+          ToastAndroid.show(
+            `${res.action.payload.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+          );
+        } else {
+          console.log(res);
+          ToastAndroid.show(
+            `${res.action.payload.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+          );
+          this.props.navigation.navigate('Login');
+        }
+      });
+  };
+  componentDidMount = async () => {
+    const device_id = await AsyncStorage.getItem('idponsel');
+    this.setState({device_id});
   };
 
   render() {

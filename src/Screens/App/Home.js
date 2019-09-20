@@ -140,6 +140,7 @@ class Home extends React.Component {
   };
 
   render() {
+    const {regions, rooms} = this.state;
     return (
       <View style={styles.content}>
         <StatusBar translucent backgroundColor="#1AB0D3" />
@@ -156,7 +157,7 @@ class Home extends React.Component {
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}>
-              {this.dummyCity.map((res, index) => {
+              {regions.map((res, index) => {
                 return (
                   <TouchableOpacity
                     activeOpacity={0.8}

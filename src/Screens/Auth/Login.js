@@ -27,6 +27,7 @@ class Login extends Component {
       },
       showToast: false,
       isLoading: false,
+      device_id: '',
     };
   }
 
@@ -43,9 +44,9 @@ class Login extends Component {
   };
 
   handleSubmit = async () => {
-    const {formData} = this.state;
+    const {formData, device_id} = this.state;
     await this.props
-      .dispatch(loginUser(formData.username, formData.password))
+      .dispatch(loginUser(formData.username, formData.password, device_id))
       .then(async res => {
         console.log(res);
         if (res.action.payload.data.status === 400) {
@@ -70,6 +71,11 @@ class Login extends Component {
       .catch(err => {
         console.error(err);
       });
+  };
+
+  componentDidMount = async () => {
+    const device_id = await AsyncStorage.getItem('idponsel');
+    this.setState({device_id});
   };
 
   render() {
