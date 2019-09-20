@@ -228,6 +228,7 @@ const styles = StyleSheet.create({
     genderWrapper:{
         position: 'absolute', 
         bottom: -11, 
+        left: 10,
         left: 10, 
         backgroundColor: '#1AB0D3', 
         zIndex: 2,

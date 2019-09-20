@@ -11,6 +11,6 @@ class App extends Component{
         <AppRoot />
       </Root>      
     )
-  }
+  } 
 }
 export default App;

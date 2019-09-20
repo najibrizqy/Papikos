@@ -31,7 +31,6 @@ class Login extends Component {
 
   handleSubmit = async () => {
     this.props.navigation.navigate('Home')
-    
   }
 
   render() {
