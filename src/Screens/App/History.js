@@ -1,39 +1,63 @@
 import React from 'react'
-import {ScrollView} from 'react-native'
-import { Container, Header, Content, List, ListItem, Text, Left, Right, Icon } from 'native-base';
+import {FlatList} from 'react-native'
+import { Container, Header, Content, List, ListItem, Text, Left, Right, Badge, Row} from 'native-base';
 
+import axios from 'axios'
 export default class History extends React.Component{
+    constructor(){
+    super()
+        this.state={
+            Payment : [],
+            load:false
+        }
+    }
+
+    getHistory=()=>{
+        this.setState({load:true})
+        axios.get('https://salty-plains-50836.herokuapp.com/booking/history')
+            .then(result=>{
+                this.setState({load:false})
+                this.setState({Payment:result.data.result})
+               
+            }).catch(err=>{
+                console.warn(err)
+            })
+    }
+
+    async componentDidMount(){
+        await this.getHistory()
+    }
+
     render(){
+       const result = this.state.Payment
+       const loading = this.state.load
+       console.warn(result)
         return (
             <>
                 <Container>
-                    <Header />
                     <Content>
                     <List>
+
+                    <FlatList  
+                    data={result}  
+                    renderItem={(item) =>(
                         <ListItem>
-                            <Left>
-                                <Text>Kost atmajaya</Text>
-                            </Left>
-                            <Right>
-                                <Badge success><Text>Failed</Text></Badge>
-                            </Right>
+                            <Row>
+                                <Left><Text>Pembayaran Kost {item.item.labelName}</Text></Left>
+                                    <Right>
+                                    {
+                                        item.item.status=='PAID' || item.item.status=='SETTLED' ? <Badge success><Text>PAID</Text></Badge>
+                                        :item.item.status=='Pending' ? <Badge warning><Text>PENDING</Text></Badge>
+                                        :<Badge danger ><Text>FAILED</Text></Badge>  
+                                    }
+                                </Right>
+                            </Row>
+                           
+                        
                         </ListItem>
-                        <ListItem>
-                            <Left>
-                                <Text>Kost Cendrawsih</Text>
-                            </Left>
-                            <Right>
-                                <Badge warning><Text>Pending</Text></Badge>
-                            </Right>
-                        </ListItem>
-                        <ListItem>
-                            <Left>
-                                <Text>Kost Cindai</Text>
-                            </Left>
-                            <Right>
-                                <Badge danger><Text>Expired</Text></Badge>
-                            </Right>
-                        </ListItem>
+                    )}  
+                    />
+
                     </List>
                     </Content>
                 </Container>
