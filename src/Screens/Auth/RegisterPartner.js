@@ -15,7 +15,7 @@ import {Picker, Icon} from 'native-base';
 import {connect} from 'react-redux';
 import {registerPartner} from '../../Redux/Action/auth';
 import logo from '../../../assets/loginLogo.png';
-import {getRegions} from '../../Redux/Action/regions'
+import {getRegions} from '../../Redux/Action/regions';
 
 class Register extends Component {
   constructor(props) {
@@ -29,7 +29,6 @@ class Register extends Component {
         password: '',
         address: '',
         id_location: '',
-
       },
       device_id: '',
       showToast: false,
@@ -45,20 +44,26 @@ class Register extends Component {
     });
   };
 
-  handleSubmit = async() => {
+  handleSubmit = async () => {
     const {formData, device_id} = this.state;
-    await this.props.dispatch(registerPartner(formData,device_id)).then(async res => {
-      if (res.value.data.status ===200) {
-        ToastAndroid.show(
-          `${res.value.data.message}`,
-          ToastAndroid.LONG,
-          ToastAndroid.CENTER,
-        );
-        this.props.navigation.navigate('LoginPartnerscreen');
-      } else {
-        Alert.alert('Register Failed!', `${res.value.data.message}`);
-      }
-    });
+    await this.props
+      .dispatch(registerPartner(formData, device_id))
+      .then(async res => {
+        if (res.value.data.status === 200) {
+          ToastAndroid.show(
+            `${res.value.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+          );
+          this.props.navigation.navigate('LoginPartnerscreen');
+        } else {
+          ToastAndroid.show(
+            `${res.value.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+          );
+        }
+      });
   };
   onTypeChange(value) {
     let newFormData = {...this.state.formData};
@@ -68,7 +73,7 @@ class Register extends Component {
     });
   }
   componentDidMount = async () => {
-    await this.props.dispatch (getRegions())
+    await this.props.dispatch(getRegions());
     const device_id = await AsyncStorage.getItem('idponsel');
     this.setState({device_id});
   };
@@ -119,7 +124,7 @@ class Register extends Component {
               onChangeText={text => this.handleChange('address', text)}
               style={styles.input}
             />
-             <View style={styles.input}>
+            <View style={styles.input}>
               <Picker
                 mode="dropdown"
                 iosIcon={<Icon name="arrow-down" />}
@@ -132,14 +137,19 @@ class Register extends Component {
                 selectedValue={formData.id_location}
                 onValueChange={this.onTypeChange.bind(this)}>
                 <Picker.Item label="City" value="" />
-                {this.props.regions.Regions.status==200 ?
-                this.props.regions.Regions.data.map((item,index)=>{
-                    return(
-                      <Picker.Item label={item.name} value={item.id_location} key={item.id_location}/>
-                    )
-                })
-                :<Picker.Item label="City" value="" />
-              }
+                {this.props.regions.Regions.status == 200 ? (
+                  this.props.regions.Regions.data.map((item, index) => {
+                    return (
+                      <Picker.Item
+                        label={item.name}
+                        value={item.id_location}
+                        key={item.id_location}
+                      />
+                    );
+                  })
+                ) : (
+                  <Picker.Item label="City" value="" />
+                )}
               </Picker>
             </View>
             <TouchableOpacity
@@ -170,7 +180,7 @@ class Register extends Component {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
-    regions: state.regions
+    regions: state.regions,
   };
 };
 
