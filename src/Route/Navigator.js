@@ -38,21 +38,10 @@ const AuthStack = createStackNavigator(
     Register: RegisterScreen,
     LoginPartner: {
       screen: LoginPartner,
-      navigationOptions: ({navigation}) => ({
-        header: null,
-      }),
     },
     RegisterPartner: {
       screen: RegisterPartner,
-      navigationOptions: ({navigation}) => ({
-        header: null,
-      }),
     },
-  },
-  {
-    Welcome: WelcomeScreen,
-    Login: LoginScreen,
-    Register: RegisterScreen,
   },
   {
     defaultNavigationOptions: {header: null},
