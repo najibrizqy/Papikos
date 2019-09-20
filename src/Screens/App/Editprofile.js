@@ -7,11 +7,11 @@ export default class Editroom extends Component {
         super(props)
         this.state = {
           formData: {
-            name: '',
-            price: '',
-            area:'',
-            type:'',
-            description:'',
+            fullname: '',
+            labelName: '',
+            email:'',
+            password:'',
+            address:'',
             photos:''
             
           },
@@ -35,7 +35,7 @@ export default class Editroom extends Component {
       }
       handleChoosePhoto(){
         ImagePicker.openPicker({
-            multiple: true,
+            multiple: false
           }).then(images => {
             let newFormData={...this.state.formData}
             newFormData.photos=images
@@ -52,57 +52,41 @@ export default class Editroom extends Component {
             <Item stackedLabel >
               <Label>Name</Label>
               <Input 
-              onChangeText={(text)=>this.handleChange('name',text)}/>
+              onChangeText={(text)=>this.handleChange('fullname',text)}/>
             </Item>
             <Item stackedLabel>
-              <Label>Price</Label>
+              <Label>Kos Name</Label>
               <Input 
-              onChangeText={(text)=>this.handleChange('price',text)}/>
+              onChangeText={(text)=>this.handleChange('labelName',text)}/>
             </Item>
             <Item stackedLabel>
-              <Label>Type</Label>
-              <Picker
-              mode="dropdown"
-              iosIcon={<Icon name="arrow-down" />}
-              style={{ width: 353,height:30,alignSelf:'center',paddingHorizontal:20 }}
-              selectedValue={formData.type}
-              onValueChange={this.onTypeChange.bind(this)}
-            >
-              <Picker.Item label="Reguler" value="1" />
-              <Picker.Item label="VIP" value="2" />
-              <Picker.Item label="VVIP" value="3" />
-              <Picker.Item label="Premium" value="4" />
-            </Picker>
-            </Item>
-            <Item stackedLabel>
-              <Label>Area</Label>
+              <Label>Email</Label>
               <Input 
-              onChangeText={(text)=>this.handleChange('area',text)}/>
+              onChangeText={(text)=>this.handleChange('email',text)}/>
+            </Item>
+            <Item stackedLabel>
+              <Label>Phone</Label>
+              <Input 
+              onChangeText={(text)=>this.handleChange('password',text)}/>
             </Item>
             <Item stackedLabel last>
-              <Label>Description</Label>
+              <Label>Address</Label>
               <Input
-              onChangeText={(text)=>this.handleChange('description',text)} />
+              onChangeText={(text)=>this.handleChange('address',text)} />
             </Item>
           </Form>
           <View >
                 <Button style={styles.choosebutton} title="Choose Photos" onPress={()=>this.handleChoosePhoto()} >
                     <Text style={styles.buttonText2}>
-                            Choose Photos
+                            Profile Picture
                     </Text>
                     </Button>
                     <View style={styles.listimage}>
                 {formData.photos ?
-                    image.map((item,index)=>{
-                        return(
-                            <Image
-                            key={index}
-                        source={{uri:item.path}}
+                        <Image
+                        source={{uri:formData.photos.path}}
                         style={styles.photo}
-                    />
-                        )
-                        
-                    }):<View></View>
+                    />:<View></View>
                 }
                 </View>
             </View>
@@ -122,7 +106,8 @@ button:{
     alignSelf: 'center',
     marginTop:0,
     justifyContent:'center',
-    backgroundColor:'#1C8CD1'
+    backgroundColor:'#1C8CD1',
+    marginBottom: 20,
 },
 text:{
     fontSize:17
@@ -137,11 +122,8 @@ photo:{
       marginBottom: 10
   },
   listimage:{
-      paddingHorizontal: 32,
+      alignSelf:'center',
       marginBottom: 15,
-      flexDirection: 'row', 
-      flexWrap: 'wrap', 
-      justifyContent: 'space-between'
   },
   choosebutton:{
     paddingVertical: 10,
