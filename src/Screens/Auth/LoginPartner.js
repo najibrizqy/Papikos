@@ -51,9 +51,12 @@ class LoginPartner extends Component {
           this.setState({formData: {email: '', password: ''}});
           Alert.alert('Login Failed!', `${res.action.payload.data.message}`);
         } else {
-          const tokenUser = this.props.auth.User.token;
-          await AsyncStorage.setItem('tokenUser', tokenUser);
+          const tokenPartner = this.props.auth.Partner.token;
+          const partner_id = this.props.auth.Partner.data[0].id.toString();
+          await AsyncStorage.setItem('tokenUser', tokenPartner);
           await AsyncStorage.setItem('logged', 'partner');
+          await AsyncStorage.setItem('partner_id', partner_id);
+
           this.props.navigation.navigate('HomePartner');
         }
       });
