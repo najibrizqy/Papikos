@@ -30,6 +30,7 @@ import LoginPartner from '../Screens/Auth/LoginPartner'
 import RegisterPartner from '../Screens/Auth/RegisterPartner'
 import Editroom from '../Screens/App/Editroom'
 import Editprofile from '../Screens/App/Editprofile'
+
 const AuthStack = createStackNavigator({
   Welcome: WelcomeScreen,
   Login: LoginScreen,
@@ -71,17 +72,15 @@ const AppStack = createStackNavigator(
     Payment : {
     screen: PaymentScreen,
   },
-  },
-  {
-    header: null,
 
+},{
+    header:null,
     headerMode: 'none',
     navigationOptions: ({navigation}) => {
       let tabBarVisible;
       if (navigation.state.routes.length > 1) {
         navigation.state.routes.map(route => {
           if (route.routeName === "ProductMap" || route.routeName === "KosDetail" || route.routeName === "Payment") {
-          if (route.routeName === "ProductMap" || route.routeName === "KosDetail") {
             tabBarVisible = false;
           } else {
             tabBarVisible = true;

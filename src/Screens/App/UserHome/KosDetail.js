@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import { View, StyleSheet, Image, TouchableOpacity, Dimensions, Text, Alert } from 'react-native'
 import { Icon, Button } from 'native-base'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
-import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native'
-import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 class KosDetail extends Component {
   constructor() {
@@ -107,57 +105,10 @@ class KosDetail extends Component {
                             </Button>
                         </View>
                     </View>
-
-  get pagination() {
-    const {activeSlide} = this.state;
-    return (
-      <Pagination
-        dotsLength={this.dummyImage.length}
-        activeDotIndex={activeSlide}
-        containerStyle={{
-          backgroundColor: 'transparent',
-          position: 'absolute',
-          bottom: 0,
-          alignSelf: 'center',
-          paddingVertical: 10,
-        }}
-        dotStyle={{
-          width: 10,
-          height: 10,
-          borderRadius: 5,
-          marginHorizontal: 8,
-          backgroundColor: '#1AB0D3',
-        }}
-        inactiveDotStyle={
-          {
-            // Define styles for inactive dots here
-          }
-        }
-        inactiveDotOpacity={0.4}
-        inactiveDotScale={0.6}
-      />
-    );
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Carousel
-            data={this.dummyImage}
-            renderItem={this._renderItem}
-            windowSize={1}
-            sliderWidth={sliderWidth}
-            itemWidth={itemWidth}
-            onSnapToItem={index => this.setState({activeSlide: index})}
-          />
-          {this.pagination}
-        </View>
-        <View style={styles.body}></View>
-        <View style={styles.footer}></View>
-      </View>
-    );
-  }
+                </View>
+            </View>
+        )
+    }
 }
 
 export default KosDetail;
@@ -197,9 +148,6 @@ const styles = StyleSheet.create({
     footer:{
         position: 'absolute',
         height: 70,
-    footer:{
-        position: 'absolute',
-        height: 80,
         backgroundColor: '#FFF',
         bottom: 0,
         width: '100%',
