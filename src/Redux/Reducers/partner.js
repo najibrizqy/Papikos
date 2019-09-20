@@ -1,14 +1,13 @@
 const init = {
-  User: [],
   Partner: [],
   isLoading: false,
   isRejected: false,
   isFulfilled: false,
 };
 
-const auth = (state = init, action) => {
+const partner = (state = init, action) => {
   switch (action.type) {
-    case 'LOGIN_USER_PENDING':
+    case 'GET_PARTNERS_PENDING':
       return {
         ...state,
         isLoading: true,
@@ -16,40 +15,21 @@ const auth = (state = init, action) => {
         isFulfilled: false,
         isLoggedIn: false,
       };
-    case 'LOGIN_USER_REJECTED':
+    case 'GET_PARTNERS_REJECTED':
       return {
         ...state,
         isLoading: false,
         isRejected: true,
       };
-    case 'LOGIN_USER_FULFILLED':
+    case 'GET_PARTNERS_FULFILLED':
       return {
         ...state,
         isLoading: false,
         isFulfilled: true,
         isLoggedIn: true,
-        User: action.payload.data,
+        Partner: action.payload.data,
       };
-    case 'REGISTER_USER_PENDING':
-      return {
-        ...state,
-        isLoading: true,
-        isRejected: false,
-        isFulfilled: false,
-      };
-    case 'REGISTER_USER_REJECTED':
-      return {
-        ...state,
-        isLoading: false,
-        isRejected: true,
-      };
-    case 'REGISTER_USER_FULFILLED':
-      return {
-        ...state,
-        isLoading: false,
-        isFulfilled: true,
-      };
-    case 'LOGIN_PARTNER_PENDING':
+    case 'GET_A_PARTNER_PENDING':
       return {
         ...state,
         isLoading: true,
@@ -57,41 +37,67 @@ const auth = (state = init, action) => {
         isFulfilled: false,
         isLoggedIn: false,
       };
-    case 'LOGIN_PARTNER_REJECTED':
+    case 'GET_A_PARTNER_REJECTED':
       return {
         ...state,
         isLoading: false,
         isRejected: true,
       };
-    case 'LOGIN_PARTNER_FULFILLED':
+    case 'GET_A_PARTNER_FULFILLED':
       return {
         ...state,
         isLoading: false,
         isFulfilled: true,
         isLoggedIn: true,
-        Partner: action.payload.data.data,
+        Partner: action.payload.data,
       };
-    case 'REGISTER_PARTNER_PENDING':
+    case 'UPDATE_PARTNER_PENDING':
       return {
         ...state,
         isLoading: true,
         isRejected: false,
         isFulfilled: false,
+        isLoggedIn: false,
       };
-    case 'REGISTER_PARTNER_REJECTED':
+    case 'UPDATE_PARTNER_REJECTED':
       return {
         ...state,
         isLoading: false,
         isRejected: true,
       };
-    case 'REGISTER_PARTNER_FULFILLED':
+    case 'UPDATE_PARTNER_FULFILLED':
       return {
         ...state,
         isLoading: false,
         isFulfilled: true,
+        isLoggedIn: true,
+        Partner: action.payload.data,
+      };
+    case 'DELETE_PARTNER_PENDING':
+      return {
+        ...state,
+        isLoading: true,
+        isRejected: false,
+        isFulfilled: false,
+        isLoggedIn: false,
+      };
+    case 'DELETE_PARTNER_REJECTED':
+      return {
+        ...state,
+        isLoading: false,
+        isRejected: true,
+      };
+    case 'DELETE_PARTNER_FULFILLED':
+      return {
+        ...state,
+        isLoading: false,
+        isFulfilled: true,
+        isLoggedIn: true,
+        Partner: action.payload.data,
       };
     default:
       return state;
   }
 };
-export default auth;
+
+export default partner;

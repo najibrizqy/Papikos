@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {createAppContainer, createSwitchNavigator} from 'react-navigation'
-import {createStackNavigator} from 'react-navigation-stack'
-import {createBottomTabNavigator} from 'react-navigation-tabs'
+import React, {Component} from 'react';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {Icon} from 'native-base';
 
 import WelcomeScreen from '../Screens/Auth/Welcome'
@@ -30,6 +30,7 @@ import LoginPartner from '../Screens/Auth/LoginPartner'
 import RegisterPartner from '../Screens/Auth/RegisterPartner'
 import Editroom from '../Screens/App/Editroom'
 import Editprofile from '../Screens/App/Editprofile'
+
 const AuthStack = createStackNavigator({
   Welcome: WelcomeScreen,
   Login: LoginScreen,
@@ -48,24 +49,30 @@ const AuthStack = createStackNavigator({
   },
 },
   {
-    defaultNavigationOptions: {header: null}
-  }
+    Welcome: WelcomeScreen,
+    Login: LoginScreen,
+    Register: RegisterScreen,
+  },
+  {
+    defaultNavigationOptions: {header: null},
+  },
 );
 //Route User
 
-const AppStack = createStackNavigator({
-  Home: HomeScreen,
-  ProductList : ProductListScreen,
-  ProductMap : {
-    screen: ProductMapScreen,
-  },
-  KosDetail : {
+const AppStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    ProductList: ProductListScreen,
+    ProductMap: {
+      screen: ProductMapScreen,
+    },
+    KosDetail : {
     screen: KosDetailScreen,
   },
-  Payment : {
+    Payment : {
     screen: PaymentScreen,
   },
-  KosDetail : KosDetailScreen,
+
 },{
     header:null,
     headerMode: 'none',
@@ -81,58 +88,70 @@ const AppStack = createStackNavigator({
         });
       }
       return {
-        tabBarVisible
+        tabBarVisible,
       };
     },
-  }
+  },
 );
 
 //App Route Partner
 const AppPartnerStack = createStackNavigator({
+  LoginPartner: {
+    screen: LoginPartner,
+    navigationOptions: ({navigation}) => ({
+      header: null,
+    }),
+  },
+  RegisterPartner: {
+    screen: RegisterPartner,
+    navigationOptions: ({navigation}) => ({
+      header: null,
+    }),
+  },
   HomePartner: {
     screen: HomePartner,
-    navigationOptions: ({navigation})=>({
-      header: null
-    })
+    navigationOptions: ({navigation}) => ({
+      header: null,
+    }),
   },
   Details: {
     screen: Details,
-    navigationOptions:({navigation})=>({
+    navigationOptions: ({navigation}) => ({
       title: 'Details',
-      headerStyle:{
-        backgroundColor:'#1AB0D3',
+      headerStyle: {
+        backgroundColor: '#1AB0D3',
       },
-      headerTitleStyle:{
-        color: 'white'
+      headerTitleStyle: {
+        color: 'white',
       },
-      headerTintColor:'white'
-    })
+      headerTintColor: 'white',
+    }),
   },
-  Addroom:{
+  Addroom: {
     screen: Addroom,
-    navigationOptions:({navigation})=>({
+    navigationOptions: ({navigation}) => ({
       title: 'Add Room',
-      headerStyle:{
-        backgroundColor:'#1AB0D3'
+      headerStyle: {
+        backgroundColor: '#1AB0D3',
       },
-      headerTitleStyle:{
-        color:'white'
+      headerTitleStyle: {
+        color: 'white',
       },
-      headerTintColor:'white'
-    })
+      headerTintColor: 'white',
+    }),
   },
-  Editroom:{
+  Editroom: {
     screen: Editroom,
-    navigationOptions:({navigation})=>({
+    navigationOptions: ({navigation}) => ({
       title: 'Edit Room',
-      headerStyle:{
-        backgroundColor:'#1AB0D3'
+      headerStyle: {
+        backgroundColor: '#1AB0D3',
       },
-      headerTitleStyle:{
-        color:'white'
+      headerTitleStyle: {
+        color: 'white',
       },
-      headerTintColor:'white'
-    })
+      headerTintColor: 'white',
+    }),
   },
   Editprofile:{
     screen: Editprofile,
@@ -149,157 +168,159 @@ const AppPartnerStack = createStackNavigator({
   },
   Income:{
     screen: Income,
-    navigationOptions:({navigation})=>({
+    navigationOptions: ({navigation}) => ({
       title: 'Income',
-      headerStyle:{
-        backgroundColor:'#1AB0D3'
+      headerStyle: {
+        backgroundColor: '#1AB0D3',
       },
-      headerTitleStyle:{
-        color:'white'
+      headerTitleStyle: {
+        color: 'white',
       },
-      headerTintColor:'white'
-    })
+      headerTintColor: 'white',
+    }),
   },
-  HistoryPartner:{
+  HistoryPartner: {
     screen: HistoryPartner,
-    navigationOptions:({navigation})=>({
+    navigationOptions: ({navigation}) => ({
       title: 'History',
-      headerStyle:{
-        backgroundColor:'#1AB0D3'
+      headerStyle: {
+        backgroundColor: '#1AB0D3',
       },
-      headerTitleStyle:{
-        color:'white'
+      headerTitleStyle: {
+        color: 'white',
       },
-      headerTintColor:'white'
-    })
+      headerTintColor: 'white',
+    }),
   },
-  Reguler:{
+  Reguler: {
     screen: Reguler,
-    navigationOptions:({navigation})=>({
+    navigationOptions: ({navigation}) => ({
       title: 'Reguler',
-      headerStyle:{
-        backgroundColor:'#1AB0D3'
+      headerStyle: {
+        backgroundColor: '#1AB0D3',
       },
-      headerTitleStyle:{
-        color:'white'
+      headerTitleStyle: {
+        color: 'white',
       },
-      headerTintColor:'white'
-    })
+      headerTintColor: 'white',
+    }),
   },
-  VIP:{
+  VIP: {
     screen: VIP,
-    navigationOptions:({navigation})=>({
+    navigationOptions: ({navigation}) => ({
       title: 'VIP',
-      headerStyle:{
-        backgroundColor:'#1AB0D3'
+      headerStyle: {
+        backgroundColor: '#1AB0D3',
       },
-      headerTitleStyle:{
-        color:'white'
+      headerTitleStyle: {
+        color: 'white',
       },
-      headerTintColor:'white'
-    })
+      headerTintColor: 'white',
+    }),
   },
-  VVIP:{
+  VVIP: {
     screen: VVIP,
-    navigationOptions:({navigation})=>({
+    navigationOptions: ({navigation}) => ({
       title: 'VVIP',
-      headerStyle:{
-        backgroundColor:'#1AB0D3'
+      headerStyle: {
+        backgroundColor: '#1AB0D3',
       },
-      headerTitleStyle:{
-        color:'white'
+      headerTitleStyle: {
+        color: 'white',
       },
-      headerTintColor:'white'
-    })
+      headerTintColor: 'white',
+    }),
   },
-  Premium:{
+  Premium: {
     screen: Premium,
-    navigationOptions:({navigation})=>({
+    navigationOptions: ({navigation}) => ({
       title: 'Premium',
-      headerStyle:{
-        backgroundColor:'#1AB0D3'
+      headerStyle: {
+        backgroundColor: '#1AB0D3',
       },
-      headerTitleStyle:{
-        color:'white'
+      headerTitleStyle: {
+        color: 'white',
       },
-      headerTintColor:'white'
-    })
-  }
-}) 
+      headerTintColor: 'white',
+    }),
+  },
+});
 
-const AppNavigator = createBottomTabNavigator({
-  Home: {
-    screen: AppStack,
-    navigationOptions: {
-      tabBarLabel: 'Home',
-      tabBarIcon: ({tintColor}) => (
-        <Icon
-          type="MaterialCommunityIcons"
-          name="home"
-          style={{fontSize: 23, color: tintColor}}
-        />
-      ),
-    }, 
-  },
-  Chat: {
-    screen: ChatScreen,
-    navigationOptions: {
-      tabBarLabel: 'Chat',
-      tabBarIcon: ({tintColor}) => (
-        <Icon
-          type="MaterialCommunityIcons"
-          name="message-text"
-          style={{fontSize: 23, color: tintColor}}
-        />
-      ),
+const AppNavigator = createBottomTabNavigator(
+  {
+    Home: {
+      screen: AppStack,
+      navigationOptions: {
+        tabBarLabel: 'Home',
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            type="MaterialCommunityIcons"
+            name="home"
+            style={{fontSize: 23, color: tintColor}}
+          />
+        ),
+      },
+    },
+    Chat: {
+      screen: ChatScreen,
+      navigationOptions: {
+        tabBarLabel: 'Chat',
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            type="MaterialCommunityIcons"
+            name="message-text"
+            style={{fontSize: 23, color: tintColor}}
+          />
+        ),
+      },
+    },
+    History: {
+      screen: HistoryScreen,
+      navigationOptions: {
+        tabBarLabel: 'History',
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            type="MaterialCommunityIcons"
+            name="history"
+            style={{fontSize: 23, color: tintColor}}
+          />
+        ),
+      },
+    },
+    Profile: {
+      screen: ProfileScreen,
+      navigationOptions: {
+        tabBarLabel: 'Profile',
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            type="MaterialCommunityIcons"
+            name="account-circle"
+            style={{fontSize: 23, color: tintColor}}
+          />
+        ),
+      },
     },
   },
-  History: {
-    screen: HistoryScreen,
-    navigationOptions: {
-      tabBarLabel: 'History',
-      tabBarIcon: ({tintColor}) => (
-        <Icon
-          type="MaterialCommunityIcons"
-          name="history"
-          style={{fontSize: 23, color: tintColor}}
-        />
-      ),
+  {
+    tabBarOptions: {
+      activeTintColor: '#34ABC6',
+      labelStyle: {
+        fontSize: 12,
+      },
+      style: {
+        marginBottom: 3,
+      },
     },
   },
-  Profile: {
-    screen: ProfileScreen,
-    navigationOptions: {
-      tabBarLabel: 'Profile',
-      tabBarIcon: ({tintColor}) => (
-        <Icon
-          type="MaterialCommunityIcons"
-          name="account-circle"
-          style={{fontSize: 23, color: tintColor}}
-        />
-      ),
-    },
-  },
-},
-{
-  tabBarOptions: {
-    activeTintColor: '#34ABC6',
-    labelStyle: {
-      fontSize: 12,
-    },
-    style: {
-      marginBottom: 3
-    }
-  } 
-})
+);
 
 const AppRoot = createAppContainer(
   createSwitchNavigator(
     {
-      Splash : Splash,
+      Splash: Splash,
       Auth: AuthStack,
-      App : AppNavigator,
-      AppPartner : AppPartnerStack,
+      App: AppNavigator,
+      AppPartner: AppPartnerStack,
     },
     {
       initialRouteName:'Splash',

@@ -111,7 +111,6 @@ class KosDetail extends Component{
                             </Button>
                         </View>
                     </View>
-
                 </View>
             </View>
         )
@@ -227,3 +226,4 @@ const styles = StyleSheet.create({
         fontSize: 17,
     }
 })
+
