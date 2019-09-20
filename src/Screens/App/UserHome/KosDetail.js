@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, StyleSheet, Image, TouchableOpacity, Dimensions, Text } from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity, Dimensions, Text, Alert } from 'react-native'
 import { Icon, Button } from 'native-base'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 
@@ -49,6 +49,22 @@ class KosDetail extends Component{
         );
     }
 
+    handleBooking = () => {
+        Alert.alert(
+            'Confirm',
+            'Are you sure to booking this room?',
+            [
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+              },
+              {text: 'OK', onPress: () => this.props.navigation.navigate("Payment")},
+            ],
+            {cancelable: false},
+        );
+    }
+
     render(){
         return(
             <View style={styles.container}>
@@ -89,7 +105,7 @@ class KosDetail extends Component{
                             <Button bordered style={styles.btnChat}>
                                 <Icon type="MaterialIcons" name="chat" style={styles.iconChat}/>
                             </Button>
-                            <Button style={styles.btnBooking}>
+                            <Button style={styles.btnBooking} onPress={this.handleBooking}>
                                 <Text style={styles.btnText}> Booking </Text>
                             </Button>
                         </View>
