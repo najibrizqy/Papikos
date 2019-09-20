@@ -15,26 +15,26 @@ class ConfirmPayment extends Component {
         this.state={
             logo: props.navigation.getParam('bankLogo'),
             BankData:[],
-            AccounNum:''
+            AccounNum:'09'
         }
     }
 
 
-    componentDidMount(){
+        componentDidMount(){
        
-        console.warn(this.props.navigation.getParam('MyBank'))
+
+        //console.warn(this.props.navigation.getParam('MyBank'))
 
         var bc = this.props.navigation.getParam('MyBank')
-        this.setState({
-            BankData:bc.filter(bc => bc.bank_code == this.props.navigation.getParam('bankCode'))
-        })
+        
 
-        
-        
-        
-        // this.setState({
-            
-        // })
+       
+       
+        var account = bc.filter(bc => bc.bank_code == this.props.navigation.getParam('bankCode'))[0]
+        console.warn(account.bank_account_number)
+         this.setState({
+            AccounNum :account.bank_account_number
+         })
     }
     
     Item=[
@@ -42,7 +42,7 @@ class ConfirmPayment extends Component {
         {text: 'Ketik nomor PIN kartu ATM '},
         {text: 'Pilih menu "BAYAR/BELI", kemudian pilih menu "MULTI PAYMENT"'},
         {text: 'Ketik kode perusahaan, yaitu  (88608 XENDIT), tekan "BENAR"'},
-        {text: 'Masukkan nomor Virtual Account '},
+        {text: `Masukkan nomor Virtual Account `},
         {text: 'Isi NOMINAL kemudian tekan "BENAR"'},
         {text: 'Muncul konfirmasi data customer. Pilih Nomor 1 sesuai tagihan yang akan dibayar, kemudian tekan "YA"'},
         {text: 'Muncul konfirmasi pembayaran. Tekan "YA" untuk melakukan pembayaran'},
@@ -53,6 +53,7 @@ class ConfirmPayment extends Component {
 
     render(){
         const {logo} = this.state
+        
         return(
             <View style={styles.container}>
                 <Header title={'Confirm Payment'} navigation={this.props.navigation}/>
@@ -73,7 +74,7 @@ class ConfirmPayment extends Component {
                         </View>
                         <View style={styles.instruction}>
                             <View style={styles.instructionHeader}>
-                                <Text style={styles.instructionText}>Instruction</Text>
+                                <Text style={styles.instructionText}>Instruction {this.state.AccounNum}</Text>
                             </View>
                             <View style={styles.instructionBody}>
                                 {
