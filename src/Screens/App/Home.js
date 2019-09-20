@@ -76,26 +76,32 @@ class Home extends React.Component {
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}>
-              {regions.map((res, index) => {
-                return (
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    key={index}
-                    style={styles.touchCity}
-                    onPress={() => {
-                      this.props.navigation.navigate('ProductMap', {item: res});
-                    }}>
-                    <View style={styles.item}>
-                      <Thumbnail
-                        square
-                        source={{uri: `${res.image}`}}
-                        style={styles.thumbnail}
-                      />
-                      <Text style={styles.placeText}>{res.name}</Text>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })}
+              {regions ? (
+                regions.map((res, index) => {
+                  return (
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      key={index}
+                      style={styles.touchCity}
+                      onPress={() => {
+                        this.props.navigation.navigate('ProductMap', {
+                          item: res,
+                        });
+                      }}>
+                      <View style={styles.item}>
+                        <Thumbnail
+                          square
+                          source={{uri: `${res.image}`}}
+                          style={styles.thumbnail}
+                        />
+                        <Text style={styles.placeText}>{res.name}</Text>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                })
+              ) : (
+                <Text>Loading...</Text>
+              )}
             </ScrollView>
           </View>
           <View style={styles.body}>
@@ -104,35 +110,43 @@ class Home extends React.Component {
               <ScrollView
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}>
-                {rooms.map((res, index) => {
-                  return (
-                    <View style={styles.carousel} key={index}>
-                      <TouchableOpacity
-                        onPress={() =>
-                          this.props.navigation.navigate('KosDetail', {
-                            item: res,
-                          })
-                        }>
-                        <View style={styles.headerCard}>
-                          <Image
-                            source={{uri: `${res.image.split(',')[0]}`}}
-                            style={styles.imgCard}
-                          />
-                          <View style={styles.genderWrapper}>
-                            <Text style={styles.genderText}>{res.gender}</Text>
+                {rooms ? (
+                  rooms.map((res, index) => {
+                    return (
+                      <View style={styles.carousel} key={index}>
+                        <TouchableOpacity
+                          onPress={() =>
+                            this.props.navigation.navigate('KosDetail', {
+                              item: res,
+                            })
+                          }>
+                          <View style={styles.headerCard}>
+                            <Image
+                              source={{uri: `${res.image.split(',')[0]}`}}
+                              style={styles.imgCard}
+                            />
+                            <View style={styles.genderWrapper}>
+                              <Text style={styles.genderText}>
+                                {res.gender}
+                              </Text>
+                            </View>
                           </View>
-                        </View>
-                        <View style={styles.bodyCard}>
-                          <Text style={styles.name}>
-                            {res.name.slice(0, 13)}
-                          </Text>
-                          <Text style={styles.area}>{res.room_area}</Text>
-                          <Text style={styles.price}>Rp {res.price}/month</Text>
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                  );
-                })}
+                          <View style={styles.bodyCard}>
+                            <Text style={styles.name}>
+                              {res.name.slice(0, 13)}
+                            </Text>
+                            <Text style={styles.area}>{res.room_area}</Text>
+                            <Text style={styles.price}>
+                              Rp {res.price}/month
+                            </Text>
+                          </View>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  })
+                ) : (
+                  <Text>Loading...</Text>
+                )}
               </ScrollView>
             </View>
           </View>
