@@ -6,7 +6,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel'
 class KosDetail extends Component{
     constructor(){
         super()
-        this.state = {
+        this.state = { 
             data: '',
             activeSlide: 0,
         }
