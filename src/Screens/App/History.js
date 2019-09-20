@@ -1,5 +1,5 @@
 import React from 'react'
-import {FlatList} from 'react-native'
+import {FlatList, RefreshControl, ScrollView} from 'react-native'
 import { Container, Header, Content, List, ListItem, Text, Left, Right, Badge, Row} from 'native-base';
 
 import axios from 'axios'
@@ -8,17 +8,26 @@ export default class History extends React.Component{
     super()
         this.state={
             Payment : [],
-            load:false
+            refresh:false
         }
+    }
+
+    _onRefresh  = () => {
+        this.setState({refresh: true});
+        this. getHistory()
+      }
+
+
+     refreshData=async()=>{
+        await axios.get('https://salty-plains-50836.herokuapp.com/booking/history')
     }
 
     getHistory=()=>{
         this.setState({load:true})
         axios.get('https://salty-plains-50836.herokuapp.com/booking/history')
             .then(result=>{
-                this.setState({load:false})
                 this.setState({Payment:result.data.result})
-               
+                this.setState({refresh: false});
             }).catch(err=>{
                 console.warn(err)
             })
@@ -28,12 +37,18 @@ export default class History extends React.Component{
         await this.getHistory()
     }
 
+
     render(){
        const result = this.state.Payment
        const loading = this.state.load
        console.warn(result)
         return (
-            <>
+            <ScrollView refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refresh}
+                  onRefresh={this._onRefresh}
+                />
+              }>
                 <Container>
                     <Content>
                     <List>
@@ -62,7 +77,7 @@ export default class History extends React.Component{
                     </Content>
                 </Container>
             
-            </>
+            </ScrollView>
         )
     }
 }
