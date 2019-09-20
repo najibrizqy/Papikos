@@ -9,6 +9,7 @@ import {
   AsyncStorage,
   ToastAndroid,
   TouchableOpacity,
+  StatusBar
 } from 'react-native';
 
 import {connect} from 'react-redux';
@@ -80,6 +81,7 @@ class LoginPartner extends Component {
     const {isLoading} = this.props.auth;
     return (
       <View style={styles.container}>
+        <StatusBar backgroundColor="#4B0082" />
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
           <View style={styles.content}>
             <Image source={logo} style={styles.logo} />
@@ -137,7 +139,8 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#3c1053',
+    // backgroundColor: '#3c1053',
+    backgroundColor: '#663399',
   },
   content: {
     width: '70%',
