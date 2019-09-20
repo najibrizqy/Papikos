@@ -4,54 +4,44 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {Icon} from 'native-base';
 
-import WelcomeScreen from '../Screens/Auth/Welcome'
-import LoginScreen from '../Screens/Auth/Login'
-import RegisterScreen from '../Screens/Auth/Register'
-import HomeScreen from '../Screens/App/Home'
-import ChatScreen from '../Screens/App/Chat'
-import HistoryScreen from '../Screens/App/History'
-import ProfileScreen from '../Screens/App/Profile'
-import ProductListScreen from '../Screens/App/UserHome/ProductList'
-import ProductMapScreen from '../Screens/App/UserHome/ProductMap'
-import KosDetailScreen from '../Screens/App/UserHome/KosDetail'
-import PaymentScreen from '../Screens/App/UserHome/Payment'
-import Splash from '../Screens/Splash'
+import WelcomeScreen from '../Screens/Auth/Welcome';
+import LoginScreen from '../Screens/Auth/Login';
+import RegisterScreen from '../Screens/Auth/Register';
+import HomeScreen from '../Screens/App/Home';
+import ChatScreen from '../Screens/App/Chat';
+import HistoryScreen from '../Screens/App/History';
+import ProfileScreen from '../Screens/App/Profile';
+import ProductListScreen from '../Screens/App/UserHome/ProductList';
+import ProductMapScreen from '../Screens/App/UserHome/ProductMap';
+import KosDetailScreen from '../Screens/App/UserHome/KosDetail';
+import PaymentScreen from '../Screens/App/UserHome/Payment';
+import Splash from '../Screens/Splash';
 
-import HomePartner from '../Screens/App/HomePartner'
-import Details from '../Screens/App/Details'
-import Addroom from '../Screens/App/Addroom'
-import Income from '../Screens/App/Income'
-import HistoryPartner from '../Screens/App/HistoryPartner'
-import Reguler from '../Screens/App/Reguler'
-import VIP from '../Screens/App/VIP'
-import VVIP from '../Screens/App/VVIP'
-import Premium from '../Screens/App/Premium'
-import LoginPartner from '../Screens/Auth/LoginPartner'
-import RegisterPartner from '../Screens/Auth/RegisterPartner'
-import Editroom from '../Screens/App/Editroom'
-import Editprofile from '../Screens/App/Editprofile'
+import HomePartner from '../Screens/App/HomePartner';
+import Details from '../Screens/App/Details';
+import Addroom from '../Screens/App/Addroom';
+import Income from '../Screens/App/Income';
+import HistoryPartner from '../Screens/App/HistoryPartner';
+import Reguler from '../Screens/App/Reguler';
+import VIP from '../Screens/App/VIP';
+import VVIP from '../Screens/App/VVIP';
+import Premium from '../Screens/App/Premium';
+import LoginPartner from '../Screens/Auth/LoginPartner';
+import RegisterPartner from '../Screens/Auth/RegisterPartner';
+import Editroom from '../Screens/App/Editroom';
+import Editprofile from '../Screens/App/Editprofile';
 
-const AuthStack = createStackNavigator({
-  Welcome: WelcomeScreen,
-  Login: LoginScreen,
-  Register: RegisterScreen,
-  LoginPartner:{
-    screen: LoginPartner,
-    navigationOptions:({navigation})=>({
-      header: null
-    })
-  },
-  RegisterPartner:{
-    screen: RegisterPartner,
-    navigationOptions:({navigation})=>({
-      header: null
-    })
-  },
-},
+const AuthStack = createStackNavigator(
   {
     Welcome: WelcomeScreen,
     Login: LoginScreen,
     Register: RegisterScreen,
+    LoginPartner: {
+      screen: LoginPartner,
+    },
+    RegisterPartner: {
+      screen: RegisterPartner,
+    },
   },
   {
     defaultNavigationOptions: {header: null},
@@ -66,21 +56,25 @@ const AppStack = createStackNavigator(
     ProductMap: {
       screen: ProductMapScreen,
     },
-    KosDetail : {
-    screen: KosDetailScreen,
+    KosDetail: {
+      screen: KosDetailScreen,
+    },
+    Payment: {
+      screen: PaymentScreen,
+    },
   },
-    Payment : {
-    screen: PaymentScreen,
-  },
-
-},{
-    header:null,
+  {
+    header: null,
     headerMode: 'none',
     navigationOptions: ({navigation}) => {
       let tabBarVisible;
       if (navigation.state.routes.length > 1) {
         navigation.state.routes.map(route => {
-          if (route.routeName === "ProductMap" || route.routeName === "KosDetail" || route.routeName === "Payment") {
+          if (
+            route.routeName === 'ProductMap' ||
+            route.routeName === 'KosDetail' ||
+            route.routeName === 'Payment'
+          ) {
             tabBarVisible = false;
           } else {
             tabBarVisible = true;
@@ -153,20 +147,20 @@ const AppPartnerStack = createStackNavigator({
       headerTintColor: 'white',
     }),
   },
-  Editprofile:{
+  Editprofile: {
     screen: Editprofile,
-    navigationOptions:({navigation})=>({
+    navigationOptions: ({navigation}) => ({
       title: 'Edit Profile',
-      headerStyle:{
-        backgroundColor:'#1AB0D3'
+      headerStyle: {
+        backgroundColor: '#1AB0D3',
       },
-      headerTitleStyle:{
-        color:'white'
+      headerTitleStyle: {
+        color: 'white',
       },
-      headerTintColor:'white'
-    })
+      headerTintColor: 'white',
+    }),
   },
-  Income:{
+  Income: {
     screen: Income,
     navigationOptions: ({navigation}) => ({
       title: 'Income',
@@ -323,7 +317,7 @@ const AppRoot = createAppContainer(
       AppPartner: AppPartnerStack,
     },
     {
-      initialRouteName:'Splash',
+      initialRouteName: 'Splash',
       // headerMode: 'none',
     },
   ),

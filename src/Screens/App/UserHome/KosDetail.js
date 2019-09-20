@@ -3,14 +3,20 @@ import { View, StyleSheet, Image, TouchableOpacity, Dimensions, Text, Alert } fr
 import { Icon, Button } from 'native-base'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 
-class KosDetail extends Component {
-  constructor() {
-    super();
-    this.state = {
-      data: '',
-      activeSlide: 0,
-    };
-  }
+class KosDetail extends Component{
+    constructor(){
+        super()
+        this.state = { 
+            data: '',
+            activeSlide: 0,
+        }
+    }
+
+    dummyImage=[
+        {image: 'https://s-ec.bstatic.com/images/hotel/max1024x768/164/164741337.jpg'},
+        {image: 'https://rumahdijual.com/attachments/jakarta-barat/22177037d1522898894-20-kamar-kamar-mandi-dalam-kost-putri-tanjung-duren-whatsapp-image-2018-04-04-11.52.47.jpg'},
+        {image: 'https://s-ec.bstatic.com/images/hotel/max1024x768/164/164741337.jpg'},
+    ]
 
     _renderItem ({item, index}) {
         return(
