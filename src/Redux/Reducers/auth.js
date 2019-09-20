@@ -69,7 +69,7 @@ const auth = (state = init, action) => {
         isLoading: false,
         isFulfilled: true,
         isLoggedIn: true,
-        Partner: action.payload.data.data,
+        Partner: action.payload.data,
       };
     case 'REGISTER_PARTNER_PENDING':
       return {
