@@ -58,7 +58,9 @@ export default class ProductMap extends Component {
                 style={styles.backIcon}
                 onPress={() => this.props.navigation.goBack()}
               />
-              <Text style={styles.textBar}>T-Series</Text>
+              <Text style={styles.textBar}>
+                {this.props.navigation.getParam('item').name}
+              </Text>
             </View>
           </View>
         </View>
