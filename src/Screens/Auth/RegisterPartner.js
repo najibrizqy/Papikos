@@ -108,8 +108,7 @@ class Register extends Component {
               style={styles.input}
             />
             <TextInput
-              placeholder="Adress"
-              secureTextEntry
+              placeholder="Address"
               value={this.state.address}
               onChangeText={text => this.handleChange('address', text)}
               style={styles.input}
