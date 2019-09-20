@@ -61,10 +61,8 @@ export default class Editroom extends Component {
           <Form>
             <Item stackedLabel>
               <Label>Name</Label>
-              <Input
-                placeholder="maliki"
-                onChangeText={text => this.handleChange('name', text)}
-              />
+              <Input 
+              onChangeText={(text)=>this.handleChange('name',text)}/>
             </Item>
             <Item stackedLabel>
               <Label>Price</Label>

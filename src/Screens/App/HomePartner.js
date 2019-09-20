@@ -16,6 +16,7 @@ import {
 import {Image, StyleSheet, StatusBar} from 'react-native';
 import logo from '../../../assets/papikos-01.png';
 import Home from '../Components/HomePartner';
+import Profile from '../Components/Profile';
 var BUTTONS = [
   {text: 'Add Room', icon: 'add-circle', iconColor: '#2c8ef4'},
   {text: 'History', icon: 'bookmarks', iconColor: '#f42ced'},
@@ -91,14 +92,10 @@ export default class Homescreen extends Component {
             }>
             <Text>Test lagi</Text>
           </Tab>
-          <Tab
-            heading={
-              <TabHeading style={{backgroundColor: '#1AB0D3'}}>
-                <Icon name="person" />
-                <Text>Profile</Text>
-              </TabHeading>
-            }>
-            <Text>Test banget</Text>
+
+          <Tab heading={ <TabHeading style={{backgroundColor: '#1AB0D3'}}><Icon name="person" /><Text>Profile</Text></TabHeading>}>
+            <Profile navigation={this.props.navigation}/>
+
           </Tab>
         </Tabs>
       </Container>

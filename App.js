@@ -53,6 +53,7 @@ class App extends Component {
   render() {
     return (
       <Root>
+
         <Provider store={store}>
           <GeneralStatusBarColor backgroundColor="#0F73CE" barStyle="default" />
           <AppRoot />
