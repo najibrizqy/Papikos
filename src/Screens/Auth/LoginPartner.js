@@ -47,15 +47,21 @@ class LoginPartner extends Component {
     await this.props
       .dispatch(loginPartner(formData.email, formData.password,device_id))
       .then(async res => {
-        if (res.value.data.status === 200) {
-          const tokenUser = this.props.auth.Partner.token;
-          await AsyncStorage.setItem('tokenUser', tokenUser);
+        console.log(res);
+        if (res.action.payload.data.status === 400) {
+          this.setState({formData: {email: '', password: ''}});
+          Alert.alert('Login Failed!', `${res.action.payload.data.message}`);
+        } else {
+          const tokenPartner = this.props.auth.Partner.token;
+          const partner_id = this.props.auth.Partner.data[0].id.toString();
+          await AsyncStorage.setItem('tokenUser', tokenPartner);
           await AsyncStorage.setItem('logged', 'partner');
+          await AsyncStorage.setItem('partner_id', partner_id);
           ToastAndroid.show(
             `${res.value.data.message}`,
             ToastAndroid.LONG,
             ToastAndroid.CENTER,
-          );
+
           this.props.navigation.navigate('HomePartner');
         } else {
           this.setState({formData: {email: '', password: ''}});

@@ -38,7 +38,7 @@ export default class Homescreen extends Component {
         <Header hasTabs style={{backgroundColor: '#1AB0D3'}}>
           <StatusBar translucent backgroundColor="#0F73CE" />
           <Left>
-            <Image style={styles.logo} source={logo}></Image>
+            <Image style={styles.logo} source={logo} />
           </Left>
           <Right>
             <Button
@@ -110,7 +110,6 @@ export default class Homescreen extends Component {
         </Tabs>
       </Container>
     );
-    s;
   }
 }
 const styles = StyleSheet.create({
