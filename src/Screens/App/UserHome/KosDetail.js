@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import { View, StyleSheet, Image, TouchableOpacity, Dimensions, Text, Alert } from 'react-native'
 import { Icon, Button } from 'native-base'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
+import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native'
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 class KosDetail extends Component{
     constructor(){
@@ -38,6 +40,7 @@ class KosDetail extends Component{
                   height: 10,
                   borderRadius: 5,
                   marginHorizontal: 2,
+                  marginHorizontal: 8,
                   backgroundColor: '#1AB0D3'
               }}
               inactiveDotStyle={{
@@ -110,6 +113,10 @@ class KosDetail extends Component{
                             </Button>
                         </View>
                     </View>
+
+                </View>
+                <View style={styles.footer}>
+
                 </View>
             </View>
         )
@@ -153,6 +160,9 @@ const styles = StyleSheet.create({
     footer:{
         position: 'absolute',
         height: 70,
+    footer:{
+        position: 'absolute',
+        height: 80,
         backgroundColor: '#FFF',
         bottom: 0,
         width: '100%',

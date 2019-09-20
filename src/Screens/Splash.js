@@ -17,6 +17,7 @@ class SplashScreen extends Component {
 
         if (data !== null) {
             this.props.navigation.navigate('KosDetail');
+        this.props.navigation.navigate('Auth');
         }
     }
 
