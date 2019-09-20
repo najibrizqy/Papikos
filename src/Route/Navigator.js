@@ -30,6 +30,7 @@ import LoginPartner from '../Screens/Auth/LoginPartner';
 import RegisterPartner from '../Screens/Auth/RegisterPartner';
 import Editroom from '../Screens/App/Editroom';
 import Editprofile from '../Screens/App/Editprofile';
+import ListRoom from '../Screens/App/ListRoom';
 
 const AuthStack = createStackNavigator(
   {
@@ -68,6 +69,7 @@ const AppStack = createStackNavigator(
     Payment: {
       screen: PaymentScreen,
     },
+    ListRoom: {screen: ListRoom},
   },
   {
     header: null,

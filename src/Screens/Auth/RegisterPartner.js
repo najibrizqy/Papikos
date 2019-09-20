@@ -60,7 +60,7 @@ class Register extends Component {
       } else {
         const tokenUser = this.props.auth.User.token;
         await AsyncStorage.setItem('tokenUser', tokenUser);
-        this.props.navigation.navigate('Login');
+        this.props.navigation.navigate('LoginPartner');
       }
     });
   };
@@ -124,7 +124,9 @@ class Register extends Component {
                 Already have an account ? &nbsp;
                 <Text
                   style={styles.bottomTextLink}
-                  onPress={() => this.props.navigation.navigate('Login')}>
+                  onPress={() =>
+                    this.props.navigation.navigate('LoginPartner')
+                  }>
                   Login
                 </Text>
               </Text>
