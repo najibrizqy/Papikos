@@ -29,11 +29,23 @@ import Premium from '../Screens/App/Premium'
 import LoginPartner from '../Screens/Auth/LoginPartner'
 import RegisterPartner from '../Screens/Auth/RegisterPartner'
 import Editroom from '../Screens/App/Editroom'
-
+import Editprofile from '../Screens/App/Editprofile'
 const AuthStack = createStackNavigator({
   Welcome: WelcomeScreen,
   Login: LoginScreen,
   Register: RegisterScreen,
+  LoginPartner:{
+    screen: LoginPartner,
+    navigationOptions:({navigation})=>({
+      header: null
+    })
+  },
+  RegisterPartner:{
+    screen: RegisterPartner,
+    navigationOptions:({navigation})=>({
+      header: null
+    })
+  },
 },
   {
     defaultNavigationOptions: {header: null}
@@ -78,18 +90,6 @@ const AppStack = createStackNavigator({
 
 //App Route Partner
 const AppPartnerStack = createStackNavigator({
-  LoginPartner:{
-    screen: LoginPartner,
-    navigationOptions:({navigation})=>({
-      header: null
-    })
-  },
-  RegisterPartner:{
-    screen: RegisterPartner,
-    navigationOptions:({navigation})=>({
-      header: null
-    })
-  },
   HomePartner: {
     screen: HomePartner,
     navigationOptions: ({navigation})=>({
@@ -126,6 +126,19 @@ const AppPartnerStack = createStackNavigator({
     screen: Editroom,
     navigationOptions:({navigation})=>({
       title: 'Edit Room',
+      headerStyle:{
+        backgroundColor:'#1AB0D3'
+      },
+      headerTitleStyle:{
+        color:'white'
+      },
+      headerTintColor:'white'
+    })
+  },
+  Editprofile:{
+    screen: Editprofile,
+    navigationOptions:({navigation})=>({
+      title: 'Edit Profile',
       headerStyle:{
         backgroundColor:'#1AB0D3'
       },
@@ -290,8 +303,8 @@ const AppRoot = createAppContainer(
       AppPartner : AppPartnerStack,
     },
     {
-      initialRouteName: 'Splash',
-      headerMode: 'none',
+      initialRouteName:'Splash',
+      // headerMode: 'none',
     },
   ),
 );
