@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {getRegions} from '../../Redux/Action/regions';
+import {getPartners} from '../../Redux/Action/partner';
 import {getRooms} from '../../Redux/Action/room';
 import {Icon, Thumbnail} from 'native-base';
 
@@ -27,51 +28,8 @@ class Home extends React.Component {
       rooms: [],
     };
   }
-
-  dummyKos = [
-    {
-      image:
-        'http://www.mikripolikos.com/wp-content/gallery/family-room/kos-resort-family-room-01.jpg',
-      name: 'Kos Magelangan',
-      area: '20x20 m',
-      price: '500000',
-      gender: 'mix',
-    },
-    {
-      image:
-        'http://www.mikripolikos.com/wp-content/gallery/family-room/kos-resort-family-room-01.jpg',
-      name: 'Kos Magelangan',
-      area: '20x20 m',
-      price: '500000',
-      gender: 'male',
-    },
-    {
-      image:
-        'http://www.mikripolikos.com/wp-content/gallery/family-room/kos-resort-family-room-01.jpg',
-      name: 'Kos Magelangan',
-      area: '20x20 m',
-      price: '500000',
-      gender: 'female',
-    },
-    {
-      image:
-        'http://www.mikripolikos.com/wp-content/gallery/family-room/kos-resort-family-room-01.jpg',
-      name: 'Kos Magelangan',
-      area: '20x20 m',
-      price: '500000',
-      gender: 'mix',
-    },
-    {
-      image:
-        'http://www.mikripolikos.com/wp-content/gallery/family-room/kos-resort-family-room-01.jpg',
-      name: 'Kos Magelangan',
-      area: '20x20 m',
-      price: '500000',
-      gender: 'male',
-    },
-  ];
-
   componentDidMount = async () => {
+    await this.props.dispatch(getPartners());
     await this.props.dispatch(getRegions()).then(res => {
       if (res.action.payload.data.status === 400) {
         this.setState({regions: []});
@@ -149,20 +107,29 @@ class Home extends React.Component {
                 {rooms.map((res, index) => {
                   return (
                     <View style={styles.carousel} key={index}>
-                      <View style={styles.headerCard}>
-                        <Image
-                          source={{uri: `${res.image.split(',')[0]}`}}
-                          style={styles.imgCard}
-                        />
-                        <View style={styles.genderWrapper}>
-                          <Text style={styles.genderText}>{res.gender}</Text>
+                      <TouchableOpacity
+                        onPress={() =>
+                          this.props.navigation.navigate('KosDetail', {
+                            item: res,
+                          })
+                        }>
+                        <View style={styles.headerCard}>
+                          <Image
+                            source={{uri: `${res.image.split(',')[0]}`}}
+                            style={styles.imgCard}
+                          />
+                          <View style={styles.genderWrapper}>
+                            <Text style={styles.genderText}>{res.gender}</Text>
+                          </View>
                         </View>
-                      </View>
-                      <View style={styles.bodyCard}>
-                        <Text style={styles.name}>{res.name.slice(0, 13)}</Text>
-                        <Text style={styles.area}>{res.room_area}</Text>
-                        <Text style={styles.price}>Rp {res.price}/month</Text>
-                      </View>
+                        <View style={styles.bodyCard}>
+                          <Text style={styles.name}>
+                            {res.name.slice(0, 13)}
+                          </Text>
+                          <Text style={styles.area}>{res.room_area}</Text>
+                          <Text style={styles.price}>Rp {res.price}/month</Text>
+                        </View>
+                      </TouchableOpacity>
                     </View>
                   );
                 })}
@@ -315,6 +282,7 @@ const mapStateToProps = state => {
   return {
     regions: state.regions,
     rooms: state.rooms,
+    partner: state.partner,
   };
 };
 

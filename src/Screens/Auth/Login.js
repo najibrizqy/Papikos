@@ -48,7 +48,6 @@ class Login extends Component {
     await this.props
       .dispatch(loginUser(formData.username, formData.password, device_id))
       .then(async res => {
-        console.log(res);
         if (res.action.payload.data.status === 400) {
           this.setState({formData: {username: '', password: ''}});
           ToastAndroid.show(
@@ -57,16 +56,17 @@ class Login extends Component {
             ToastAndroid.CENTER,
           );
         } else {
-          console.log(this.props.auth.User);
           const tokenUser = this.props.auth.User.token;
+          const user_id = this.props.auth.User.data[0].id.toString();
           await AsyncStorage.setItem('tokenUser', tokenUser);
           await AsyncStorage.setItem('logged', 'user');
+          await AsyncStorage.setItem('user_id', user_id);
           ToastAndroid.show(
             `${res.action.payload.data.message}`,
             ToastAndroid.LONG,
             ToastAndroid.CENTER,
           );
-          this.props.navigation.navigate('Home');
+          // this.props.navigation.navigate('Home');
         }
       })
       .catch(err => {

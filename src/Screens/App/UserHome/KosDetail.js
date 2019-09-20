@@ -11,14 +11,18 @@ import {Icon, Button} from 'native-base';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 
 class KosDetail extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      kosDetail: props.navigation.getParam('item'),
       data: '',
       activeSlide: 0,
     };
   }
 
+  componentDidMount = () => {
+    console.log(this.state.kosDetail);
+  };
   dummyImage = [
     {
       image:
@@ -78,6 +82,7 @@ class KosDetail extends Component {
   };
 
   render() {
+    const {kosDetail} = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -104,11 +109,15 @@ class KosDetail extends Component {
             <Text style={styles.kosName}>Kos Grogol Petamburan Gelong</Text>
             <Text style={styles.type}>Premium</Text>
             <Icon type="MaterialCommunityIcons" name="directions" style={styles.mapIcon}/>
+            <Text style={styles.kosName}>
+              {kosDetail.name} - {kosDetail.labelName}
+            </Text>
+            <Text style={styles.type}>{kosDetail.type}</Text>
             <View style={styles.info}>
               <Text style={styles.itemInfo}>Area</Text>
-              <Text style={styles.valueInfo}>3 x 3 m</Text>
+              <Text style={styles.valueInfo}>{kosDetail.room_area}</Text>
               <Text style={styles.itemInfo}>Facilities</Text>
-              <Text style={styles.valueInfo}>kamar babi</Text>
+              <Text style={styles.valueInfo}>{kosDetail.facilities}</Text>
               <Text style={styles.itemInfo}>Description</Text>
               <Text style={styles.valueInfo}>
                 BOOKING kamar sekarang dan GRATIS LAUNDRY 15 kg setiap bulan |
@@ -121,13 +130,14 @@ class KosDetail extends Component {
               <Text style={styles.valueInfo}>
                 icon..  bla
               </Text>
+              <Text style={styles.valueInfo}>{kosDetail.description}</Text>
             </View>
           </View>
         </View>
         <View style={styles.footer}>
           <View style={styles.content}>
             <View style={styles.priceWrap}>
-              <Text style={styles.priceText}>Rp 500.000 / month</Text>
+              <Text style={styles.priceText}>Rp {kosDetail.price} / month</Text>
             </View>
             <View style={styles.btn}>
               <Button bordered style={styles.btnChat}>

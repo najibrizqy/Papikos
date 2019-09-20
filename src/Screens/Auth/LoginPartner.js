@@ -7,7 +7,7 @@ import {
   TextInput,
   ScrollView,
   AsyncStorage,
-  Alert,
+  ToastAndroid,
   TouchableOpacity,
 } from 'react-native';
 
@@ -26,6 +26,7 @@ class LoginPartner extends Component {
       },
       showToast: false,
       isLoading: false,
+      device_id: '',
     };
   }
 
@@ -42,21 +43,40 @@ class LoginPartner extends Component {
   };
 
   handleSubmit = async () => {
-    const {formData} = this.state;
+    const {formData, device_id} = this.state;
     await this.props
-      .dispatch(loginPartner(formData.email, formData.password))
+      .dispatch(loginPartner(formData.email, formData.password,device_id))
       .then(async res => {
         console.log(res);
         if (res.action.payload.data.status === 400) {
           this.setState({formData: {email: '', password: ''}});
           Alert.alert('Login Failed!', `${res.action.payload.data.message}`);
         } else {
-          const tokenUser = this.props.auth.User.token;
-          await AsyncStorage.setItem('tokenUser', tokenUser);
+          const tokenPartner = this.props.auth.Partner.token;
+          const partner_id = this.props.auth.Partner.data[0].id.toString();
+          await AsyncStorage.setItem('tokenUser', tokenPartner);
           await AsyncStorage.setItem('logged', 'partner');
+          await AsyncStorage.setItem('partner_id', partner_id);
+          ToastAndroid.show(
+            `${res.value.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+
           this.props.navigation.navigate('HomePartner');
+        } else {
+          this.setState({formData: {email: '', password: ''}});
+          ToastAndroid.show(
+            `${res.value.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+          );
+          
         }
       });
+  };
+  componentDidMount = async () => {
+    const device_id = await AsyncStorage.getItem('idponsel');
+    this.setState({device_id});
   };
 
   render() {
@@ -98,7 +118,7 @@ class LoginPartner extends Component {
                 <Text
                   style={styles.bottomTextLink}
                   onPress={() =>
-                    this.props.navigation.navigate('RegisterPartner')
+                    this.props.navigation.navigate('RegisterPartnerscreen')
                   }>
                   Register
                 </Text>
