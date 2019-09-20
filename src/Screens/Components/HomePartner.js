@@ -3,8 +3,9 @@ import {View,Image,Text,StyleSheet,Dimensions,SafeAreaView,ScrollView,TouchableO
 import {Container,Button,Icon,Body,Card, CardItem, Thumbnail,Left, Right} from 'native-base';
 import Category from './Card'
 import {Rating} from 'react-native-ratings'
+import {connect} from 'react-redux';
+import {getRooms} from '../../Redux/Action/room'
 const { width } = Dimensions.get('window')
-
 
 class Home extends Component{
     constructor(props) {
@@ -13,8 +14,11 @@ class Home extends Component{
           rooms: ['Reguler','VIP','VVIP','Premium']
         };
       }
+componentDidMount = async () => {
+        await this.props.dispatch (getRooms())
+};
 render(){
-    const {rooms} = this.state;
+  console.warn(this.props.rooms.Rooms.length)
     const colors = [
         '#1AB0D3',
         '#ff8c00',
@@ -41,6 +45,7 @@ render(){
                         <Text style={{ fontSize: 24, fontWeight: '700'}}>
                             All Rooms
                         </Text>
+                  
                       <TouchableOpacity activeOpacity={0.9} onPress={()=>this.props.navigation.navigate('Details')} >
                         <Card style={{width: 315}} >
             <CardItem>
@@ -113,7 +118,12 @@ render(){
     )
 }
 }
-export default Home;
+const mapStateToProps = state => {
+  return {
+    rooms:state.rooms
+  };
+};
+export default connect(mapStateToProps)(Home);
 const styles = StyleSheet.create({
     genreContainer: {
         marginTop: -550,

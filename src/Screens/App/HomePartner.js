@@ -13,7 +13,7 @@ import {
   ActionSheet,
   Right,
 } from 'native-base';
-import {Image, StyleSheet, StatusBar} from 'react-native';
+import {Image, StyleSheet, StatusBar,AsyncStorage} from 'react-native';
 import logo from '../../../assets/papikos-01.png';
 import Home from '../Components/HomePartner';
 import Profile from '../Components/Profile';
@@ -21,6 +21,7 @@ var BUTTONS = [
   {text: 'Add Room', icon: 'add-circle', iconColor: '#2c8ef4'},
   {text: 'History', icon: 'bookmarks', iconColor: '#f42ced'},
   {text: 'Income', icon: 'pulse', iconColor: '#ea943b'},
+  {text: 'Log out', icon: 'log-out', iconColor: 'red'},
   {text: 'Cancel', icon: 'close', iconColor: '#25de5b'},
 ];
 var DESTRUCTIVE_INDEX = 3;
@@ -37,7 +38,7 @@ export default class Homescreen extends Component {
         <Header hasTabs style={{backgroundColor: '#1AB0D3'}}>
           <StatusBar translucent backgroundColor="#0F73CE" />
           <Left>
-            <Image style={styles.logo} source={logo}></Image>
+            <Image style={styles.logo} source={logo} />
           </Left>
           <Right>
             <Button
@@ -59,6 +60,10 @@ export default class Homescreen extends Component {
                         break;
                       case 2:
                         this.props.navigation.navigate('Income');
+                        break;
+                        case 3:
+                        AsyncStorage.clear();
+                        this.props.navigation.navigate('Welcome');
                         break;
                       default:
                         break;
@@ -93,14 +98,18 @@ export default class Homescreen extends Component {
             <Text>Test lagi</Text>
           </Tab>
 
-          <Tab heading={ <TabHeading style={{backgroundColor: '#1AB0D3'}}><Icon name="person" /><Text>Profile</Text></TabHeading>}>
-            <Profile navigation={this.props.navigation}/>
-
+          <Tab
+            heading={
+              <TabHeading style={{backgroundColor: '#1AB0D3'}}>
+                <Icon name="person" />
+                <Text>Profile</Text>
+              </TabHeading>
+            }>
+            <Profile navigation={this.props.navigation} />
           </Tab>
         </Tabs>
       </Container>
     );
-    s;
   }
 }
 const styles = StyleSheet.create({
