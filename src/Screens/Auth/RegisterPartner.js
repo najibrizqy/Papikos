@@ -163,9 +163,7 @@ class Register extends Component {
                 Already have an account ? &nbsp;
                 <Text
                   style={styles.bottomTextLink}
-                  onPress={() =>
-                    this.props.navigation.navigate('LoginPartner')
-                  }>
+                  onPress={() => this.props.navigation.goBack()}>
                   Login
                 </Text>
               </Text>

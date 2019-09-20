@@ -51,7 +51,7 @@ class Login extends Component {
         if (res.action.payload.data.status === 400) {
           this.setState({formData: {username: '', password: ''}});
           ToastAndroid.show(
-            `${res.action.payload.data.message}`,
+            `${res.action.payload.message}`,
             ToastAndroid.LONG,
             ToastAndroid.CENTER,
           );
