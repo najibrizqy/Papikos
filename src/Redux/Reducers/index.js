@@ -1,13 +1,21 @@
 import {combineReducers} from 'redux';
 
-import auth from './Auth';
+import auth from './auth';
+import regions from './regions';
+import user from './user';
+import partner from './partner';
+import rooms from './room';
 
 const appReducer = combineReducers({
-    auth,
+  auth,
+  regions,
+  user,
+  partner,
+  rooms,
 });
 
 const rootReducer = (state, action) => {
-  if (action.type === 'USER_LOGOUT') {
+  if (action.type === 'LOGOUT') {
     state = undefined;
   }
 
