@@ -13,16 +13,36 @@ class ConfirmPayment extends Component {
     constructor(props){
         super(props)
         this.state={
-            logo: props.navigation.getParam('bankLogo')
+            logo: props.navigation.getParam('bankLogo'),
+            BankData:[],
+            AccounNum:''
         }
     }
 
+
+    componentDidMount(){
+       
+        console.warn(this.props.navigation.getParam('MyBank'))
+
+        var bc = this.props.navigation.getParam('MyBank')
+        this.setState({
+            BankData:bc.filter(bc => bc.bank_code == this.props.navigation.getParam('bankCode'))
+        })
+
+        
+        
+        
+        // this.setState({
+            
+        // })
+    }
+    
     Item=[
         {text: 'Masukkan kartu ATM dan pilih "Bahasa Indonesia"'},
-        {text: 'Ketik nomor PIN kartu ATM'},
+        {text: 'Ketik nomor PIN kartu ATM '},
         {text: 'Pilih menu "BAYAR/BELI", kemudian pilih menu "MULTI PAYMENT"'},
-        {text: 'Ketik kode perusahaan, yaitu "88608" (88608 XENDIT), tekan "BENAR"'},
-        {text: 'Masukkan nomor Virtual Account 8860839150995'},
+        {text: 'Ketik kode perusahaan, yaitu  (88608 XENDIT), tekan "BENAR"'},
+        {text: 'Masukkan nomor Virtual Account '},
         {text: 'Isi NOMINAL kemudian tekan "BENAR"'},
         {text: 'Muncul konfirmasi data customer. Pilih Nomor 1 sesuai tagihan yang akan dibayar, kemudian tekan "YA"'},
         {text: 'Muncul konfirmasi pembayaran. Tekan "YA" untuk melakukan pembayaran'},
@@ -36,7 +56,7 @@ class ConfirmPayment extends Component {
         return(
             <View style={styles.container}>
                 <Header title={'Confirm Payment'} navigation={this.props.navigation}/>
-
+{}
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={styles.content}>
                         <Image source={logo} style={styles.logoBank} />
@@ -73,7 +93,7 @@ class ConfirmPayment extends Component {
                 
                 <TouchableOpacity activeOpacity={0.8} style={styles.footerTouch} onPress={() => {this.props.navigation.navigate("DetailBooking")}}>
                     <View style={styles.footer}>
-                        <Text style={styles.footerText}>I have already paid</Text>
+                        <Text style={styles.footerText}>Langsung Ke pembayaran</Text>
                     </View>
                 </TouchableOpacity>
             </View>

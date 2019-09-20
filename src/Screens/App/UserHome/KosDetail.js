@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import jwt from 'jwt-decode'
 import {
   View,
   StyleSheet,
   Image,
   TouchableOpacity,
+  AsyncStorage,
   Dimensions,
   Text,
 } from 'react-native';
@@ -18,13 +20,19 @@ class KosDetail extends Component {
       data: '',
       image: [],
       activeSlide: 0,
+      id:'',
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     console.log(this.state.kosDetail);
     this.setState({image: this.state.kosDetail.image.split(',')});
     console.log(this.state.kosDetail.image.split(','));
+
+    const token = await AsyncStorage.getItem('tokenUser')
+    const decode = jwt(token)
+    this.setState({id:decode['id']})
+    console.warn(decode['id'])
   };
   dummyImage = [
     {
@@ -81,9 +89,14 @@ class KosDetail extends Component {
   }
 
   handleBooking = () => {
-    this.props.navigation.navigate('Payment');
+    this.props.navigation.navigate('Payment',{
+      IdUser:this.state.id,
+      idPartner:this.state.kosDetail.id_partner,
+      Amount:this.state.kosDetail.price,
+      IdRoom:this.state.kosDetail.id,
+    });
   };
-
+ 
   render() {
     const {kosDetail} = this.state;
     return (
