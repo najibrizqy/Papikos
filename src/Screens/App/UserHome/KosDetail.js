@@ -16,12 +16,15 @@ class KosDetail extends Component {
     this.state = {
       kosDetail: props.navigation.getParam('item'),
       data: '',
+      image: [],
       activeSlide: 0,
     };
   }
 
   componentDidMount = () => {
     console.log(this.state.kosDetail);
+    this.setState({image: this.state.kosDetail.image.split(',')});
+    console.log(this.state.kosDetail.image.split(','));
   };
   dummyImage = [
     {
@@ -41,7 +44,7 @@ class KosDetail extends Component {
   _renderItem({item, index}) {
     return (
       <View style={styles.slider} key={index}>
-        <Image source={{uri: `${item.image}`}} style={styles.image} />
+        <Image source={{uri: `${item}`}} style={styles.image} />
       </View>
     );
   }
@@ -50,7 +53,7 @@ class KosDetail extends Component {
     const {activeSlide} = this.state;
     return (
       <Pagination
-        dotsLength={this.dummyImage.length}
+        dotsLength={this.state.image.length}
         activeDotIndex={activeSlide}
         containerStyle={{
           backgroundColor: 'transparent',
@@ -78,7 +81,7 @@ class KosDetail extends Component {
   }
 
   handleBooking = () => {
-    this.props.navigation.navigate("Payment")
+    this.props.navigation.navigate('Payment');
   };
 
   render() {
@@ -95,7 +98,7 @@ class KosDetail extends Component {
             />
           </View>
           <Carousel
-            data={this.dummyImage}
+            data={this.state.image}
             renderItem={this._renderItem}
             windowSize={1}
             sliderWidth={sliderWidth}
@@ -106,12 +109,14 @@ class KosDetail extends Component {
         </View>
         <View style={styles.body}>
           <View style={styles.bodyContent}>
-            <Text style={styles.kosName}>Kos Grogol Petamburan Gelong</Text>
-            <Text style={styles.type}>Premium</Text>
-            <Icon type="MaterialCommunityIcons" name="directions" style={styles.mapIcon}/>
-            <Text style={styles.kosName}>
-              {kosDetail.name} - {kosDetail.labelName}
-            </Text>
+            {/* <Text style={styles.kosName}>Kos Grogol Petamburan Gelong</Text>
+            <Text style={styles.type}>Premium</Text> */}
+            <Icon
+              type="MaterialCommunityIcons"
+              name="directions"
+              style={styles.mapIcon}
+            />
+            <Text style={styles.kosName}>{kosDetail.name}</Text>
             <Text style={styles.type}>{kosDetail.type}</Text>
             <View style={styles.info}>
               <Text style={styles.itemInfo}>Area</Text>
@@ -119,18 +124,9 @@ class KosDetail extends Component {
               <Text style={styles.itemInfo}>Facilities</Text>
               <Text style={styles.valueInfo}>{kosDetail.facilities}</Text>
               <Text style={styles.itemInfo}>Description</Text>
-              <Text style={styles.valueInfo}>
-                BOOKING kamar sekarang dan GRATIS LAUNDRY 15 kg setiap bulan |
-                Bisa PASUTrI | Sudah Tersedia Sprei di setiap kamar | Kos yang
-                sangat strategis dekat dengan Universitas Timbut Nusantara dan
-                STIE IBEK serta dekat dengan pusat perbelanjaan seperti Central
-                Park cok.
-              </Text>
-              <Text style={styles.itemInfo}>Owner</Text>
-              <Text style={styles.valueInfo}>
-                icon..  bla
-              </Text>
               <Text style={styles.valueInfo}>{kosDetail.description}</Text>
+              <Text style={styles.itemInfo}>Owner</Text>
+              <Text style={styles.valueInfo}>{kosDetail.labelName}</Text>
             </View>
           </View>
         </View>
@@ -193,12 +189,12 @@ const styles = StyleSheet.create({
     height: '90%',
     flexDirection: 'column',
   },
-  mapIcon:{
-    position: "absolute",
+  mapIcon: {
+    position: 'absolute',
     right: 0,
     top: 10,
     color: '#1C8CD1',
-    fontSize: 30
+    fontSize: 30,
   },
   footer: {
     position: 'absolute',
