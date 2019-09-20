@@ -15,6 +15,8 @@ import ProductListScreen from '../Screens/App/UserHome/ProductList';
 import ProductMapScreen from '../Screens/App/UserHome/ProductMap';
 import KosDetailScreen from '../Screens/App/UserHome/KosDetail';
 import PaymentScreen from '../Screens/App/UserHome/Payment';
+import ConfirmPaymentScreen from '../Screens/App/UserHome/ConfirmPayment';
+import DetailBookingScreen from '../Screens/App/UserHome/DetailBooking';
 import Splash from '../Screens/Splash';
 
 import HomePartner from '../Screens/App/HomePartner';
@@ -59,6 +61,12 @@ const AppStack = createStackNavigator(
     Payment: {
       screen: PaymentScreen,
     },
+    ConfirmPayment: {
+      screen: ConfirmPaymentScreen,
+    },
+    DetailBooking: {
+      screen: DetailBookingScreen,
+    },
     ListRoom: {screen: ListRoom},
   },
   {
@@ -71,7 +79,9 @@ const AppStack = createStackNavigator(
           if (
             route.routeName === 'ProductMap' ||
             route.routeName === 'KosDetail' ||
-            route.routeName === 'Payment'
+            route.routeName === 'Payment' ||
+            route.routeName === 'DetailBooking' ||
+            route.routeName === 'ConfirmPayment'
           ) {
             tabBarVisible = false;
           } else {
