@@ -18,7 +18,7 @@ class ListRoom extends Component {
     super(props);
     this.state = {
       partner: props.navigation.getParam('item'),
-      rooms: props.rooms.Rooms.data.filter(
+      rooms: props.rooms.Rooms.filter(
         room => room.id_partner === props.navigation.getParam('item').id,
       ),
     };

@@ -28,7 +28,7 @@ class ProductMap extends Component {
       latitude: parseFloat(props.navigation.getParam('item').loc_lattitude),
       longitude: parseFloat(props.navigation.getParam('item').loc_longitude),
       partner: props.partner.Partner.data,
-      rooms: props.rooms.Rooms.data,
+      rooms: props.rooms.Rooms,
     };
   }
   componentDidMount = () => {
