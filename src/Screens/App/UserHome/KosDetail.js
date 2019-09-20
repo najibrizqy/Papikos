@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Dimensions,
   Text,
-  Alert,
 } from 'react-native';
 import {Icon, Button} from 'native-base';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
@@ -61,7 +60,6 @@ class KosDetail extends Component {
           height: 10,
           borderRadius: 5,
           marginHorizontal: 2,
-          //   marginHorizontal: 8,
           backgroundColor: '#1AB0D3',
         }}
         inactiveDotStyle={
@@ -76,19 +74,7 @@ class KosDetail extends Component {
   }
 
   handleBooking = () => {
-    Alert.alert(
-      'Confirm',
-      'Are you sure to booking this room?',
-      [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'OK', onPress: () => this.props.navigation.navigate('Payment')},
-      ],
-      {cancelable: false},
-    );
+    this.props.navigation.navigate("Payment")
   };
 
   render() {
@@ -117,6 +103,7 @@ class KosDetail extends Component {
           <View style={styles.bodyContent}>
             <Text style={styles.kosName}>Kos Grogol Petamburan Gelong</Text>
             <Text style={styles.type}>Premium</Text>
+            <Icon type="MaterialCommunityIcons" name="directions" style={styles.mapIcon}/>
             <View style={styles.info}>
               <Text style={styles.itemInfo}>Area</Text>
               <Text style={styles.valueInfo}>3 x 3 m</Text>
@@ -129,6 +116,10 @@ class KosDetail extends Component {
                 sangat strategis dekat dengan Universitas Timbut Nusantara dan
                 STIE IBEK serta dekat dengan pusat perbelanjaan seperti Central
                 Park cok.
+              </Text>
+              <Text style={styles.itemInfo}>Owner</Text>
+              <Text style={styles.valueInfo}>
+                icon..  bla
               </Text>
             </View>
           </View>
@@ -187,9 +178,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   bodyContent: {
+    position: 'relative',
     margin: 15,
     height: '90%',
     flexDirection: 'column',
+  },
+  mapIcon:{
+    position: "absolute",
+    right: 0,
+    top: 10,
+    color: '#1C8CD1',
+    fontSize: 30
   },
   footer: {
     position: 'absolute',
