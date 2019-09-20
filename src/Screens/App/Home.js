@@ -28,44 +28,6 @@ class Home extends React.Component {
     };
   }
 
-  dummyCity = [
-    {
-      name: 'Jakarta',
-      image:
-        'https://indonesiaexpat.biz/wp-content/uploads/2018/08/20208_Jakarta-Indonesia-ThinkstockPhotos-hanafichi.jpg',
-    },
-    {
-      name: 'Yogyakarta',
-      image:
-        'https://www.indonesia.travel/content/dam/indtravelrevamp/en/destinations/java/di-yogyakarta/image11.jpg',
-    },
-    {
-      name: 'Bandung',
-      image:
-        'https://static.pikiran-rakyat.com/public/medium/public/image/2018/09/alun-alun%20bandung%202018%20a.jpg',
-    },
-    {
-      name: 'Malang',
-      image:
-        'https://upload.wikimedia.org/wikipedia/id/thumb/7/75/Tugu_Balai_Kota_Malang.jpg/400px-Tugu_Balai_Kota_Malang.jpg',
-    },
-    {
-      name: 'Surabaya',
-      image:
-        'https://cdn-u1-gnfi.imgix.net/post/large-surabaya-6b40c47198235b9b7d075492a0745ca8.jpg',
-    },
-    {
-      name: 'Bali',
-      image:
-        'https://img.jakpost.net/c/2019/03/19/2019_03_19_67991_1552969698._large.jpg',
-    },
-    {
-      name: 'Lombok',
-      image:
-        'https://www.telegraph.co.uk/content/dam/Travel/2018/July/lombok-GettyImages-498839091.jpg?imwidth=450',
-    },
-  ];
-
   dummyKos = [
     {
       image:
@@ -164,7 +126,7 @@ class Home extends React.Component {
                     key={index}
                     style={styles.touchCity}
                     onPress={() => {
-                      this.props.navigation.navigate('ProductMap');
+                      this.props.navigation.navigate('ProductMap', {item: res});
                     }}>
                     <View style={styles.item}>
                       <Thumbnail

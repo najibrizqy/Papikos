@@ -1,5 +1,12 @@
 import React, {Component, Fragment} from 'react';
-import {Text, Button, StyleSheet, Platform, View} from 'react-native';
+import {
+  Text,
+  Button,
+  Dimensions,
+  StyleSheet,
+  Platform,
+  View,
+} from 'react-native';
 import {Container, Icon, Tab, Tabs} from 'native-base';
 
 import MapView from 'react-native-map-clustering';
@@ -7,7 +14,22 @@ import {Marker} from 'react-native-maps';
 
 import ProductList from './ProductList';
 
+const {width, height} = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
 export default class ProductMap extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      latitude: parseFloat(props.navigation.getParam('item').loc_lattitude),
+      longitude: parseFloat(props.navigation.getParam('item').loc_longitude),
+    };
+  }
+  componentDidMount = () => {
+    console.log(this.props.navigation.getParam('item'));
+  };
   DummyLocation = [
     {lat: 52.1, long: 18.1, title: 'Kost Putra Jaya '},
     {lat: 52.4, long: 18.2, title: 'Kost Atmajaya '},
@@ -24,6 +46,7 @@ export default class ProductMap extends Component {
   ];
 
   render() {
+    const {latitude, longitude} = this.state;
     return (
       <Container>
         <View style={styles.header}>
@@ -51,10 +74,10 @@ export default class ProductMap extends Component {
             activeTextStyle={styles.activeText}>
             <MapView
               region={{
-                latitude: 52.5,
-                longitude: 19.2,
-                latitudeDelta: 8.5,
-                longitudeDelta: 8.5,
+                latitude: latitude,
+                longitude: longitude,
+                latitudeDelta: LATITUDE_DELTA,
+                longitudeDelta: LONGITUDE_DELTA,
               }}
               style={{width: '100%', height: '100%'}}>
               {this.DummyLocation.map((coord, index) => (
