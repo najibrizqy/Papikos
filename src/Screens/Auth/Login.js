@@ -60,6 +60,7 @@ class Login extends Component {
           console.log(this.props.auth.User);
           const tokenUser = this.props.auth.User.token;
           await AsyncStorage.setItem('tokenUser', tokenUser);
+          await AsyncStorage.setItem('logged', 'user');
           ToastAndroid.show(
             `${res.action.payload.data.message}`,
             ToastAndroid.LONG,

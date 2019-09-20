@@ -96,7 +96,6 @@ class Home extends React.Component {
         );
       } else {
         this.setState({rooms: this.props.rooms.Rooms.data});
-        console.log(this.state.rooms);
       }
     });
   };
@@ -147,12 +146,12 @@ class Home extends React.Component {
               <ScrollView
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}>
-                {this.dummyKos.map((res, index) => {
+                {rooms.map((res, index) => {
                   return (
                     <View style={styles.carousel} key={index}>
                       <View style={styles.headerCard}>
                         <Image
-                          source={{uri: `${res.image}`}}
+                          source={{uri: `${res.image.split(',')[0]}`}}
                           style={styles.imgCard}
                         />
                         <View style={styles.genderWrapper}>
@@ -160,8 +159,8 @@ class Home extends React.Component {
                         </View>
                       </View>
                       <View style={styles.bodyCard}>
-                        <Text style={styles.name}>{res.name}</Text>
-                        <Text style={styles.area}>{res.area}</Text>
+                        <Text style={styles.name}>{res.name.slice(0, 13)}</Text>
+                        <Text style={styles.area}>{res.room_area}</Text>
                         <Text style={styles.price}>Rp {res.price}/month</Text>
                       </View>
                     </View>
@@ -315,6 +314,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     regions: state.regions,
+    rooms: state.rooms,
   };
 };
 

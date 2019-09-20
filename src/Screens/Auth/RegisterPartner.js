@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#1AB0D3',
+    backgroundColor: '#3c1053',
   },
   content: {
     width: '70%',

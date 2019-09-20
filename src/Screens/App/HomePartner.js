@@ -93,9 +93,14 @@ export default class Homescreen extends Component {
             <Text>Test lagi</Text>
           </Tab>
 
-          <Tab heading={ <TabHeading style={{backgroundColor: '#1AB0D3'}}><Icon name="person" /><Text>Profile</Text></TabHeading>}>
-            <Profile navigation={this.props.navigation}/>
-
+          <Tab
+            heading={
+              <TabHeading style={{backgroundColor: '#1AB0D3'}}>
+                <Icon name="person" />
+                <Text>Profile</Text>
+              </TabHeading>
+            }>
+            <Profile navigation={this.props.navigation} />
           </Tab>
         </Tabs>
       </Container>
