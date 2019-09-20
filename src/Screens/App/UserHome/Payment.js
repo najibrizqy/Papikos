@@ -39,7 +39,7 @@ class Payment extends Component {
               {text: 'OK', onPress: async () =>{
                 await this.CreateBooking()
                 await this.CreatePayment(bank)
-                this.CreateBooking().then(result=> this.props.navigation.navigate('ConfirmPayment',{bankLogo:image,idPayment:this.state.Payment.data.insertId,MyBank:this.state.Payment.xendit.available_banks,bankCode:bank})).catch(err=>console.warn(err))
+                this.CreateBooking().then(result=> this.props.navigation.navigate('ConfirmPayment',{bankLogo:image,idPayment:this.state.Payment.data.insertId,MyBank:this.state.Payment.xendit.available_banks,bankCode:bank,Amount:this.state.Payment.xendit.amount})).catch(err=>console.warn(err))
               }},
             ],
             {cancelable: false},

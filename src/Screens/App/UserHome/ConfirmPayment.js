@@ -67,7 +67,7 @@ class ConfirmPayment extends Component {
                             <View style={[styles.instructionBody, {flexDirection:'row', marginRight:5}]}>
                                 <Text>Rp</Text>
                                 <Text style={{fontSize: 30}}>
-                                     500.000
+                                    {this.props.navigation.getParam('Amount')}
                                 </Text>
                             </View>
                         </View>
