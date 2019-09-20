@@ -55,7 +55,7 @@ class Register extends Component {
             ToastAndroid.LONG,
             ToastAndroid.CENTER,
           );
-          this.props.navigation.navigate('LoginPartnerscreen');
+          this.props.navigation.navigate('LoginPartner');
         } else {
           ToastAndroid.show(
             `${res.value.data.message}`,
