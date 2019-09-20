@@ -109,6 +109,7 @@ class Home extends React.Component {
                   return (
                     <View style={styles.carousel} key={index}>
                       <TouchableOpacity
+                      activeOpacity={0.8}
                         onPress={() =>
                           this.props.navigation.navigate('KosDetail', {
                             item: res,
