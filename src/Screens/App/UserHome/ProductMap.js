@@ -24,14 +24,18 @@ class ProductMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      location: props.navigation.getParam('item'),
       latitude: parseFloat(props.navigation.getParam('item').loc_lattitude),
       longitude: parseFloat(props.navigation.getParam('item').loc_longitude),
       partner: props.partner.Partner.data,
+      rooms: props.rooms.Rooms.data,
     };
   }
   componentDidMount = () => {
     console.log(this.props.navigation.getParam('item'));
     console.log(this.state.partner);
+    console.log(this.state.location);
+    console.log(this.state.rooms);
   };
 
   render() {
@@ -94,7 +98,10 @@ class ProductMap extends Component {
             activeTabStyle={styles.activeTab}
             textStyle={styles.text}
             activeTextStyle={styles.activeText}>
-            <ProductList navigation={this.props.navigation} />
+            <ProductList
+              navigation={this.props.navigation}
+              rooms={this.state.rooms}
+            />
           </Tab>
         </Tabs>
       </Container>
@@ -105,6 +112,7 @@ class ProductMap extends Component {
 const mapStateToProps = state => {
   return {
     partner: state.partner,
+    rooms: state.rooms,
   };
 };
 

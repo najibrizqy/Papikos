@@ -4,56 +4,34 @@ import {Icon} from 'native-base';
 import {ScrollView} from 'react-native-gesture-handler';
 
 export default class ProductList extends Component {
-  dummyKos = [
-    {
-      image:
-        'https://s-ec.bstatic.com/images/hotel/max1024x768/164/164741337.jpg',
-      name: 'Kos Warmindo',
-      city: 'Yogyakarta',
-      price: '500000',
-      status: 'Available',
-    },
-    {
-      image:
-        'http://fresh.suakaonline.com/wp-content/uploads/2017/04/1490486838098-1024x768.jpg',
-      name: 'Kos Magelangan',
-      city: 'Yogyakarta',
-      price: '500000',
-      status: 'Not Available',
-    },
-    {
-      image:
-        'http://fresh.suakaonline.com/wp-content/uploads/2017/04/1490486838098-1024x768.jpg',
-      name: 'Kos Magelangan',
-      city: 'Yogyakarta',
-      price: '500000',
-      status: 'Available',
-    },
-    {
-      image:
-        'http://fresh.suakaonline.com/wp-content/uploads/2017/04/1490486838098-1024x768.jpg',
-      name: 'Kos Magelangan',
-      city: 'Yogyakarta',
-      price: '500000',
-      status: 'Available',
-    },
-  ];
+  constructor(props) {
+    super(props);
+    this.state = {
+      rooms: props.rooms,
+    };
+  }
+  componentDidMount = async () => {
+    console.log(this.state.rooms);
+  };
 
   render() {
+    const {rooms} = this.state;
     return (
       <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.content}>
-            {this.dummyKos.map((res, index) => {
+            {rooms.map((res, index) => {
               return (
                 <TouchableOpacity
                   activeOpacity={0.9}
                   key={index}
                   style={styles.touchCard}
-                  onPress={() => this.props.navigation.navigate('KosDetail')}>
+                  onPress={() =>
+                    this.props.navigation.navigate('KosDetail', {item: res})
+                  }>
                   <View style={styles.card}>
                     <Image
-                      source={{uri: `${res.image}`}}
+                      source={{uri: `${res.image.split(',')[0]}`}}
                       style={styles.imageCard}
                     />
                     <View style={styles.bodyCard}>
@@ -68,7 +46,11 @@ export default class ProductList extends Component {
                       </View>
                       <Text style={styles.price}>Rp {res.price} / month</Text>
                       <View style={styles.statusWrapper}>
-                        <Text style={styles.statusText}>{res.status}</Text>
+                        <Text style={styles.statusText}>
+                          {res.status === 'false'
+                            ? 'Not Available'
+                            : 'Available'}
+                        </Text>
                       </View>
                     </View>
                   </View>

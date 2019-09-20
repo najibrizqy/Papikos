@@ -6,12 +6,43 @@ import {
   StyleSheet,
   Platform,
   View,
+  ToastAndroid,
 } from 'react-native';
 import {connect} from 'react-redux';
+import {getRooms} from '../../Redux/Action/room';
 import {Container, Icon, Tab, Tabs} from 'native-base';
 import ProductList from './UserHome/ProductList';
 
 class ListRoom extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      partner: props.navigation.getParam('item'),
+      rooms: props.rooms.Rooms.data.filter(
+        room => room.id_partner === props.navigation.getParam('item').id,
+      ),
+    };
+  }
+
+  componentDidMount = async () => {
+    await this.props.dispatch(getRooms()).then(res => {
+      if (res.action.payload.data.status === 400) {
+        this.setState({rooms: []});
+        ToastAndroid.show(
+          `${res.action.payload.data.message}`,
+          ToastAndroid.LONG,
+          ToastAndroid.CENTER,
+        );
+      } else {
+        this.setState({
+          rooms: this.props.rooms.Rooms.data.filter(
+            room => room.id_partner === this.state.partner.id,
+          ),
+        });
+        console.log(this.state.rooms);
+      }
+    });
+  };
   render() {
     return (
       <Container>
@@ -30,7 +61,10 @@ class ListRoom extends Component {
             </View>
           </View>
         </View>
-        <ProductList navigation={this.props.navigation} />
+        <ProductList
+          navigation={this.props.navigation}
+          rooms={this.state.rooms}
+        />
       </Container>
     );
   }
@@ -39,6 +73,7 @@ class ListRoom extends Component {
 const mapStateToProps = state => {
   return {
     partner: state.partner,
+    rooms: state.rooms,
   };
 };
 

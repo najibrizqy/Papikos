@@ -43,14 +43,6 @@ class Register extends Component {
     console.log(newFormData);
   };
 
-  handleChange = (name, value) => {
-    let newFormData = {...this.state.formData};
-    newFormData[name] = value;
-    this.setState({
-      formData: newFormData,
-    });
-  };
-
   handleSubmit = async () => {
     const {formData} = this.state;
     console.log('forrm', formData);
@@ -63,6 +55,11 @@ class Register extends Component {
         this.props.navigation.navigate('LoginPartner');
       }
     });
+  };
+
+  componentDidMount = async () => {
+    const device_id = await AsyncStorage.getItem('idponsel');
+    this.setState({device_id});
   };
 
   render() {

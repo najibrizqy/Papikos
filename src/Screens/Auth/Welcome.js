@@ -12,6 +12,8 @@ import {
 
 import logo from '../../Assets/blueLogo.png';
 import gif from '../../Assets/people.gif';
+import {connect} from 'react-redux';
+import {getAUser} from '../../Redux/Action/user';
 
 class Welcome extends Component {
   componentDidMount = async () => {
@@ -59,7 +61,13 @@ class Welcome extends Component {
   }
 }
 
-export default Welcome;
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps)(Welcome);
 
 const styles = StyleSheet.create({
   container: {
