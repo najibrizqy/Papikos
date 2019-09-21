@@ -62,7 +62,7 @@ class Home extends React.Component {
 
   handleSubmit = () => {
     const regionSearch = this.state.regions.filter(city =>
-      city.name.toLowerCase().includes(this.state.search),
+      city.name.toLowerCase().includes(this.state.search.toLowerCase()),
     );
 
     this.props.navigation.navigate('ProductMap', {item: regionSearch[0]});

@@ -22,7 +22,7 @@ class Profile extends React.Component {
 
   componentDidMount = async () => {
     const user_id = await AsyncStorage.getItem('user_id');
-    await this.props.dispatch(getAUser(user_id)).then(res => {  
+    await this.props.dispatch(getAUser(user_id)).then(res => {
       if (res.action.payload.data.status === 400) {
         this.setState({user: []});
         ToastAndroid.show(
@@ -39,42 +39,43 @@ class Profile extends React.Component {
         );
         this.setState({user: res.action.payload.data.data[0]});
         console.log(this.state.user);
-
       }
     });
   };
   render() {
-    const { user } = this.state
+    const {user} = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.editProfile} onPress={() => this.props.navigation.navigate("EditProfileUser", {item: user})}>Edit Profile</Text>
+          <Text
+            style={styles.editProfile}
+            onPress={() =>
+              this.props.navigation.navigate('EditProfileUser', {item: user})
+            }>
+            Edit Profile
+          </Text>
         </View>
-        {
-          this.props.user.isLoading ? 
-            <Spinner color='#1C8CD1' style={styles.avatar} />
-          :
-            <Image
-              style={styles.avatar}
-              source={{uri: `${user.photo}`}}
-            />
-        }
+        {this.props.user.isLoading ? (
+          <Spinner color="#1C8CD1" style={styles.avatar} />
+        ) : (
+          <Image style={styles.avatar} source={{uri: `${user.photo}`}} />
+        )}
         <View style={styles.body}>
           <View style={styles.bodyContent}>
-            <Text style={styles.name}>{user.fullname}</Text>            
+            <Text style={styles.name}>{user.fullname}</Text>
           </View>
           <View style={styles.info}>
             <View style={styles.item}>
-                <Text style={styles.title}>Username</Text>
-                <Text style={styles.itemData}>{user.username}</Text>
+              <Text style={styles.title}>Username</Text>
+              <Text style={styles.itemData}>{user.username}</Text>
             </View>
             <View style={styles.item}>
-                <Text style={styles.title}>Email</Text>
-                <Text style={styles.itemData}>{user.email}</Text>
+              <Text style={styles.title}>Email</Text>
+              <Text style={styles.itemData}>{user.email}</Text>
             </View>
             <View style={styles.item}>
-                <Text style={styles.title}>Phone Number</Text>
-                <Text style={styles.itemData}>{user.phone}</Text>
+              <Text style={styles.title}>Phone Number</Text>
+              <Text style={styles.itemData}>{user.phone}</Text>
             </View>
             <TouchableOpacity
               onPress={async () => {
@@ -83,7 +84,14 @@ class Profile extends React.Component {
                 this.props.navigation.navigate('Welcome');
               }}
               style={styles.buttonContainer}>
-              <Text style={{color: '#FFF',justifyContent: 'center',alignSelf:'center'}}>Logout</Text>
+              <Text
+                style={{
+                  color: '#FFF',
+                  justifyContent: 'center',
+                  alignSelf: 'center',
+                }}>
+                Logout
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -102,7 +110,7 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps)(Profile);
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     backgroundColor: '#F7F7F7',
   },
   header: {
@@ -110,11 +118,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#00BFFF',
     height: 200,
   },
-  editProfile:{
+  editProfile: {
     position: 'absolute',
     color: '#FFF',
     top: 10,
-    right: 20
+    right: 20,
   },
   avatar: {
     width: 130,
@@ -146,7 +154,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
   },
-<<<<<<< HEAD
+
   info: {
     marginTop: 5,
     paddingTop: 10,
@@ -173,34 +181,6 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     fontWeight: '100',
     color: '#696969',
-=======
-  info:{
-    marginTop: 5,
-    paddingTop: 10,
-    height: '100%',
-    flexDirection: 'column'
-  }, 
-  item:{
-      marginHorizontal: 20,
-      marginTop: 10,
-      backgroundColor: "#FFF",
-      height: 60,
-      borderRadius: 5,
-      elevation: 1,
-      flexDirection: 'column'
-  },
-  title:{
-    fontWeight: 'bold',
-    fontSize: 13,
-    paddingTop: 9,
-    paddingLeft: 13
-  },
-  itemData: {
-      fontSize: 17,
-      paddingLeft: 15,
-      fontWeight: '100',
-      color: '#696969'
->>>>>>> d125098e2e3e7fe46b872b46cb95e119e23999ea
   },
   description: {
     fontSize: 16,
