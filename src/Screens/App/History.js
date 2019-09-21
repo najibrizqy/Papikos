@@ -1,14 +1,15 @@
 import React from 'react'
-import {FlatList, RefreshControl, ScrollView} from 'react-native'
+import {FlatList, RefreshControl, ScrollView,AsyncStorage} from 'react-native'
 import { Container, Header, Content, List, ListItem, Text, Left, Right, Badge, Row} from 'native-base';
-
+import jwt from 'jwt-decode'
 import axios from 'axios'
 export default class History extends React.Component{
     constructor(){
     super()
         this.state={
             Payment : [],
-            refresh:false
+            refresh:false,
+            id:'',
         }
     }
 
@@ -19,12 +20,12 @@ export default class History extends React.Component{
 
 
      refreshData=async()=>{
-        await axios.get('https://salty-plains-50836.herokuapp.com/booking/history')
+        await axios.get('https://salty-plains-50836.herokuapp.com/booking/history/'+this.state.id)
     }
 
     getHistory=()=>{
         this.setState({load:true})
-        axios.get('https://salty-plains-50836.herokuapp.com/booking/history')
+        axios.get('https://salty-plains-50836.herokuapp.com/booking/history/'+this.state.id)
             .then(result=>{
                 this.setState({Payment:result.data.result})
                 this.setState({refresh: false});
@@ -34,7 +35,14 @@ export default class History extends React.Component{
     }
 
     async componentDidMount(){
+        
+        const token = await AsyncStorage.getItem('tokenUser')
+        const decode = jwt(token)
+        this.setState({id:decode['id']})
+        console.warn(decode['id'])
+
         await this.getHistory()
+
     }
 
 
