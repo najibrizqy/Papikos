@@ -34,7 +34,7 @@ import Editroom from '../Screens/App/Editroom';
 import Editprofile from '../Screens/App/Editprofile';
 import EditProfileUser from '../Screens/App/EditProfileUser';
 import ListRoom from '../Screens/App/ListRoom';
-
+import ChatRoomUserScreen from '../Screens/App/chats/Chatroom';
 const AuthStack = createStackNavigator(
   {
     Welcome: WelcomeScreen,
@@ -55,6 +55,9 @@ const AppStack = createStackNavigator(
     ProductList: ProductListScreen,
     ProductMap: {
       screen: ProductMapScreen,
+    },
+    ChatroomUser: {
+      screen: ChatRoomUserScreen,
     },
     KosDetail: {
       screen: KosDetailScreen,

@@ -122,7 +122,12 @@ class KosDetail extends Component {
               <Text style={styles.priceText}>Rp {kosDetail.price} / month</Text>
             </View>
             <View style={styles.btn}>
-              <Button bordered style={styles.btnChat}>
+              <Button
+                bordered
+                style={styles.btnChat}
+                onPress={() =>
+                  this.props.navigation.navigate('ChatroomUser', kosDetail)
+                }>
                 <Icon
                   type="MaterialIcons"
                   name="chat"
