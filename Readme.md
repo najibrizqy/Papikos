@@ -1,7 +1,7 @@
 <h1 align='center'>Papikos <br>Rooms Booking Application</h1>
 
 <p align='center'>
-    <img width="200" src='./screenshot/splash.png' />
+    <img width="300" src='./screenshot/splash.png' />
     <img width="300" src='./screenshot/welcome.png' />
 </p>
 
@@ -64,10 +64,9 @@ You can Download the APK [`here`](https://drive.google.com/file/d/1PujtTK9nm4tR6
 </p>
 <p align='center'>
   <span>
-      <image width="200" src="./screenshot/friend-profile.png" />
-      <image width="200" src="./screenshot/kos-detail.png" />      
+      <image width="200" src="./screenshot/kos_detail.png" />      
       <image width="200" src="./screenshot/booking_confirm.png" />      
       <image width="200" src="./screenshot/payment.png" />      
-      <image width="200" src="./screenshot/chat.png" />      
+      <image width="200" src="./screenshot/chat_user.png" />      
   </span>
 </p>
