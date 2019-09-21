@@ -51,7 +51,7 @@ const AuthStack = createStackNavigator(
 
 const AppStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Home: {screen: HomeScreen},
     ProductList: ProductListScreen,
     ProductMap: {
       screen: ProductMapScreen,
