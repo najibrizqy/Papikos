@@ -49,7 +49,7 @@ const partner = (state = init, action) => {
         isLoading: false,
         isFulfilled: true,
         isLoggedIn: true,
-        Partner: action.payload.data,
+        Partner: action.payload.data.data
       };
     case 'UPDATE_PARTNER_PENDING':
       return {

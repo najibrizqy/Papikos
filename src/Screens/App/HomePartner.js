@@ -50,7 +50,7 @@ export default class Homescreen extends Component {
                     cancelButtonIndex: CANCEL_INDEX,
                     destructiveButtonIndex: DESTRUCTIVE_INDEX,
                   },
-                  buttonIndex => {
+                  async buttonIndex => {
                     switch (buttonIndex) {
                       case 0:
                         this.props.navigation.navigate('Addroom');
@@ -62,7 +62,7 @@ export default class Homescreen extends Component {
                         this.props.navigation.navigate('Income');
                         break;
                         case 3:
-                        AsyncStorage.clear();
+                        await AsyncStorage.clear();
                         this.props.navigation.navigate('Welcome');
                         break;
                       default:
