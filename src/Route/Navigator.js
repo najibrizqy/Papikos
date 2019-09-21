@@ -28,19 +28,20 @@ import Reguler from '../Screens/App/Reguler';
 import VIP from '../Screens/App/VIP';
 import VVIP from '../Screens/App/VVIP';
 import Premium from '../Screens/App/Premium';
-import LoginPartner from '../Screens/Auth/LoginPartner';
-import RegisterPartner from '../Screens/Auth/RegisterPartner';
+import LoginPartnerscreen from '../Screens/Auth/LoginPartner';
+import RegisterPartnerscreen from '../Screens/Auth/RegisterPartner';
 import Editroom from '../Screens/App/Editroom';
 import Editprofile from '../Screens/App/Editprofile';
+import EditProfileUser from '../Screens/App/EditProfileUser';
 import ListRoom from '../Screens/App/ListRoom';
-
+import ChatRoomUserScreen from '../Screens/App/chats/Chatroom';
 const AuthStack = createStackNavigator(
   {
     Welcome: WelcomeScreen,
     Login: LoginScreen,
     Register: RegisterScreen,
-    LoginPartnerscreen: LoginPartner,
-    RegisterPartnerscreen: RegisterPartner,
+    LoginPartner: LoginPartnerscreen,
+    RegisterPartner: RegisterPartnerscreen,
   },
   {
     defaultNavigationOptions: {header: null},
@@ -55,6 +56,9 @@ const AppStack = createStackNavigator(
     ProductMap: {
       screen: ProductMapScreen,
     },
+    ChatroomUser: {
+      screen: ChatRoomUserScreen,
+    },
     KosDetail: {
       screen: KosDetailScreen,
     },
@@ -68,6 +72,7 @@ const AppStack = createStackNavigator(
       screen: DetailBookingScreen,
     },
     ListRoom: {screen: ListRoom},
+    EditProfileUser: {screen: EditProfileUser},
   },
   {
     header: null,
@@ -81,6 +86,8 @@ const AppStack = createStackNavigator(
             route.routeName === 'KosDetail' ||
             route.routeName === 'Payment' ||
             route.routeName === 'DetailBooking' ||
+            route.routeName === 'ListRoom' ||
+            route.routeName === 'EditProfileUser' ||
             route.routeName === 'ConfirmPayment'
           ) {
             tabBarVisible = false;

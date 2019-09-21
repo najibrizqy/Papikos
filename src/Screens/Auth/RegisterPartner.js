@@ -55,7 +55,7 @@ class Register extends Component {
             ToastAndroid.LONG,
             ToastAndroid.CENTER,
           );
-          this.props.navigation.navigate('LoginPartnerscreen');
+          this.props.navigation.navigate('LoginPartner');
         } else {
           ToastAndroid.show(
             `${res.value.data.message}`,
@@ -163,8 +163,7 @@ class Register extends Component {
                 Already have an account ? &nbsp;
                 <Text
                   style={styles.bottomTextLink}
-                  onPress={() =>
-                    this.props.navigation.navigate('LoginPartner')
+                  onPress={() =>this.props.navigation.navigate('LoginPartner')
                   }>
                   Login
                 </Text>
@@ -190,7 +189,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#3c1053',
+    backgroundColor: '#663399',
   },
   content: {
     width: '70%',

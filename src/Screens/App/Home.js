@@ -26,6 +26,7 @@ class Home extends React.Component {
     this.state = {
       regions: [],
       rooms: [],
+      search: '',
     };
   }
   componentDidMount = async () => {
@@ -53,9 +54,18 @@ class Home extends React.Component {
           ToastAndroid.CENTER,
         );
       } else {
-        this.setState({rooms: this.props.rooms.Rooms.data});
+        this.setState({rooms: this.props.rooms.Rooms});
+        console.log(this.props.rooms.Rooms);
       }
     });
+  };
+
+  handleSubmit = () => {
+    const regionSearch = this.state.regions.filter(city =>
+      city.name.toLowerCase().includes(this.state.search.toLowerCase()),
+    );
+
+    this.props.navigation.navigate('ProductMap', {item: regionSearch[0]});
   };
 
   render() {
@@ -68,8 +78,17 @@ class Home extends React.Component {
           <Image source={papikos} style={styles.headerLogo} />
           <ImageBackground source={header} style={styles.headerImage} />
           <View style={styles.search}>
-            <TextInput placeholder="Find Location" style={styles.searchInput} />
-            <Icon type="FontAwesome" name="search" style={styles.iconSearch} />
+            <TextInput
+              placeholder="Find Location"
+              onChangeText={text => this.setState({search: text})}
+              style={styles.searchInput}
+            />
+            <Icon
+              onPress={this.handleSubmit}
+              type="FontAwesome"
+              name="search"
+              style={styles.iconSearch}
+            />
           </View>
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -109,6 +128,7 @@ class Home extends React.Component {
                   return (
                     <View style={styles.carousel} key={index}>
                       <TouchableOpacity
+                        activeOpacity={0.8}
                         onPress={() =>
                           this.props.navigation.navigate('KosDetail', {
                             item: res,

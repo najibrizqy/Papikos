@@ -3,6 +3,7 @@ const init = {
   isLoading: false,
   isRejected: false,
   isFulfilled: false,
+  isLoggedIn: false
 };
 
 const user = (state = init, action) => {

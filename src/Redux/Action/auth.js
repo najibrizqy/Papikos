@@ -16,7 +16,7 @@ export const loginUser = (username, password, device_id) => {
   };
 };
 
-export const loginPartner = (email, password,device_id) => {
+export const loginPartner = (email, password, device_id) => {
   return {
     type: 'LOGIN_PARTNER',
     payload: axios.post(
@@ -24,7 +24,7 @@ export const loginPartner = (email, password,device_id) => {
       {
         email,
         password,
-        device_id
+        device_id,
       },
     ),
   };
@@ -45,10 +45,13 @@ export const registerUser = (data, device_id) => {
   };
 };
 
-export const registerPartner = (data,device_id) => {
+export const registerPartner = (data, device_id) => {
   return {
     type: 'REGISTER_PARTNER',
-    payload: axios.post('https://salty-plains-50836.herokuapp.com/register/partner',{...data,device_id})
+    payload: axios.post(
+      'https://salty-plains-50836.herokuapp.com/register/partner',
+      {...data, device_id},
+    ),
   };
 };
 
