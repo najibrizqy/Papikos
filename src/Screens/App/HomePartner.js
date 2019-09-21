@@ -17,6 +17,7 @@ import {Image, StyleSheet, StatusBar,AsyncStorage} from 'react-native';
 import logo from '../../../assets/papikos-01.png';
 import Home from '../Components/HomePartner';
 import Profile from '../Components/Profile';
+import Chats from '../Components/Chats'
 var BUTTONS = [
   {text: 'Add Room', icon: 'add-circle', iconColor: '#2c8ef4'},
   {text: 'History', icon: 'bookmarks', iconColor: '#f42ced'},
@@ -56,7 +57,7 @@ export default class Homescreen extends Component {
                         this.props.navigation.navigate('Addroom');
                         break;
                       case 1:
-                        this.props.navigation.navigate('History');
+                        this.props.navigation.navigate('HistoryPartner');
                         break;
                       case 2:
                         this.props.navigation.navigate('Income');
@@ -95,7 +96,7 @@ export default class Homescreen extends Component {
                 </Badge>
               </TabHeading>
             }>
-            <Text>Test lagi</Text>
+              <Chats navigation={this.props.navigation} />
           </Tab>
 
           <Tab

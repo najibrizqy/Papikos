@@ -34,6 +34,7 @@ class Addroom extends Component {
       },
       showToast: false,
       isLoading: false,
+      typeImage: ''
     };
   }
 
@@ -45,18 +46,23 @@ class Addroom extends Component {
     });
   };
 
-  handleSubmit = async(data,path) => {
-    let formData= new FormData()
-    data.photos=path
-    formData.append('description',data.description)
-    formData.append('price',data.price)
-    formData.append('id_partner',data.id_partner)
-    formData.append('photos',data.photos)
-    formData.append('room_type_id',data.room_type_id)
-    formData.append('room_area',data.room_area)
-    formData.append('name',data.name)
-    formData.append('status',data.status)
-    await this.props.dispatch(addRoom(formData))
+  handleSubmit = async() => {
+    const {formData, typeImage} = this.state
+    let formDataPartner= new FormData()
+    //formData.photos=path
+    formDataPartner.append('description',formData.description)
+    formDataPartner.append('price',formData.price)
+    formDataPartner.append('id_partner',formData.id_partner)
+    formDataPartner.append('photos',{
+      uri: formData.photos,
+      type: typeImage,
+      name:'partner.jpg'
+    })
+    formDataPartner.append('room_type_id',formData.room_type_id)
+    formDataPartner.append('room_area',formData.room_area)
+    formDataPartner.append('name',formData.name)
+    formDataPartner.append('status',formData.status)
+    await this.props.dispatch(addRoom(formDataPartner))
     .then(()=>{
       ToastAndroid.show(
         `Add room successfully`,
@@ -74,11 +80,11 @@ class Addroom extends Component {
   }
   handleChoosePhoto() {
     ImagePicker.openPicker({
-      multiple: true,
+      multiple: false,
     }).then(images => {
       let newFormData = {...this.state.formData};
-      newFormData.photos = images
-      this.setState({formData: newFormData});
+      newFormData.photos = images.path
+      this.setState({formData: newFormData,typeImage:images.mime});
     });
   }
   componentDidMount=async ()=>{
@@ -92,11 +98,11 @@ class Addroom extends Component {
   }
   render() {
     const {isLoading, formData} = this.state
-    let path=[]
+    // let path=[]
     let image = formData.photos;
-    image? image.map((item,index)=>{
-      path[index]=item.path
-    }):console.log('semangat')
+    // image? image.map((item,index)=>{
+    //   path[index]=item.path
+    // }):console.log('semangat')
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -150,16 +156,17 @@ class Addroom extends Component {
                 <Text style={styles.buttonText2}>Choose Photos</Text>
               </Button>
               <View style={styles.listimage}>
-                {formData.photos ? (
-                  image.map((item, index) => {
-                    return (
+                {image ? (
+                  
+                  // image.map((item, index) => {
+                  //   return (
                       <Image
-                        key={index}
-                        source={{uri: item.path}}
+                        //key={index}
+                        source={{uri: image}}
                         style={styles.photo}
                       />
-                    );
-                  })
+                  //   );
+                  // })
                 ) : (
                   <View></View>
                 )}
@@ -168,7 +175,7 @@ class Addroom extends Component {
             <TouchableOpacity
               activeOpacity={0.8}
               style={[styles.buttonContainer, styles.loginButton]}
-              onPress={()=>this.handleSubmit(formData,path)}>
+              onPress={()=>this.handleSubmit()}>
               <Text style={styles.buttonText}>Add</Text>
             </TouchableOpacity>
           </View>

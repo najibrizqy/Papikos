@@ -21,6 +21,8 @@ export const getAPartner = id => {
 };
 
 export const updatePartner = (data, id) => {
+  console.warn('data',data)
+  console.warn('id',id)
   return {
     type: 'UPDATE_PARTNER',
     payload: axios

@@ -28,12 +28,12 @@ class Profile extends Component {
     return (
       <View style={styles.container}>
           <View style={styles.header}>
-              <TouchableOpacity onPress={()=>this.props.navigation.navigate('Editprofile')}>
+              <TouchableOpacity onPress={()=>this.props.navigation.navigate('Editprofile',{data:data})}>
               <Text style={styles.editbutton}>Edit</Text>
               </TouchableOpacity>
             <View style={styles.headerContent}>
                 <Image style={styles.avatar}
-                  source={{uri: `${data.images}`}}/>
+                  source={{uri: `${data.photo}`}}/>
                 <Text style={styles.name}>{data.labelName}</Text>
                 <Text style={styles.userInfo}>{data.email}</Text>
             </View>

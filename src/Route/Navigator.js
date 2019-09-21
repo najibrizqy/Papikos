@@ -32,6 +32,7 @@ import LoginPartner from '../Screens/Auth/LoginPartner';
 import RegisterPartner from '../Screens/Auth/RegisterPartner';
 import Editroom from '../Screens/App/Editroom';
 import Editprofile from '../Screens/App/Editprofile';
+import ChatsPartner from '../Screens/App/ChatsPartner'
 import ListRoom from '../Screens/App/ListRoom';
 
 const AuthStack = createStackNavigator(
@@ -134,6 +135,19 @@ const AppPartnerStack = createStackNavigator({
     screen: Editroom,
     navigationOptions: ({navigation}) => ({
       title: 'Edit Room',
+      headerStyle: {
+        backgroundColor: '#1AB0D3',
+      },
+      headerTitleStyle: {
+        color: 'white',
+      },
+      headerTintColor: 'white',
+    }),
+  },
+  ChatsPartner:{
+    screen: ChatsPartner,
+    navigationOptions: ({navigation}) => ({
+      title: 'Edit Profile',
       headerStyle: {
         backgroundColor: '#1AB0D3',
       },

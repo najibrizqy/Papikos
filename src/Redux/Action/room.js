@@ -20,6 +20,7 @@ export const getARoom = id => {
   };
 };
 export const addRoom=(data)=>{
+  console.warn('sampee',data)
   return{
     type: 'ADD_ROOM',
     payload: axios
