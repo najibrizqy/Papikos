@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Button,Content,Text, Form, Item, Icon, Input, Label, Picker, Thumbnail, Spinner } from 'native-base';
-import {StyleSheet,View, Image, } from 'react-native'
+import {StyleSheet,View, Image, ToastAndroid } from 'react-native'
 import ImagePicker from 'react-native-image-crop-picker';
 import {connect} from 'react-redux';
 
@@ -20,7 +20,8 @@ class EditProfileUser extends Component {
     let newFormData = {...this.state.formData}
     newFormData[name] = value
         this.setState({
-            formData: newFormData
+            formData: newFormData,
+            typeImage:''
         })
     }
 
@@ -30,21 +31,25 @@ class EditProfileUser extends Component {
         }).then(images => {
             let newFormData={...this.state.formData}
             newFormData.photo=images.path
-            this.setState({formData:newFormData})
+            this.setState({formData:newFormData, typeImage:images.mime})
         });
     }
 
     handleSave = async () => {
-        let data = this.state.formData
-        console.log("FORM DARTA", data)
-        let formData = new FormData()
-        formData.append('fullname', data.fullname)
-        formData.append('username', data.username)
-        formData.append('photos', data.photo)
-        formData.append('phone', data.phone)
-        formData.append('email', data.email)
+        const {formData, typeImage} = this.state
+        console.log("FORM DATA", formData)
+        let formDataUser = new FormData()
+        formDataUser.append('fullname', formData.fullname)
+        formDataUser.append('username', formData.username)
+        formDataUser.append('photos', {
+            uri: formData.photo,
+            type: typeImage,
+            name: 'papi.jpg'
+        })
+        formDataUser.append('phone', formData.phone)
+        formDataUser.append('email', formData.email)
         
-        await this.props.dispatch(updateUser(data.id, formData))
+        await this.props.dispatch(updateUser(formData.id, formDataUser))
         .then((res) => {
             ToastAndroid.show(
                 `${res.action.payload.data.message}`,
@@ -54,7 +59,12 @@ class EditProfileUser extends Component {
             this.props.navigation.navigate("Profile")
         })
         .catch(() => {
-            alert("GAGAL")
+            ToastAndroid.show(
+                `${res.action.payload.data.message}`,
+                ToastAndroid.LONG,
+                ToastAndroid.CENTER,
+            );
+            this.props.navigation.navigate("Profile")
         })
     }
 

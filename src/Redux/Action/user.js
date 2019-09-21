@@ -24,9 +24,14 @@ export const updateUser = (id, data) => {
   return {
     type: 'UPDATE_USER',
     payload: axios
-      .patch(`https://salty-plains-50836.herokuapp.com/user/${id}`, data)
+      .patch(`https://salty-plains-50836.herokuapp.com/user/${id}`, data, {
+        headers:{
+          'Content-Type': 'multipart/form-data'
+        }
+      })
       .then()
       .catch(err => console.log(err)),
+    
   };
 };
 
