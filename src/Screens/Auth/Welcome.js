@@ -14,9 +14,22 @@ import logo from '../../Assets/blueLogo.png';
 import gif from '../../Assets/people.gif';
 import {connect} from 'react-redux';
 import {getAUser} from '../../Redux/Action/user';
-
+import firebase from 'firebase';
 class Welcome extends Component {
   componentDidMount = async () => {
+    firebase.apps;
+    if (!firebase.apps.length) {
+      console.log('sayank');
+      firebase.initializeApp({
+        apiKey: 'AIzaSyAX-SUVoP8YuyfFXUGBeAoyZZ6IJOzD0c0',
+        authDomain: 'papikos-7729c.firebaseapp.com',
+        databaseURL: 'https://papikos-7729c.firebaseio.com',
+        projectId: 'papikos-7729c',
+        storageBucket: '',
+        messagingSenderId: '392611685912',
+        appId: '1:392611685912:web:26f5d2ed283cdd1a53456d',
+      });
+    }
     const logged = await AsyncStorage.getItem('logged');
     if (logged === 'user') {
       this.props.navigation.navigate('Home');
@@ -51,7 +64,7 @@ class Welcome extends Component {
             <TouchableOpacity
               activeOpacity={0.8}
               style={[styles.buttonContainer, styles.loginButton]}
-              onPress={() => this.props.navigation.navigate('LoginPartnerscreen')}>
+              onPress={() => this.props.navigation.navigate('LoginPartner')}>
               <Text style={styles.buttonText}>Login as partner</Text>
             </TouchableOpacity>
           </View>

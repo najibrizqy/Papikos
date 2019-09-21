@@ -34,20 +34,6 @@ class KosDetail extends Component {
     this.setState({id:decode['id']})
     console.warn(decode['id'])
   };
-  dummyImage = [
-    {
-      image:
-        'https://s-ec.bstatic.com/images/hotel/max1024x768/164/164741337.jpg',
-    },
-    {
-      image:
-        'https://rumahdijual.com/attachments/jakarta-barat/22177037d1522898894-20-kamar-kamar-mandi-dalam-kost-putri-tanjung-duren-whatsapp-image-2018-04-04-11.52.47.jpg',
-    },
-    {
-      image:
-        'https://s-ec.bstatic.com/images/hotel/max1024x768/164/164741337.jpg',
-    },
-  ];
 
   _renderItem({item, index}) {
     return (
@@ -149,7 +135,12 @@ class KosDetail extends Component {
               <Text style={styles.priceText}>Rp {kosDetail.price} / month</Text>
             </View>
             <View style={styles.btn}>
-              <Button bordered style={styles.btnChat}>
+              <Button
+                bordered
+                style={styles.btnChat}
+                onPress={() =>
+                  this.props.navigation.navigate('ChatroomUser', kosDetail)
+                }>
                 <Icon
                   type="MaterialIcons"
                   name="chat"

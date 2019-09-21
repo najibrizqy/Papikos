@@ -4,43 +4,27 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
+import {connect} from 'react-redux';
+import {getAPartner} from '../../Redux/Action/partner'
+
 class Profile extends Component {
     constructor(props) {
 		super(props);
 		this.state = {
-            data:[]
+          data:'',
+            id_partner:''
     	};
     }
-    // componentDidMount(){
-    //     firebase.auth().onAuthStateChanged((user) => {
-    //         if(user){
-    //             firebase.database().ref('users').on('child_added', (result) => {
-    //                 if(result.key==user.uid){
-    //                     let data=result.val()
-    //                     data.uid=result.key
-    //                     this.setState({data: data})
-    //                 }
-    //             })
-    //         }
-    //     })
-    // }
-    // handleLogout(){
-    //     firebase.database().ref('users/' + this.state.data.uid ).update({
-    //     	region: {
-    //             latitude: this.state.data.region.latitude,
-	// 			longitude: this.state.data.region.longitude,
-	// 			status: 'offline'
-    //     	}
-    //     })
-    //     firebase.auth().signOut().then(function() {
-    //         console.log('Signed Out');
-    //       }, function(error) {
-    //         console.error('Sign Out Error', error);
-    //       })
-    // }     
+    componentDidMount=async ()=>{
+      const id_partner= parseInt(await AsyncStorage.getItem('partner_id'));
+      await this.props.dispatch (getAPartner(id_partner))
+      this.setState({data:this.props.partner.Partner[0]})
+    }
   render() {
+    let data=this.state.data
     return (
       <View style={styles.container}>
           <View style={styles.header}>
@@ -49,31 +33,37 @@ class Profile extends Component {
               </TouchableOpacity>
             <View style={styles.headerContent}>
                 <Image style={styles.avatar}
-                  source={{uri: `http://www.nusahati.com/wp-content/uploads/2018/02/Kamar-Kos-e1518238751597-300x199.png`}}/>
-                <Text style={styles.name}>Kos Magelangan</Text>
-                <Text style={styles.userInfo}>kosmagelangan@gmail.com</Text>
+                  source={{uri: `${data.images}`}}/>
+                <Text style={styles.name}>{data.labelName}</Text>
+                <Text style={styles.userInfo}>{data.email}</Text>
             </View>
           </View>
 
           <View style={styles.body}>
           <View style={styles.description}>
             <Text style={styles.subTitle}>Name</Text>
-              <Text style={styles.caption}>Bejo Raharjo</Text>
+              <Text style={styles.caption}>{data.fullname}</Text>
           </View>
           <View style={styles.description}>
             <Text style={styles.subTitle}>Phone</Text>
-              <Text style={styles.caption}>085854939433</Text>
+              <Text style={styles.caption}>{data.phone}</Text>
           </View>
           <View style={styles.description}>
             <Text style={styles.subTitle}>Address</Text>
-              <Text style={styles.caption}>Jl.Ahmad Yani No.4</Text>
+              <Text style={styles.caption}>{data.address}</Text>
           </View>
           </View>
       </View>
     );
   }
 }
-export default Profile
+const mapStateToProps = state => {
+  return {
+    partner:state.partner
+  };
+};
+export default connect(mapStateToProps)(Profile)
+
 
 const styles = StyleSheet.create({
   header:{

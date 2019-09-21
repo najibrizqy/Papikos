@@ -9,6 +9,7 @@ import {
   AsyncStorage,
   ToastAndroid,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 
 import {connect} from 'react-redux';
@@ -41,32 +42,29 @@ class LoginPartner extends Component {
       formData: newFormData,
     });
   };
-
   handleSubmit = async () => {
     const {formData, device_id} = this.state;
     await this.props
       .dispatch(loginPartner(formData.email, formData.password, device_id))
       .then(async res => {
-        console.log(res);
-        if (res.action.payload.data.status === 400) {
-          this.setState({formData: {email: '', password: ''}});
-          ToastAndroid.show(
-            `${res.value.data.message}`,
-            ToastAndroid.LONG,
-            ToastAndroid.CENTER,
-          );
-        } else {
+        console.warn(res.value.data.status)
+        if (res.value.data.status === 200) {
           const tokenPartner = this.props.auth.Partner.token;
-          const partner_id = this.props.auth.Partner.data[0].id.toString();
+          const partner_id = this.props.auth.Partner.data[0].id.toString()
           await AsyncStorage.setItem('tokenUser', tokenPartner);
           await AsyncStorage.setItem('logged', 'partner');
           await AsyncStorage.setItem('partner_id', partner_id);
           ToastAndroid.show(
             `${res.value.data.message}`,
             ToastAndroid.LONG,
-            ToastAndroid.CENTER,
-          );
+            ToastAndroid.CENTER)
           this.props.navigation.navigate('HomePartner');
+        } else {
+          this.setState({formData: {email: '', password: ''}});
+          ToastAndroid.show(
+            `${res.value.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER)
         }
       });
   };
@@ -80,6 +78,7 @@ class LoginPartner extends Component {
     const {isLoading} = this.props.auth;
     return (
       <View style={styles.container}>
+        <StatusBar backgroundColor="#4B0082" />
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
           <View style={styles.content}>
             <Image source={logo} style={styles.logo} />
@@ -114,7 +113,7 @@ class LoginPartner extends Component {
                 <Text
                   style={styles.bottomTextLink}
                   onPress={() =>
-                    this.props.navigation.navigate('RegisterPartnerscreen')
+                    this.props.navigation.navigate('RegisterPartner')
                   }>
                   Register
                 </Text>
@@ -137,7 +136,8 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#3c1053',
+    // backgroundColor: '#3c1053',
+    backgroundColor: '#663399',
   },
   content: {
     width: '70%',

@@ -19,7 +19,15 @@ export const getARoom = id => {
       .catch(err => console.log(err)),
   };
 };
-
+export const addRoom=(data)=>{
+  return{
+    type: 'ADD_ROOM',
+    payload: axios
+    .post(`https://salty-plains-50836.herokuapp.com/rooms`, data)
+    .then()
+    .catch(err => console.log(err)),
+  }
+};
 export const updateRoom = (data, id) => {
   return {
     type: 'UPDATE_ROOM',

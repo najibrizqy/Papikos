@@ -26,6 +26,7 @@ class Home extends React.Component {
     this.state = {
       regions: [],
       rooms: [],
+      search: '',
     };
   }
   componentDidMount = async () => {
@@ -59,8 +60,17 @@ class Home extends React.Component {
     });
   };
 
+  handleSubmit = () => {
+    const regionSearch = this.state.regions.filter(city =>
+      city.name.toLowerCase().includes(this.state.search.toLowerCase()),
+    );
+
+    this.props.navigation.navigate('ProductMap', {item: regionSearch[0]});
+  };
+
   render() {
     const {regions, rooms} = this.state;
+    console.warn('ini',rooms)
     return (
       <View style={styles.content}>
         <StatusBar translucent backgroundColor="#1AB0D3" />
@@ -68,8 +78,17 @@ class Home extends React.Component {
           <Image source={papikos} style={styles.headerLogo} />
           <ImageBackground source={header} style={styles.headerImage} />
           <View style={styles.search}>
-            <TextInput placeholder="Find Location" style={styles.searchInput} />
-            <Icon type="FontAwesome" name="search" style={styles.iconSearch} />
+            <TextInput
+              placeholder="Find Location"
+              onChangeText={text => this.setState({search: text})}
+              style={styles.searchInput}
+            />
+            <Icon
+              onPress={this.handleSubmit}
+              type="FontAwesome"
+              name="search"
+              style={styles.iconSearch}
+            />
           </View>
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -105,10 +124,11 @@ class Home extends React.Component {
               <ScrollView
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}>
-                {rooms.map((res, index) => {
+                {rooms? rooms.map((res, index) => {
                   return (
                     <View style={styles.carousel} key={index}>
                       <TouchableOpacity
+                        activeOpacity={0.8}
                         onPress={() =>
                           this.props.navigation.navigate('KosDetail', {
                             item: res,
@@ -133,7 +153,7 @@ class Home extends React.Component {
                       </TouchableOpacity>
                     </View>
                   );
-                })}
+                }):<View></View>}
               </ScrollView>
             </View>
           </View>
