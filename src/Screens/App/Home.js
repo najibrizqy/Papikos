@@ -96,26 +96,32 @@ class Home extends React.Component {
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}>
-              {regions.map((res, index) => {
-                return (
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    key={index}
-                    style={styles.touchCity}
-                    onPress={() => {
-                      this.props.navigation.navigate('ProductMap', {item: res});
-                    }}>
-                    <View style={styles.item}>
-                      <Thumbnail
-                        square
-                        source={{uri: `${res.image}`}}
-                        style={styles.thumbnail}
-                      />
-                      <Text style={styles.placeText}>{res.name}</Text>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })}
+              {regions ? (
+                regions.map((res, index) => {
+                  return (
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      key={index}
+                      style={styles.touchCity}
+                      onPress={() => {
+                        this.props.navigation.navigate('ProductMap', {
+                          item: res,
+                        });
+                      }}>
+                      <View style={styles.item}>
+                        <Thumbnail
+                          square
+                          source={{uri: `${res.image}`}}
+                          style={styles.thumbnail}
+                        />
+                        <Text style={styles.placeText}>{res.name}</Text>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                })
+              ) : (
+                <Text>Loading...</Text>
+              )}
             </ScrollView>
           </View>
           <View style={styles.body}>
@@ -160,9 +166,11 @@ class Home extends React.Component {
                     );
                   })
                 ) : (
+
                   <View>
                     <Text>Loading...</Text>
                   </View>
+
                 )}
               </ScrollView>
             </View>
