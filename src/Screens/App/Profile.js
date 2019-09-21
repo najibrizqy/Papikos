@@ -7,6 +7,7 @@ import {
   Image,
   ToastAndroid,
   TouchableOpacity,
+  ScrollView
 } from 'react-native';
 import {logout} from '../../Redux/Action/auth';
 import {connect} from 'react-redux';
@@ -31,12 +32,6 @@ class Profile extends React.Component {
           ToastAndroid.CENTER,
         );
       } else {
-        ToastAndroid.show(
-          `${res.action.payload.data.message}`,
-
-          ToastAndroid.LONG,
-          ToastAndroid.CENTER,
-        );
         this.setState({user: res.action.payload.data.data[0]});
         console.log(this.state.user);
       }
@@ -57,55 +52,57 @@ class Profile extends React.Component {
     const {user} = this.state;
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text
-            style={styles.editProfile}
-            onPress={() =>
-              this.props.navigation.navigate('EditProfileUser', {item: user})
-            }>
-            Edit Profile
-          </Text>
-        </View>
-        {this.props.user.isLoading ? (
-          <Spinner color="#1C8CD1" style={styles.avatar} />
-        ) : (
-          <Image style={styles.avatar} source={{uri: `${user.photo}`}} />
-        )}
-        <View style={styles.body}>
-          <View style={styles.bodyContent}>
-            <Text style={styles.name}>{user.fullname}</Text>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.header}>
+            <Text
+              style={styles.editProfile}
+              onPress={() =>
+                this.props.navigation.navigate('EditProfileUser', {item: user})
+              }>
+              Edit Profile
+            </Text>
           </View>
-          <View style={styles.info}>
-            <View style={styles.item}>
-              <Text style={styles.title}>Username</Text>
-              <Text style={styles.itemData}>{user.username}</Text>
+          {this.props.user.isLoading ? (
+            <Spinner color="#1C8CD1" style={styles.avatar} />
+          ) : (
+            <Image style={styles.avatar} source={{uri: `${user.photo}`}} />
+          )}
+          <View style={styles.body}>
+            <View style={styles.bodyContent}>
+              <Text style={styles.name}>{user.fullname}</Text>
             </View>
-            <View style={styles.item}>
-              <Text style={styles.title}>Email</Text>
-              <Text style={styles.itemData}>{user.email}</Text>
+            <View style={styles.info}>
+              <View style={styles.item}>
+                <Text style={styles.title}>Username</Text>
+                <Text style={styles.itemData}>{user.username}</Text>
+              </View>
+              <View style={styles.item}>
+                <Text style={styles.title}>Email</Text>
+                <Text style={styles.itemData}>{user.email}</Text>
+              </View>
+              <View style={styles.item}>
+                <Text style={styles.title}>Phone Number</Text>
+                <Text style={styles.itemData}>{user.phone}</Text>
+              </View>
+              <TouchableOpacity
+                onPress={async () => {
+                  await AsyncStorage.clear();
+                  await this.props.dispatch(logout());
+                  this.props.navigation.navigate('Welcome');
+                }}
+                style={styles.buttonContainer}>
+                <Text
+                  style={{
+                    color: '#FFF',
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                  }}>
+                  Logout
+                </Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.item}>
-              <Text style={styles.title}>Phone Number</Text>
-              <Text style={styles.itemData}>{user.phone}</Text>
-            </View>
-            <TouchableOpacity
-              onPress={async () => {
-                await AsyncStorage.clear();
-                await this.props.dispatch(logout());
-                this.props.navigation.navigate('Welcome');
-              }}
-              style={styles.buttonContainer}>
-              <Text
-                style={{
-                  color: '#FFF',
-                  justifyContent: 'center',
-                  alignSelf: 'center',
-                }}>
-                Logout
-              </Text>
-            </TouchableOpacity>
           </View>
-        </View>
+        </ScrollView>
       </View>
     );
   }
@@ -148,7 +145,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 22,
-    color: '#FFFFFF',
+    color: '#696969',
     fontWeight: '600',
   },
   body: {
