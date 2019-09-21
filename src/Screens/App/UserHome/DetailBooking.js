@@ -16,7 +16,7 @@ class DetailBooking extends Component{
                             <Thumbnail square source={{uri: 'http://fresh.suakaonline.com/wp-content/uploads/2017/04/1490486838098-1024x768.jpg'}} style={styles.thumbnail}/>
                         </View>
                         <View style={styles.infoWrap}>
-                            <Text style={styles.kosName}>Kos Arkademy<Icon
+                            <Text style={styles.kosName}>Kos Arkademy <Icon
                                 type="Entypo"
                                 name="dot-single"
                                 style={styles.dot}
