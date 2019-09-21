@@ -32,6 +32,7 @@ import LoginPartnerscreen from '../Screens/Auth/LoginPartner';
 import RegisterPartnerscreen from '../Screens/Auth/RegisterPartner';
 import Editroom from '../Screens/App/Editroom';
 import Editprofile from '../Screens/App/Editprofile';
+import EditProfileUser from '../Screens/App/EditProfileUser';
 import ListRoom from '../Screens/App/ListRoom';
 
 const AuthStack = createStackNavigator(
@@ -68,6 +69,7 @@ const AppStack = createStackNavigator(
       screen: DetailBookingScreen,
     },
     ListRoom: {screen: ListRoom},
+    EditProfileUser: {screen: EditProfileUser},
   },
   {
     header: null,
@@ -81,6 +83,8 @@ const AppStack = createStackNavigator(
             route.routeName === 'KosDetail' ||
             route.routeName === 'Payment' ||
             route.routeName === 'DetailBooking' ||
+            route.routeName === 'ListRoom' ||
+            route.routeName === 'EditProfileUser' ||
             route.routeName === 'ConfirmPayment'
           ) {
             tabBarVisible = false;

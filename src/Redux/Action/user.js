@@ -20,7 +20,7 @@ export const getAUser = id => {
   };
 };
 
-export const updateUser = (data, id) => {
+export const updateUser = (id, data) => {
   return {
     type: 'UPDATE_USER',
     payload: axios

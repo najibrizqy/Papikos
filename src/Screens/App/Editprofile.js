@@ -78,7 +78,7 @@ export default class Editroom extends Component {
           <View >
                 <Button style={styles.choosebutton} title="Choose Photos" onPress={()=>this.handleChoosePhoto()} >
                     <Text style={styles.buttonText2}>
-                            Profile Picture
+                      Profile Picture
                     </Text>
                     </Button>
                     <View style={styles.listimage}>
