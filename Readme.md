@@ -1,7 +1,8 @@
 <h1 align='center'>Papikos <br>Rooms Booking Application</h1>
 
 <p align='center'>
-    <img width="400" src='./screenshot/splash.png' />
+    <img width="200" src='./screenshot/splash.png' />
+    <img width="300" src='./screenshot/welcome.png' />
 </p>
 
 <br>
@@ -33,30 +34,40 @@ You can visit Papikos backend API on github [`here`](https://github.com/mamenesi
 4. Type ` react-native run-android `
 
 ## Download the APK
-You can Download the APK [`here`]()
+You can Download the APK [`here`](https://drive.google.com/file/d/1PujtTK9nm4tR6zJQmP-9EqO8yRyIc3Hn/view?usp=sharing)
 
 
 ## Screenshot from the App
 <p align='center'>
   <span>
       <image width="200" src="./screenshot/splash.png" />
-      <image width="200" src="./screenshot/welcome.png" />
+      <image width="200" src="./screenshot/welcome.png" />      
+  </span>
+</p>
+<p align='center'>
+  <span>
       <image width="200" src="./screenshot/login_user.png" />
       <image width="200" src="./screenshot/register_user.png" />
+      <image width="200" src="./screenshot/login_partner.png" />
+      <image width="200" src="./screenshot/register_partner.png" />
       
   </span>
 </p>
 <p align='center'>
   <span>
-      <image width="200" src="./screenshot/home.png" />
-      <image width="200" src="./screenshot/friendlist.png" />
-      <image width="200" src="./screenshot/chatroom.png" />
+      <image width="200" src="./screenshot/home_user.png" />
+      <image width="200" src="./screenshot/mapview.png" />
+      <image width="200" src="./screenshot/list_kos.png" />
+      <image width="200" src="./screenshot/list_kos.png" />
       
   </span>
 </p>
 <p align='center'>
   <span>
       <image width="200" src="./screenshot/friend-profile.png" />
-      <image width="200" src="./screenshot/user-profile.png" />      
+      <image width="200" src="./screenshot/kos-detail.png" />      
+      <image width="200" src="./screenshot/booking_confirm.png" />      
+      <image width="200" src="./screenshot/payment.png" />      
+      <image width="200" src="./screenshot/chat.png" />      
   </span>
 </p>
