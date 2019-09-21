@@ -70,7 +70,7 @@ class Home extends React.Component {
 
   render() {
     const {regions, rooms} = this.state;
-    console.warn('ini',rooms)
+    console.warn('ini', rooms);
     return (
       <View style={styles.content}>
         <StatusBar translucent backgroundColor="#1AB0D3" />
@@ -124,36 +124,46 @@ class Home extends React.Component {
               <ScrollView
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}>
-                {rooms? rooms.map((res, index) => {
-                  return (
-                    <View style={styles.carousel} key={index}>
-                      <TouchableOpacity
-                        activeOpacity={0.8}
-                        onPress={() =>
-                          this.props.navigation.navigate('KosDetail', {
-                            item: res,
-                          })
-                        }>
-                        <View style={styles.headerCard}>
-                          <Image
-                            source={{uri: `${res.image.split(',')[0]}`}}
-                            style={styles.imgCard}
-                          />
-                          <View style={styles.genderWrapper}>
-                            <Text style={styles.genderText}>{res.gender}</Text>
+                {rooms ? (
+                  rooms.map((res, index) => {
+                    return (
+                      <View style={styles.carousel} key={index}>
+                        <TouchableOpacity
+                          activeOpacity={0.8}
+                          onPress={() =>
+                            this.props.navigation.navigate('KosDetail', {
+                              item: res,
+                            })
+                          }>
+                          <View style={styles.headerCard}>
+                            <Image
+                              source={{uri: `${res.image.split(',')[0]}`}}
+                              style={styles.imgCard}
+                            />
+                            <View style={styles.genderWrapper}>
+                              <Text style={styles.genderText}>
+                                {res.gender}
+                              </Text>
+                            </View>
                           </View>
-                        </View>
-                        <View style={styles.bodyCard}>
-                          <Text style={styles.name}>
-                            {res.name.slice(0, 13)}
-                          </Text>
-                          <Text style={styles.area}>{res.room_area}</Text>
-                          <Text style={styles.price}>Rp {res.price}/month</Text>
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                  );
-                }):<View></View>}
+                          <View style={styles.bodyCard}>
+                            <Text style={styles.name}>
+                              {res.name.slice(0, 13)}
+                            </Text>
+                            <Text style={styles.area}>{res.room_area}</Text>
+                            <Text style={styles.price}>
+                              Rp {res.price}/month
+                            </Text>
+                          </View>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  })
+                ) : (
+                  <View>
+                    <Text>Loading...</Text>
+                  </View>
+                )}
               </ScrollView>
             </View>
           </View>

@@ -28,7 +28,7 @@ const auth = (state = init, action) => {
         isLoading: false,
         isFulfilled: true,
         isLoggedIn: true,
-        User: action.payload.data.data,
+        User: action.payload.data,
       };
     case 'REGISTER_USER_PENDING':
       return {
