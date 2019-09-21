@@ -58,9 +58,14 @@ class Login extends Component {
         } else {
           const tokenUser = this.props.auth.User.token;
           const user_id = this.props.auth.User.data[0].id.toString();
+          const avatar = this.props.auth.User.data[0].photo.toString();
+          const name = this.props.auth.User.data[0].fullname.toString();
+          console.warn(avatar, name);
           await AsyncStorage.setItem('tokenUser', tokenUser);
           await AsyncStorage.setItem('logged', 'user');
           await AsyncStorage.setItem('user_id', user_id);
+          await AsyncStorage.setItem('avatar', avatar);
+          await AsyncStorage.setItem('name', name);
           ToastAndroid.show(
             `${res.action.payload.data.message}`,
             ToastAndroid.LONG,

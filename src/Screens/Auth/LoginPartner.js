@@ -58,9 +58,13 @@ class LoginPartner extends Component {
         } else {
           const tokenPartner = this.props.auth.Partner.token;
           const partner_id = this.props.auth.Partner.data[0].id.toString();
+          const avatar = this.props.auth.Partner.data[0].photo.toString();
+          const name = this.props.auth.Partner.data[0].fullname.toString();
           await AsyncStorage.setItem('tokenUser', tokenPartner);
           await AsyncStorage.setItem('logged', 'partner');
           await AsyncStorage.setItem('partner_id', partner_id);
+          await AsyncStorage.setItem('avatar', avatar);
+          await AsyncStorage.setItem('name', name);
           ToastAndroid.show(
             `${res.value.data.message}`,
             ToastAndroid.LONG,

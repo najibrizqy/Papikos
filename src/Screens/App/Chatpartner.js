@@ -15,10 +15,10 @@ import {
 import firebase from 'firebase';
 import {connect} from 'react-redux';
 import chat from '../../Assets/chat.gif';
-import {getPartners} from '../../Redux/Action/partner';
+import {getUsers} from '../../Redux/Action/user';
 import {withNavigation} from 'react-navigation';
 
-class Chat extends React.Component {
+class Chatpartner extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +44,7 @@ class Chat extends React.Component {
         });
         this.setState({chat: this.state.chat});
       });
-    await this.props.dispatch(getPartners());
+    await this.props.dispatch(getUsers());
     console.log(this.props.partner.Partner.data);
     this.setState({
       isLoading: false,
@@ -121,7 +121,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(withNavigation(Chat));
+export default connect(mapStateToProps)(withNavigation(Chatpartner));
 
 const styles = StyleSheet.create({
   container1: {
