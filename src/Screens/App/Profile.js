@@ -20,7 +20,7 @@ class Profile extends React.Component {
     };
   }
 
-  componentDidMount = async () => {
+  getUserData = async () => {
     const user_id = await AsyncStorage.getItem('user_id');
     await this.props.dispatch(getAUser(user_id)).then(res => {
       if (res.action.payload.data.status === 400) {
@@ -41,7 +41,18 @@ class Profile extends React.Component {
         console.log(this.state.user);
       }
     });
+  }
+
+  componentDidMount = async () => {
+    this.subscribe = this.props.navigation.addListener('didFocus', () => {
+      this.getUserData()
+    })
   };
+
+  componentWillUnmount(){
+    this.props.navigation.removeListener('didFocus')
+  }
+
   render() {
     const {user} = this.state;
     return (
