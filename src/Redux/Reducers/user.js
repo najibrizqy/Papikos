@@ -67,18 +67,12 @@ const user = (state = init, action) => {
         isRejected: true,
       };
     case 'UPDATE_USER_FULFILLED':
-      const dataAfterEdit = state.User.data.map(user => {
-        if(user.id == action.payload.data.data.id) {
-          return action.payload.data
-        }
-        return user
-      })
       return {
         ...state,
         isLoading: false,
         isFulfilled: true,
         isLoggedIn: true,
-        User: dataAfterEdit,
+        User: action.payload.data,
       };
     case 'DELETE_USER_PENDING':
       return {

@@ -47,8 +47,8 @@ const AuthStack = createStackNavigator(
     defaultNavigationOptions: {header: null},
   },
 );
-//Route User
 
+//Route User
 const AppStack = createStackNavigator(
   {
     Home: HomeScreen,
@@ -69,7 +69,6 @@ const AppStack = createStackNavigator(
       screen: DetailBookingScreen,
     },
     ListRoom: {screen: ListRoom},
-    EditProfileUser: {screen: EditProfileUser},
   },
   {
     header: null,
@@ -84,7 +83,6 @@ const AppStack = createStackNavigator(
             route.routeName === 'Payment' ||
             route.routeName === 'DetailBooking' ||
             route.routeName === 'ListRoom' ||
-            route.routeName === 'EditProfileUser' ||
             route.routeName === 'ConfirmPayment'
           ) {
             tabBarVisible = false;
@@ -240,6 +238,36 @@ const AppPartnerStack = createStackNavigator({
   },
 });
 
+const ProfileStack = createStackNavigator(
+  {
+    Profile: {
+      screen: ProfileScreen,
+    },
+    EditProfileUser: {
+      screen: EditProfileUser
+    },
+  },
+  {
+    header: null,
+    headerMode: 'none',
+    navigationOptions: ({navigation}) => {
+      let tabBarVisible;
+      if (navigation.state.routes.length > 1) {
+        navigation.state.routes.map(route => {
+          if (route.routeName === 'EditProfileUser') {
+            tabBarVisible = false;
+          } else {
+            tabBarVisible = true;
+          }
+        });
+      }
+      return {
+        tabBarVisible,
+      };
+    },
+  },
+);
+
 const AppNavigator = createBottomTabNavigator(
   {
     Home: {
@@ -282,7 +310,7 @@ const AppNavigator = createBottomTabNavigator(
       },
     },
     Profile: {
-      screen: ProfileScreen,
+      screen: ProfileStack,
       navigationOptions: {
         tabBarLabel: 'Profile',
         tabBarIcon: ({tintColor}) => (

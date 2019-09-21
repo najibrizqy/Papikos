@@ -13,6 +13,7 @@ class EditProfileUser extends Component {
           formData: props.navigation.getParam('item'),
           showToast: false,
           isLoading: false,
+          typeImage: 'image/jpeg'
         }
     }
 
@@ -21,7 +22,6 @@ class EditProfileUser extends Component {
     newFormData[name] = value
         this.setState({
             formData: newFormData,
-            typeImage:''
         })
     }
 
@@ -52,19 +52,18 @@ class EditProfileUser extends Component {
         await this.props.dispatch(updateUser(formData.id, formDataUser))
         .then((res) => {
             ToastAndroid.show(
-                `${res.action.payload.data.message}`,
+                `Successful update profile`,
                 ToastAndroid.LONG,
                 ToastAndroid.CENTER,
             );
-            this.props.navigation.navigate("Profile")
+            this.props.navigation.navigate("Profile", {refresh: true})
         })
         .catch(() => {
             ToastAndroid.show(
-                `${res.action.payload.data.message}`,
+                `Failed update profile`,
                 ToastAndroid.LONG,
                 ToastAndroid.CENTER,
             );
-            this.props.navigation.navigate("Profile")
         })
     }
 
