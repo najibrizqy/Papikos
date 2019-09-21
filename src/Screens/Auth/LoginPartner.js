@@ -9,7 +9,7 @@ import {
   AsyncStorage,
   ToastAndroid,
   TouchableOpacity,
-  StatusBar
+  StatusBar,
 } from 'react-native';
 
 import {connect} from 'react-redux';
@@ -116,7 +116,7 @@ class LoginPartner extends Component {
                 <Text
                   style={styles.bottomTextLink}
                   onPress={() =>
-                    this.props.navigation.navigate('RegisterPartnerscreen')
+                    this.props.navigation.navigate('RegisterPartner')
                   }>
                   Register
                 </Text>

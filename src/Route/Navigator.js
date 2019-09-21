@@ -28,8 +28,8 @@ import Reguler from '../Screens/App/Reguler';
 import VIP from '../Screens/App/VIP';
 import VVIP from '../Screens/App/VVIP';
 import Premium from '../Screens/App/Premium';
-import LoginPartner from '../Screens/Auth/LoginPartner';
-import RegisterPartner from '../Screens/Auth/RegisterPartner';
+import LoginPartnerscreen from '../Screens/Auth/LoginPartner';
+import RegisterPartnerscreen from '../Screens/Auth/RegisterPartner';
 import Editroom from '../Screens/App/Editroom';
 import Editprofile from '../Screens/App/Editprofile';
 import ListRoom from '../Screens/App/ListRoom';
@@ -39,8 +39,8 @@ const AuthStack = createStackNavigator(
     Welcome: WelcomeScreen,
     Login: LoginScreen,
     Register: RegisterScreen,
-    LoginPartnerscreen: LoginPartner,
-    RegisterPartnerscreen: RegisterPartner,
+    LoginPartner: LoginPartnerscreen,
+    RegisterPartner: RegisterPartnerscreen,
   },
   {
     defaultNavigationOptions: {header: null},

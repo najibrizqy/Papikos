@@ -22,19 +22,17 @@ class Profile extends React.Component {
 
   componentDidMount = async () => {
     const user_id = await AsyncStorage.getItem('user_id');
-    console.log(user_id);
     await this.props.dispatch(getAUser(user_id)).then(res => {
-      console.log(res);
       if (res.action.payload.data.status === 400) {
         this.setState({user: []});
         ToastAndroid.show(
-          `${res.action.payload.message}`,
+          `${res.action.payload.data.message}`,
           ToastAndroid.LONG,
           ToastAndroid.CENTER,
         );
       } else {
         ToastAndroid.show(
-          `${res.action.payload.message}`,
+          `${res.action.payload.data.message}`,
           ToastAndroid.LONG,
           ToastAndroid.CENTER,
         );
