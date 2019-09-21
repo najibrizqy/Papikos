@@ -5,12 +5,16 @@ import {
   Text,
   Image,
   TextInput,
+  AsyncStorage,
   ScrollView,
+  ToastAndroid,
   TouchableOpacity,
 } from 'react-native';
 import {Button} from 'native-base';
+import {connect} from 'react-redux'
 import {Picker, Icon} from 'native-base';
 import ImagePicker from 'react-native-image-crop-picker';
+import {addRoom} from '../../Redux/Action/room'
 
 import logo from '../../../assets/papikos-01.png';
 
@@ -19,21 +23,19 @@ class Addroom extends Component {
     super(props);
     this.state = {
       formData: {
-        name: '',
-        price: '',
-        area: '',
-        type: '',
         description: '',
-        photos: '',
+        price: '',
+        id_partner:'',
+        photos:'',
+        room_type_id:'',
+        room_area: '',
+        name: '',
+        status: true
       },
       showToast: false,
       isLoading: false,
     };
   }
-
-  handleSignup = () => {
-    this.props.navigation.navigate('Register');
-  };
 
   handleChange = (name, value) => {
     let newFormData = {...this.state.formData};
@@ -43,12 +45,29 @@ class Addroom extends Component {
     });
   };
 
-  handleSubmit = async () => {
-    this.props.navigation.navigate('Bottom');
+  handleSubmit = async(data,path) => {
+    let formData= new FormData()
+    data.photos=path
+    formData.append('description',data.description)
+    formData.append('price',data.price)
+    formData.append('id_partner',data.id_partner)
+    formData.append('photos',data.photos)
+    formData.append('room_type_id',data.room_type_id)
+    formData.append('room_area',data.room_area)
+    formData.append('name',data.name)
+    formData.append('status',data.status)
+    await this.props.dispatch(addRoom(formData))
+    .then(()=>{
+      ToastAndroid.show(
+        `Add room successfully`,
+        ToastAndroid.LONG,
+        ToastAndroid.CENTER)
+      this.props.navigation.navigate('HomePartner');
+    })
   };
   onTypeChange(value) {
     let newFormData = {...this.state.formData};
-    newFormData.type = value;
+    newFormData.room_type_id = value;
     this.setState({
       formData: newFormData,
     });
@@ -58,13 +77,26 @@ class Addroom extends Component {
       multiple: true,
     }).then(images => {
       let newFormData = {...this.state.formData};
-      newFormData.photos = images;
+      newFormData.photos = images
       this.setState({formData: newFormData});
     });
   }
+  componentDidMount=async ()=>{
+    let newFormData = {...this.state.formData};
+    const id_partner= await AsyncStorage.getItem('partner_id');
+    newFormData.id_partner = id_partner;
+    this.setState({
+      formData: newFormData,
+    });
+
+  }
   render() {
-    const {isLoading, formData} = this.state;
+    const {isLoading, formData} = this.state
+    let path=[]
     let image = formData.photos;
+    image? image.map((item,index)=>{
+      path[index]=item.path
+    }):console.log('semangat')
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -82,7 +114,7 @@ class Addroom extends Component {
             />
             <TextInput
               placeholder="Room Area"
-              onChangeText={text => this.handleChange('area', text)}
+              onChangeText={text => this.handleChange('room_area', text)}
               style={styles.input}
             />
             <View style={styles.input}>
@@ -95,7 +127,7 @@ class Addroom extends Component {
                   alignSelf: 'center',
                   paddingHorizontal: 20,
                 }}
-                selectedValue={formData.type}
+                selectedValue={formData.room_type_id}
                 onValueChange={this.onTypeChange.bind(this)}>
                 <Picker.Item label="Type" value="" />
                 <Picker.Item label="Reguler" value="1" />
@@ -107,7 +139,7 @@ class Addroom extends Component {
 
             <TextInput
               placeholder="Description"
-              onChangeText={text => this.handleChange('email', text)}
+              onChangeText={text => this.handleChange('description', text)}
               style={styles.description}
             />
             <View>
@@ -136,7 +168,7 @@ class Addroom extends Component {
             <TouchableOpacity
               activeOpacity={0.8}
               style={[styles.buttonContainer, styles.loginButton]}
-              onPress={this.handleSubmit}>
+              onPress={()=>this.handleSubmit(formData,path)}>
               <Text style={styles.buttonText}>Add</Text>
             </TouchableOpacity>
           </View>
@@ -145,7 +177,7 @@ class Addroom extends Component {
     );
   }
 }
-export default Addroom;
+export default connect()(Addroom);
 const styles = StyleSheet.create({
   container: {
     width: '100%',

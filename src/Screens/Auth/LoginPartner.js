@@ -41,36 +41,29 @@ class LoginPartner extends Component {
       formData: newFormData,
     });
   };
-
   handleSubmit = async () => {
     const {formData, device_id} = this.state;
     await this.props
       .dispatch(loginPartner(formData.email, formData.password,device_id))
       .then(async res => {
-        console.log(res);
-        if (res.action.payload.data.status === 400) {
-          this.setState({formData: {email: '', password: ''}});
-          Alert.alert('Login Failed!', `${res.action.payload.data.message}`);
-        } else {
+        console.warn(res.value.data.status)
+        if (res.value.data.status === 200) {
           const tokenPartner = this.props.auth.Partner.token;
-          const partner_id = this.props.auth.Partner.data[0].id.toString();
+          const partner_id = this.props.auth.Partner.data[0].id.toString()
           await AsyncStorage.setItem('tokenUser', tokenPartner);
           await AsyncStorage.setItem('logged', 'partner');
           await AsyncStorage.setItem('partner_id', partner_id);
           ToastAndroid.show(
             `${res.value.data.message}`,
             ToastAndroid.LONG,
-            ToastAndroid.CENTER,
-
+            ToastAndroid.CENTER)
           this.props.navigation.navigate('HomePartner');
         } else {
           this.setState({formData: {email: '', password: ''}});
           ToastAndroid.show(
             `${res.value.data.message}`,
             ToastAndroid.LONG,
-            ToastAndroid.CENTER,
-          );
-          
+            ToastAndroid.CENTER)
         }
       });
   };

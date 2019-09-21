@@ -60,6 +60,7 @@ class Home extends React.Component {
 
   render() {
     const {regions, rooms} = this.state;
+    console.warn('ini',rooms)
     return (
       <View style={styles.content}>
         <StatusBar translucent backgroundColor="#1AB0D3" />
@@ -104,7 +105,7 @@ class Home extends React.Component {
               <ScrollView
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}>
-                {rooms.map((res, index) => {
+                {rooms? rooms.map((res, index) => {
                   return (
                     <View style={styles.carousel} key={index}>
                       <TouchableOpacity
@@ -132,7 +133,7 @@ class Home extends React.Component {
                       </TouchableOpacity>
                     </View>
                   );
-                })}
+                }):<View></View>}
               </ScrollView>
             </View>
           </View>

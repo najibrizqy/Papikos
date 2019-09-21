@@ -6,7 +6,6 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {Footer, Left, Body, Right, Button} from 'native-base';
 
 const {width: screenWidth} = Dimensions.get('window');
-
 class Details extends Component {
   constructor(props) {
     super(props);
@@ -48,8 +47,8 @@ class Details extends Component {
       </View>
     );
   }
-
   render() {
+    const data=this.props.navigation.getParam('data')
     return (
       <View style={styles.container}>
         <ScrollView style={styles.fill}>
@@ -62,49 +61,17 @@ class Details extends Component {
             hasParallaxImages={true}
           />
           <View style={styles.description}>
-            <Text style={styles.subTitle}>Reguler R1</Text>
-            <Text style={styles.caption}>Rp 500.000,00/month</Text>
+            <Text style={styles.subTitle}>Type Room : {data.type}</Text>
+            <Text style={styles.caption}>Rp {data.price}/month</Text>
           </View>
           <View style={styles.description}>
             <Text style={styles.subTitle}>Facilities</Text>
-            <View style={styles.row}>
-              <View style={styles.bullet}>
-                <Text>{'\u2022' + ' '}</Text>
-              </View>
-              <View style={styles.bulletText}>
-                <Text>
-                  <Text style={styles.normalText}>AC</Text>
-                </Text>
-              </View>
-              <View style={styles.bullet}>
-                <Text>{'\u2022' + ' '}</Text>
-              </View>
-              <View style={styles.bulletText}>
-                <Text>
-                  <Text style={styles.normalText}>Size room 3m x 3m</Text>
-                </Text>
-              </View>
-              <View style={styles.bullet}>
-                <Text>{'\u2022' + ' '}</Text>
-              </View>
-              <View style={styles.bulletText}>
-                <Text>
-                  <Text style={styles.normalText}>Bathroom (In)</Text>
-                </Text>
-              </View>
-              <View style={styles.bullet}>
-                <Text>{'\u2022' + ' '}</Text>
-              </View>
-              <View style={styles.bulletText}>
-                <Text>
-                  <Text style={styles.normalText}>Wi-Fi</Text>
-                </Text>
-              </View>
-            </View>
+            <Text style={styles.caption}>{data.facilities}</Text>
           </View>
           <View style={styles.description}>
             <Text style={styles.subTitle}>Status</Text>
-            <Text style={styles.caption}>AVAILABLE</Text>
+            {data.status?<Text style={styles.caption}>AVAILABLE</Text>:<Text style={styles.caption}>UNAVAILABLE</Text>}
+            
           </View>
           <View style={styles.deletebutton}>
             <Button style={styles.delete}>
@@ -117,9 +84,9 @@ class Details extends Component {
           <Left style={{paddingHorizontal: 10}}>
             <Body>
               <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-                Rp 500.000/month
+                Rp {data.price}/month
               </Text>
-              <Text>Reguler R1</Text>
+              <Text>{data.type}</Text>
             </Body>
           </Left>
           <Right style={{paddingHorizontal: 10}}>
