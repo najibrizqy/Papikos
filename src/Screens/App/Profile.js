@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text} from 'native-base';
+import {Text, Spinner} from 'native-base';
 import {
   StyleSheet,
   AsyncStorage,
@@ -22,47 +22,60 @@ class Profile extends React.Component {
 
   componentDidMount = async () => {
     const user_id = await AsyncStorage.getItem('user_id');
-    console.log(user_id);
-    await this.props.dispatch(getAUser(user_id)).then(res => {
-      console.log(res);
+    await this.props.dispatch(getAUser(user_id)).then(res => {  
       if (res.action.payload.data.status === 400) {
         this.setState({user: []});
         ToastAndroid.show(
-          `${res.action.payload.message}`,
+          `${res.action.payload.data.message}`,
           ToastAndroid.LONG,
           ToastAndroid.CENTER,
         );
       } else {
         ToastAndroid.show(
-          `${res.action.payload.message}`,
+          `${res.action.payload.data.message}`,
+
           ToastAndroid.LONG,
           ToastAndroid.CENTER,
         );
-        this.setState({user: res.action.payload.data});
+        this.setState({user: res.action.payload.data.data[0]});
         console.log(this.state.user);
+
       }
     });
   };
   render() {
+    const { user } = this.state
     return (
       <View style={styles.container}>
-        <View style={styles.header}></View>
-        <Image
-          style={styles.avatar}
-          source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}
-        />
+        <View style={styles.header}>
+          <Text style={styles.editProfile} onPress={() => this.props.navigation.navigate("EditProfileUser", {item: user})}>Edit Profile</Text>
+        </View>
+        {
+          this.props.user.isLoading ? 
+            <Spinner color='#1C8CD1' style={styles.avatar} />
+          :
+            <Image
+              style={styles.avatar}
+              source={{uri: `${user.photo}`}}
+            />
+        }
         <View style={styles.body}>
           <View style={styles.bodyContent}>
-            <Text style={styles.name}>John Doe</Text>
-            <Text style={styles.info}>UX Designer / Mobile developer</Text>
-            <Text style={styles.description}>
-              Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum
-              electram expetendis, omittam deseruisse consequuntur ius an,
-            </Text>
-
-            <TouchableOpacity style={styles.buttonContainer}>
-              <Text>Check History</Text>
-            </TouchableOpacity>
+            <Text style={styles.name}>{user.fullname}</Text>            
+          </View>
+          <View style={styles.info}>
+            <View style={styles.item}>
+                <Text style={styles.title}>Username</Text>
+                <Text style={styles.itemData}>{user.username}</Text>
+            </View>
+            <View style={styles.item}>
+                <Text style={styles.title}>Email</Text>
+                <Text style={styles.itemData}>{user.email}</Text>
+            </View>
+            <View style={styles.item}>
+                <Text style={styles.title}>Phone Number</Text>
+                <Text style={styles.itemData}>{user.phone}</Text>
+            </View>
             <TouchableOpacity
               onPress={async () => {
                 await AsyncStorage.clear();
@@ -70,7 +83,7 @@ class Profile extends React.Component {
                 this.props.navigation.navigate('Welcome');
               }}
               style={styles.buttonContainer}>
-              <Text>Logout</Text>
+              <Text style={{color: '#FFF',justifyContent: 'center',alignSelf:'center'}}>Logout</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -81,15 +94,27 @@ class Profile extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    user: state.user,
     auth: state.auth,
   };
 };
 
 export default connect(mapStateToProps)(Profile);
+
 const styles = StyleSheet.create({
+  container:{
+    backgroundColor: '#F7F7F7',
+  },
   header: {
+    position: 'relative',
     backgroundColor: '#00BFFF',
     height: 200,
+  },
+  editProfile:{
+    position: 'absolute',
+    color: '#FFF',
+    top: 10,
+    right: 20
   },
   avatar: {
     width: 130,
@@ -116,14 +141,66 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   name: {
-    fontSize: 28,
+    fontSize: 25,
     color: '#696969',
     fontWeight: '600',
+    textAlign: 'center',
   },
+<<<<<<< HEAD
   info: {
-    fontSize: 16,
-    color: '#00BFFF',
+    marginTop: 5,
+    paddingTop: 10,
+    height: '100%',
+    flexDirection: 'column',
+  },
+  item: {
+    marginHorizontal: 20,
     marginTop: 10,
+    backgroundColor: '#FFF',
+    height: 60,
+    borderRadius: 5,
+    elevation: 1,
+    flexDirection: 'column',
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 13,
+    paddingTop: 9,
+    paddingLeft: 13,
+  },
+  itemData: {
+    fontSize: 17,
+    paddingLeft: 15,
+    fontWeight: '100',
+    color: '#696969',
+=======
+  info:{
+    marginTop: 5,
+    paddingTop: 10,
+    height: '100%',
+    flexDirection: 'column'
+  }, 
+  item:{
+      marginHorizontal: 20,
+      marginTop: 10,
+      backgroundColor: "#FFF",
+      height: 60,
+      borderRadius: 5,
+      elevation: 1,
+      flexDirection: 'column'
+  },
+  title:{
+    fontWeight: 'bold',
+    fontSize: 13,
+    paddingTop: 9,
+    paddingLeft: 13
+  },
+  itemData: {
+      fontSize: 17,
+      paddingLeft: 15,
+      fontWeight: '100',
+      color: '#696969'
+>>>>>>> d125098e2e3e7fe46b872b46cb95e119e23999ea
   },
   description: {
     fontSize: 16,
@@ -136,7 +213,7 @@ const styles = StyleSheet.create({
     height: 45,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: 'center',
     marginBottom: 10,
     width: 250,
     borderRadius: 30,

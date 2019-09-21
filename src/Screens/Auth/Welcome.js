@@ -64,9 +64,7 @@ class Welcome extends Component {
             <TouchableOpacity
               activeOpacity={0.8}
               style={[styles.buttonContainer, styles.loginButton]}
-              onPress={() =>
-                this.props.navigation.navigate('LoginPartnerscreen')
-              }>
+              onPress={() => this.props.navigation.navigate('LoginPartner')}>
               <Text style={styles.buttonText}>Login as partner</Text>
             </TouchableOpacity>
           </View>
