@@ -7,8 +7,9 @@ import {
   TextInput,
   ScrollView,
   AsyncStorage,
-  Alert,
+  ToastAndroid,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 
 import {connect} from 'react-redux';
@@ -26,6 +27,7 @@ class LoginPartner extends Component {
       },
       showToast: false,
       isLoading: false,
+      device_id: '',
     };
   }
 
@@ -40,26 +42,37 @@ class LoginPartner extends Component {
       formData: newFormData,
     });
   };
-
   handleSubmit = async () => {
-    const {formData} = this.state;
+    const {formData, device_id} = this.state;
     await this.props
-      .dispatch(loginPartner(formData.email, formData.password))
+      .dispatch(loginPartner(formData.email, formData.password, device_id))
       .then(async res => {
-        console.log(res);
-        if (res.action.payload.data.status === 400) {
-          this.setState({formData: {email: '', password: ''}});
-          Alert.alert('Login Failed!', `${res.action.payload.data.message}`);
-        } else {
+        console.warn(res.value.data.status);
+        if (res.value.data.status === 200) {
           const tokenPartner = this.props.auth.Partner.token;
           const partner_id = this.props.auth.Partner.data[0].id.toString();
           await AsyncStorage.setItem('tokenUser', tokenPartner);
           await AsyncStorage.setItem('logged', 'partner');
           await AsyncStorage.setItem('partner_id', partner_id);
-
+          ToastAndroid.show(
+            `${res.value.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+          );
           this.props.navigation.navigate('HomePartner');
+        } else {
+          this.setState({formData: {email: '', password: ''}});
+          ToastAndroid.show(
+            `${res.value.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+          );
         }
       });
+  };
+  componentDidMount = async () => {
+    const device_id = await AsyncStorage.getItem('idponsel');
+    this.setState({device_id});
   };
 
   render() {
@@ -67,6 +80,7 @@ class LoginPartner extends Component {
     const {isLoading} = this.props.auth;
     return (
       <View style={styles.container}>
+        <StatusBar backgroundColor="#4B0082" />
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
           <View style={styles.content}>
             <Image source={logo} style={styles.logo} />
@@ -124,7 +138,8 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#3c1053',
+    // backgroundColor: '#3c1053',
+    backgroundColor: '#663399',
   },
   content: {
     width: '70%',

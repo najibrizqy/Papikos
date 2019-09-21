@@ -14,7 +14,7 @@ export const getAPartner = id => {
   return {
     type: 'GET_A_PARTNER',
     payload: axios
-      .get(`https://salty-plains-50836.herokuapp.com/partner/${id}`)
+      .get(`https://salty-plains-50836.herokuapp.com/partner/show/${id}`)
       .then()
       .catch(err => console.log(err)),
   };

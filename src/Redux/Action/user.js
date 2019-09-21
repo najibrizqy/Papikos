@@ -14,13 +14,13 @@ export const getAUser = id => {
   return {
     type: 'GET_A_USER',
     payload: axios
-      .get(`https://salty-plains-50836.herokuapp.com/login/user/${id}`)
+      .get(`https://salty-plains-50836.herokuapp.com/user/show/${id}`)
       .then()
       .catch(err => console.log(err)),
   };
 };
 
-export const updateUser = (data, id) => {
+export const updateUser = (id, data) => {
   return {
     type: 'UPDATE_USER',
     payload: axios

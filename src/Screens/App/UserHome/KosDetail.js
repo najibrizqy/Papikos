@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
+import jwt from 'jwt-decode'
 import {
   View,
   StyleSheet,
   Image,
   TouchableOpacity,
+  AsyncStorage,
   Dimensions,
   Text,
-  Alert,
 } from 'react-native';
 import {Icon, Button} from 'native-base';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
@@ -17,32 +18,27 @@ class KosDetail extends Component {
     this.state = {
       kosDetail: props.navigation.getParam('item'),
       data: '',
+      image: [],
       activeSlide: 0,
+      id:'',
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     console.log(this.state.kosDetail);
+    this.setState({image: this.state.kosDetail.image.split(',')});
+    console.log(this.state.kosDetail.image.split(','));
+
+    const token = await AsyncStorage.getItem('tokenUser')
+    const decode = jwt(token)
+    this.setState({id:decode['id']})
+    console.warn(decode['id'])
   };
-  dummyImage = [
-    {
-      image:
-        'https://s-ec.bstatic.com/images/hotel/max1024x768/164/164741337.jpg',
-    },
-    {
-      image:
-        'https://rumahdijual.com/attachments/jakarta-barat/22177037d1522898894-20-kamar-kamar-mandi-dalam-kost-putri-tanjung-duren-whatsapp-image-2018-04-04-11.52.47.jpg',
-    },
-    {
-      image:
-        'https://s-ec.bstatic.com/images/hotel/max1024x768/164/164741337.jpg',
-    },
-  ];
 
   _renderItem({item, index}) {
     return (
       <View style={styles.slider} key={index}>
-        <Image source={{uri: `${item.image}`}} style={styles.image} />
+        <Image source={{uri: `${item}`}} style={styles.image} />
       </View>
     );
   }
@@ -51,7 +47,7 @@ class KosDetail extends Component {
     const {activeSlide} = this.state;
     return (
       <Pagination
-        dotsLength={this.dummyImage.length}
+        dotsLength={this.state.image.length}
         activeDotIndex={activeSlide}
         containerStyle={{
           backgroundColor: 'transparent',
@@ -65,7 +61,6 @@ class KosDetail extends Component {
           height: 10,
           borderRadius: 5,
           marginHorizontal: 2,
-          //   marginHorizontal: 8,
           backgroundColor: '#1AB0D3',
         }}
         inactiveDotStyle={
@@ -80,21 +75,14 @@ class KosDetail extends Component {
   }
 
   handleBooking = () => {
-    Alert.alert(
-      'Confirm',
-      'Are you sure to booking this room?',
-      [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'OK', onPress: () => this.props.navigation.navigate('Payment')},
-      ],
-      {cancelable: false},
-    );
+    this.props.navigation.navigate('Payment',{
+      IdUser:this.state.id,
+      idPartner:this.state.kosDetail.id_partner,
+      Amount:this.state.kosDetail.price,
+      IdRoom:this.state.kosDetail.id,
+    });
   };
-
+ 
   render() {
     const {kosDetail} = this.state;
     return (
@@ -109,7 +97,7 @@ class KosDetail extends Component {
             />
           </View>
           <Carousel
-            data={this.dummyImage}
+            data={this.state.image}
             renderItem={this._renderItem}
             windowSize={1}
             sliderWidth={sliderWidth}
@@ -120,9 +108,14 @@ class KosDetail extends Component {
         </View>
         <View style={styles.body}>
           <View style={styles.bodyContent}>
-            <Text style={styles.kosName}>
-              {kosDetail.name} - {kosDetail.labelName}
-            </Text>
+            {/* <Text style={styles.kosName}>Kos Grogol Petamburan Gelong</Text>
+            <Text style={styles.type}>Premium</Text> */}
+            <Icon
+              type="MaterialCommunityIcons"
+              name="directions"
+              style={styles.mapIcon}
+            />
+            <Text style={styles.kosName}>{kosDetail.name}</Text>
             <Text style={styles.type}>{kosDetail.type}</Text>
             <View style={styles.info}>
               <Text style={styles.itemInfo}>Area</Text>
@@ -131,6 +124,8 @@ class KosDetail extends Component {
               <Text style={styles.valueInfo}>{kosDetail.facilities}</Text>
               <Text style={styles.itemInfo}>Description</Text>
               <Text style={styles.valueInfo}>{kosDetail.description}</Text>
+              <Text style={styles.itemInfo}>Owner</Text>
+              <Text style={styles.valueInfo}>{kosDetail.labelName}</Text>
             </View>
           </View>
         </View>
@@ -140,7 +135,12 @@ class KosDetail extends Component {
               <Text style={styles.priceText}>Rp {kosDetail.price} / month</Text>
             </View>
             <View style={styles.btn}>
-              <Button bordered style={styles.btnChat}>
+              <Button
+                bordered
+                style={styles.btnChat}
+                onPress={() =>
+                  this.props.navigation.navigate('ChatroomUser', kosDetail)
+                }>
                 <Icon
                   type="MaterialIcons"
                   name="chat"
@@ -188,9 +188,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   bodyContent: {
+    position: 'relative',
     margin: 15,
     height: '90%',
     flexDirection: 'column',
+  },
+  mapIcon: {
+    position: 'absolute',
+    right: 0,
+    top: 10,
+    color: '#1C8CD1',
+    fontSize: 30,
   },
   footer: {
     position: 'absolute',

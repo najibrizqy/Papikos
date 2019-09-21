@@ -6,13 +6,16 @@ import {
   Image,
   TextInput,
   ScrollView,
+  ToastAndroid,
   TouchableOpacity,
   AsyncStorage,
   Alert,
 } from 'react-native';
+import {Picker, Icon} from 'native-base';
 import {connect} from 'react-redux';
 import {registerPartner} from '../../Redux/Action/auth';
 import logo from '../../../assets/loginLogo.png';
+import {getRegions} from '../../Redux/Action/regions';
 
 class Register extends Component {
   constructor(props) {
@@ -25,10 +28,9 @@ class Register extends Component {
         email: '',
         password: '',
         address: '',
-        latitude: '-7.7584383',
-        longitude: '110.3759749',
-        id_location: 2,
+        id_location: '',
       },
+      device_id: '',
       showToast: false,
       isLoading: false,
     };
@@ -40,31 +42,43 @@ class Register extends Component {
     this.setState({
       formData: newFormData,
     });
-    console.log(newFormData);
   };
 
   handleSubmit = async () => {
-    const {formData} = this.state;
-    console.log('forrm', formData);
-    await this.props.dispatch(registerPartner(formData)).then(async res => {
-      if (res.action.payload.data.status === 400) {
-        Alert.alert('Register Failed!', `${res.action.payload.data.message}`);
-      } else {
-        const tokenUser = this.props.auth.User.token;
-        await AsyncStorage.setItem('tokenUser', tokenUser);
-        this.props.navigation.navigate('LoginPartner');
-      }
-    });
+    const {formData, device_id} = this.state;
+    await this.props
+      .dispatch(registerPartner(formData, device_id))
+      .then(async res => {
+        if (res.value.data.status === 200) {
+          ToastAndroid.show(
+            `${res.value.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+          );
+          this.props.navigation.navigate('LoginPartner');
+        } else {
+          ToastAndroid.show(
+            `${res.value.data.message}`,
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+          );
+        }
+      });
   };
-
+  onTypeChange(value) {
+    let newFormData = {...this.state.formData};
+    newFormData.id_location = value;
+    this.setState({
+      formData: newFormData,
+    });
+  }
   componentDidMount = async () => {
+    await this.props.dispatch(getRegions());
     const device_id = await AsyncStorage.getItem('idponsel');
     this.setState({device_id});
   };
-
   render() {
     const {isLoading, formData} = this.state;
-    console.log('testt', AsyncStorage.getItem('tokenUser'));
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -110,6 +124,34 @@ class Register extends Component {
               onChangeText={text => this.handleChange('address', text)}
               style={styles.input}
             />
+            <View style={styles.input}>
+              <Picker
+                mode="dropdown"
+                iosIcon={<Icon name="arrow-down" />}
+                style={{
+                  width: 235,
+                  height: 30,
+                  alignSelf: 'center',
+                  paddingHorizontal: 20,
+                }}
+                selectedValue={formData.id_location}
+                onValueChange={this.onTypeChange.bind(this)}>
+                <Picker.Item label="City" value="" />
+                {this.props.regions.Regions.status == 200 ? (
+                  this.props.regions.Regions.data.map((item, index) => {
+                    return (
+                      <Picker.Item
+                        label={item.name}
+                        value={item.id_location}
+                        key={item.id_location}
+                      />
+                    );
+                  })
+                ) : (
+                  <Picker.Item label="City" value="" />
+                )}
+              </Picker>
+            </View>
             <TouchableOpacity
               activeOpacity={0.8}
               style={[styles.buttonContainer, styles.registerButton]}
@@ -121,8 +163,7 @@ class Register extends Component {
                 Already have an account ? &nbsp;
                 <Text
                   style={styles.bottomTextLink}
-                  onPress={() =>
-                    this.props.navigation.navigate('LoginPartner')
+                  onPress={() =>this.props.navigation.navigate('LoginPartner')
                   }>
                   Login
                 </Text>
@@ -138,6 +179,7 @@ class Register extends Component {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
+    regions: state.regions,
   };
 };
 
@@ -147,7 +189,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#3c1053',
+    backgroundColor: '#663399',
   },
   content: {
     width: '70%',

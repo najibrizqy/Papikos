@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native'
 import { Icon } from 'native-base'
+import axios from 'axios'
+import Header from '../../Components/Header'
 
 import payment from '../../../Assets/payment.png'
 import bca from '../../../Assets/bca.png'
@@ -9,28 +11,81 @@ import permata from '../../../Assets/permata.png'
 import mandiri from '../../../Assets/mandiri.png'
 
 class Payment extends Component {
+    state={
+        Booking :[],
+        Payment:[]
+    }
 
-    dummyBank=[
+    dataBank=[
         {image: bca,name: 'BCA'},
-        {image: mandiri,name: 'Mandiri'},
+        {image: mandiri,name: 'MANDIRI'},
         {image: bni,name: 'BNI'},
-        {image: permata,name: 'Permata'},
+        {image: permata,name: 'PERMATA'},
     ]
+
+ 
+
+    handleSubmit = async(image,bank) => {
+        
+        Alert.alert(
+            'Confirm',
+            'Are you sure to booking this room?',
+            [
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+              },
+              {text: 'OK', onPress: async () =>{
+                await this.CreateBooking()
+                await this.CreatePayment(bank)
+                this.CreateBooking().then(result=> this.props.navigation.navigate('ConfirmPayment',{bankLogo:image,idPayment:this.state.Payment.data.insertId,MyBank:this.state.Payment.xendit.available_banks,bankCode:bank,Amount:this.state.Payment.xendit.amount})).catch(err=>console.warn(err))
+              }},
+            ],
+            {cancelable: false},
+        );
+    }
+
+    CreateBooking=async()=>  {
+        await axios.post('https://salty-plains-50836.herokuapp.com/booking/',{
+            "id_partner":this.props.navigation.getParam('idPartner'),
+            "id_user": this.props.navigation.getParam('IdUser'),
+            "room_id":this.props.navigation.getParam('IdRoom'),
+            "status": "Pending",
+            "price": this.props.navigation.getParam('Amount'),
+            "startDate":"1999-12-20",
+            "endDate":"2000-01-20"
+        }).then(result=>{
+            this.setState({Booking:result})
+        }).catch(err=>console.warn(err))
+    }
+
+    CreatePayment =async(bank)=>   {
+        await axios.post('http://salty-plains-50836.herokuapp.com/payment',{
+            "bookid":'30',
+            "paid_amount":'3000001',
+            "invoice_id":"test",
+            "bank_code":bank,
+            "email":"idn@gmail.com",
+            "id_user":'12'
+         }).then(Datas=>{
+            this.setState({Payment:Datas.data})
+        }).catch(err=>console.warn(err))
+     }
+
+    componentDidMount(){
+
+    }
 
     render(){
         return(
             <View style={styles.container}>
-                <View style={styles.header}>
-                    <View style={styles.headerContent}>
-                        <Icon type="AntDesign" name="arrowleft" style={styles.backIcon} onPress={() => this.props.navigation.goBack()}/>
-                        <Text style={styles.headerTitle}>Payment</Text>
-                    </View>
-                </View>
+                <Header title={'Method Payment'} navigation={this.props.navigation}/>
                 <View style={styles.content}>
                     <Image source={payment} style={styles.paymentImg} />
-                    {this.dummyBank.map((res, index) => {
+                    {this.dataBank.map((res, index) => {
                         return (
-                            <TouchableOpacity activeOpacity={0.7} key={index} style={{marginTop: 20}}>
+                            <TouchableOpacity activeOpacity={0.7} key={index} style={{marginTop: 20}} onPress={() => this.handleSubmit(res.image,res.name)}>
                                 <View style={styles.card}>
                                     <Image source={res.image} style={styles.bankIcon} />
                                     <Text style={styles.bankText}>{res.name}</Text>
@@ -53,10 +108,6 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: '#FFF',
     },
-    header:{
-        height: 50,
-        backgroundColor: '#1AB0D3'
-    },
     content:{
         backgroundColor: '#FFF',
         alignSelf: 'center',
@@ -69,16 +120,6 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginLeft: 15
     },
-    headerContent:{
-        padding: 12,
-        flexDirection: 'row'
-    },
-    headerTitle:{
-        fontSize: 20,
-        color: '#FFF',
-        marginHorizontal: 15,
-        marginBottom: 50
-    },
     card:{
         position: 'relative',
         backgroundColor: '#FFF',
@@ -87,11 +128,6 @@ const styles = StyleSheet.create({
         borderColor: '#E7E7E7',
         borderRadius: 5,
         flexDirection: 'row'
-    },
-    backIcon:{
-        fontSize: 25,
-        color: '#FFF',
-        elevation: 5,
     },
     rightIcon:{
         position: 'absolute',

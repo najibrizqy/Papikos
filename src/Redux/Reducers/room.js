@@ -27,7 +27,7 @@ const rooms = (state = init, action) => {
         isLoading: false,
         isFulfilled: true,
         isLoggedIn: true,
-        Rooms: action.payload.data,
+        Rooms: action.payload.data.data,
       };
     case 'GET_A_ROOM_PENDING':
       return {

@@ -13,7 +13,7 @@ import {
   ActionSheet,
   Right,
 } from 'native-base';
-import {Image, StyleSheet, StatusBar} from 'react-native';
+import {Image, StyleSheet, StatusBar,AsyncStorage} from 'react-native';
 import logo from '../../../assets/papikos-01.png';
 import Home from '../Components/HomePartner';
 import Profile from '../Components/Profile';
@@ -21,6 +21,7 @@ var BUTTONS = [
   {text: 'Add Room', icon: 'add-circle', iconColor: '#2c8ef4'},
   {text: 'History', icon: 'bookmarks', iconColor: '#f42ced'},
   {text: 'Income', icon: 'pulse', iconColor: '#ea943b'},
+  {text: 'Log out', icon: 'log-out', iconColor: 'red'},
   {text: 'Cancel', icon: 'close', iconColor: '#25de5b'},
 ];
 var DESTRUCTIVE_INDEX = 3;
@@ -49,7 +50,7 @@ export default class Homescreen extends Component {
                     cancelButtonIndex: CANCEL_INDEX,
                     destructiveButtonIndex: DESTRUCTIVE_INDEX,
                   },
-                  buttonIndex => {
+                  async buttonIndex => {
                     switch (buttonIndex) {
                       case 0:
                         this.props.navigation.navigate('Addroom');
@@ -59,6 +60,10 @@ export default class Homescreen extends Component {
                         break;
                       case 2:
                         this.props.navigation.navigate('Income');
+                        break;
+                        case 3:
+                        await AsyncStorage.clear();
+                        this.props.navigation.navigate('Welcome');
                         break;
                       default:
                         break;
