@@ -23,12 +23,9 @@ class Payment extends Component {
         {image: permata,name: 'PERMATA'},
     ]
 
- 
-
-    handleSubmit = async(image,bank) => {
-        
+    handleSubmit = async(image,bank) => {   
         Alert.alert(
-            'Confirm',
+            'Confirm', 
             'Are you sure to booking this room?',
             [
               {
@@ -39,7 +36,14 @@ class Payment extends Component {
               {text: 'OK', onPress: async () =>{
                 await this.CreateBooking()
                 await this.CreatePayment(bank)
-                this.CreateBooking().then(result=> this.props.navigation.navigate('ConfirmPayment',{bankLogo:image,idPayment:this.state.Payment.data.insertId,MyBank:this.state.Payment.xendit.available_banks,bankCode:bank,Amount:this.state.Payment.xendit.amount})).catch(err=>console.warn(err))
+                this.props.navigation.navigate('ConfirmPayment',{
+                    bankLogo:image,
+                    idPayment:this.state.Payment.data.insertId,
+                    MyBank:this.state.Payment.xendit.available_banks,
+                    bankCode:bank,
+                    Amount:this.state.Payment.xendit.amount,
+                    idRoom:this.props.navigation.getParam('IdRoom')
+                })
               }},
             ],
             {cancelable: false},
@@ -56,26 +60,24 @@ class Payment extends Component {
             "startDate":"1999-12-20",
             "endDate":"2000-01-20"
         }).then(result=>{
-            this.setState({Booking:result})
+            this.setState({Booking:result.data.result.insertId})
         }).catch(err=>console.warn(err))
     }
 
     CreatePayment =async(bank)=>   {
+        const idbookToExternalId = JSON.stringify(this.state.Booking)
+        console.warn(idbookToExternalId)
         await axios.post('http://salty-plains-50836.herokuapp.com/payment',{
-            "bookid":'30',
-            "paid_amount":'3000001',
+            "bookid":idbookToExternalId,
+            "paid_amount":this.props.navigation.getParam('Amount'),
             "invoice_id":"test",
             "bank_code":bank,
             "email":"idn@gmail.com",
-            "id_user":'12'
+            "id_user":this.props.navigation.getParam('IdUser'),
          }).then(Datas=>{
             this.setState({Payment:Datas.data})
         }).catch(err=>console.warn(err))
      }
-
-    componentDidMount(){
-
-    }
 
     render(){
         return(

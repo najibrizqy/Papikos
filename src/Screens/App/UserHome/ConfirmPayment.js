@@ -15,7 +15,8 @@ class ConfirmPayment extends Component {
         this.state={
             logo: props.navigation.getParam('bankLogo'),
             BankData:[],
-            AccounNum:'09'
+            AccounNum:'09',
+            bankcode: ''
         }
     }
 
@@ -33,7 +34,8 @@ class ConfirmPayment extends Component {
         var account = bc.filter(bc => bc.bank_code == this.props.navigation.getParam('bankCode'))[0]
         console.warn(account.bank_account_number)
          this.setState({
-            AccounNum :account.bank_account_number
+            AccounNum :account.bank_account_number,
+            bankcode:JSON.stringify(account.bank_code)
          })
     }
     
@@ -92,7 +94,12 @@ class ConfirmPayment extends Component {
                     </View>
                 </ScrollView>
                 
-                <TouchableOpacity activeOpacity={0.8} style={styles.footerTouch} onPress={() => {this.props.navigation.navigate("DetailBooking")}}>
+                <TouchableOpacity activeOpacity={0.8} style={styles.footerTouch} onPress={() => {this.props.navigation.navigate("DetailBooking",{
+                    id_room:this.props.navigation.getParam('idRoom'),
+                    id_payment:this.props.navigation.getParam('idPayment'),
+                    bank_code : this.state.bankcode
+                    
+                })}}>
                     <View style={styles.footer}>
                         <Text style={styles.footerText}>Langsung Ke pembayaran</Text>
                     </View>
