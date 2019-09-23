@@ -44,10 +44,6 @@ class Profile extends React.Component {
     })
   };
 
-  componentWillUnmount(){
-    this.props.navigation.removeListener('didFocus')
-  }
-
   render() {
     const {user} = this.state;
     return (
